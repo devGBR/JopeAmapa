@@ -12,9 +12,11 @@
         "vite": "^4.5.2"
     },
     "dependencies": {
+        "@inertiajs/inertia-vue3": "^0.6.0",
         "@inertiajs/vue3": "^1.0.14",
         "@vitejs/plugin-vue": "^4.6.2",
         "vue": "^3.4.15",
-        "vue-loader": "^17.3.1"
+        "vue-loader": "^17.3.1",
+        "vuetify": "^3.5.2"
     }
 }
