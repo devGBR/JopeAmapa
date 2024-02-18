@@ -689,7 +689,7 @@
                                     Entrar
                                 </v-btn>
                                 <span class="text-center">
-                                    <p> Novo por aqui?<a href="" class=""
+                                    <p> Novo por aqui?<a href="/register" class=""
                                             style="color: #284703; text-decoration: none;">Faça seu cadastro</a></p>
                                 </span>
                             </div>

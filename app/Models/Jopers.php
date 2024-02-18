@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Jopers extends Model
 {
     use HasFactory;
+
+   protected $fillable = [
+    'convertido',
+    'ministerio',
+    'batizado',
+    'celula',
+   ];   
 }

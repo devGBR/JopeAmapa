@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('user_id');
-            $table->boolean('convertido');
+            $table->string('convertido');
             $table->string('ministerio');
+            $table->boolean('batizado');
             $table->string('celula')->nullable();
             $table->timestamps();
         });

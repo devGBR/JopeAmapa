@@ -14,6 +14,14 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
+Route::get('/login', function () {
     return Inertia::render('Auth/Login');
+})->name('login');
+
+Route::get('/', function() {
+    return Inertia::render('Home');
+})->middleware('auth');
+
+Route::get('/register', function () {
+    return Inertia::render('Auth/Register');
 });
