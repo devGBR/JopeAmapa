@@ -11,22 +11,23 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function authenticate(Request $request): RedirectResponse
+    public function authenticate(Request $request)
     {
         $credentials = $request->validate([
-            'username' => ['required', 'username'],
+            'username' => ['required'],
             'password' => ['required'],
         ]);
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-
-            return redirect('/');
+            return response()->json([
+                'menssage' => 'Logado suceeso'
+            ], 200);
         }
 
-        return back()->withErrors([
-            'Error' => 'Usuário não encontrado',
-        ]);
+        return response()->json([
+            'error' => 'Usuário não encontrado'
+        ], 400);
     }
 
     public function register(Request $request)

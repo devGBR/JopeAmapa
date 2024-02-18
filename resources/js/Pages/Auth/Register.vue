@@ -135,8 +135,7 @@
     position: absolute;
     z-index: 9;
     right: -800px;
-    width: 400px;
-    height: 130px;
+    width: 350px;
     animation: toast 8s ease-in;
 }
 

@@ -25,7 +25,7 @@ Route::post('/login', [AuthController::class, 'authenticate']);
 
 Route::get('/', function() {
     return Inertia::render('Home');
-})->middleware('auth');
+})->middleware('auth')->name('home');
 
 Route::get('/register', function () {
     return Inertia::render('Auth/Register');

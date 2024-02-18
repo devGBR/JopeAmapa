@@ -3,6 +3,11 @@
         <v-layout>
             <title>JOPE | Login</title>
             <v-main class="h-screen d-flex" style="background-color: #f3f1f1;">
+                <span :class="error" style="">
+                    <v-alert closable title="Erro no login" class="w-100 h-100 text-white bg-white" type="error">
+                        <v-alert-text class="text-black">{{ mensagem }}</v-alert-text>
+                    </v-alert>
+                </span>
                 <div class="" style="width: 70%;">
                     <div class="w-100 " style="position: absolute;">
                         <v-img :width="190" aspect-ratio="16/9" cover src="img/Icon.png"></v-img>
@@ -671,7 +676,7 @@
 
 
                             <div class="w-75">
-                                <v-text-field label="Email" class="mb-2" v-model="email" :rules="emailRules"
+                                <v-text-field label="Nome de usuário" class="mb-2" v-model="username" :rules="usernameRules"
                                     variant="outlined">
                                 </v-text-field>
                                 <div class="input-icons colorinput">
@@ -706,17 +711,20 @@
 </template>
 <script>
 import { Head, Link, usePage } from '@inertiajs/inertia-vue3'
+import { Inertia } from '@inertiajs/inertia'
 import { router } from '@inertiajs/vue3'
+import axios from 'axios'
 export default {
     data() {
         return {
             icone: "mdi-eye",
-            email: null,
+            username: null,
             tipo: 'Password',
+            mensagem: null,
             password: null,
-            emailRules: [
-                v => !!v || 'O e-mail é obrigatório!',
-                v => /.+@.+/.test(v) || 'Informe um e-mail válido!'
+            error: 'notError',
+            usernameRules: [
+                v => !!v || 'O nome de usuário é obrigatório!',
             ],
             passwordRules: [
                 v => !!v || 'O campo senha é obrigatório!'
@@ -737,17 +745,41 @@ export default {
         },
         onSubmit(event) {
             const data = {
-                email: this.email,
+                username: this.username,
                 password: this.password,
 
             }
-            Inertia.post('/auth', data)
+            axios.post('/login', data).then(response => {
+                    if (response.status === 200) {
+                        // Redirecionar para a página de login
+                        window.location.href = '/';
+                    }else if(response.status === 400 && response.data.error){
+                        this.mensagem = response.data.error;
+                        this.error = 'errorLogin';
+                    }
+                })
+                    .catch(error => {
+                        // Tratar erros
+                        this.mensagem = 'Ops tivemos um erro ao tenta logar';
+                        this.error = 'errorLogin'
+                    });
         }
     }
 }
 </script>
 
 <style>
+.notError {
+    display: none;
+}
+
+.errorLogin {
+    position: fixed;
+    z-index: 9;
+    width: 350px;
+    right: -800px;
+    animation: toast 8s ease-in;
+}
 .icon {
     padding: 10px;
     min-width: 50px;
@@ -780,6 +812,25 @@ export default {
     display: flex;
     justify-content: flex-end;
     height: 0px;
+}
+@keyframes toast {
+    10% {
+        opacity: 0.5;
+        right: 0px;
+    }
+
+    11% {
+        opacity: 1;
+    }
+
+    99% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 0;
+        right: 0;
+    }
 }
 
 svg#freepik_stories-team-spirit:not(.animated) .animable {
