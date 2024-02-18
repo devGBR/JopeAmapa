@@ -3,7 +3,13 @@
         <v-layout class="h-screen d-flex" style="background-color: #284703ce;">
             <title>JOPE | Cadastre-se</title>
             <v-main class="d-flex">
+                <span :class="incompleted" style="">
+                    <v-alert closable title="DADOS INCOMPLETOS" class="w-100 h-100 text-orange" icon="mdi-alert-circle">
+                        <v-alert-text class="text-black">Para se cadastrar por favor preencha todos os dados!</v-alert-text>
+                    </v-alert>
+                </span>
                 <v-card class="w-50 h-screen" color="#f3f1f1" style="position: relative;">
+
                     <div class="w-100 my-4 mx-3 d-flex">
                         <v-btn variant="plant" href="/login" color="#284703" style="position: absolute;"
                             icon="mdi-arrow-left">
@@ -21,7 +27,8 @@
                                 <v-text-field label="Nome" v-model="nome" variant="solo-filled"></v-text-field>
                             </v-col>
                             <v-col cols="12">
-                                <v-text-field label="Nome de usuário" v-model="username" variant="solo-filled"></v-text-field>
+                                <v-text-field label="Nome de usuário" v-model="username"
+                                    variant="solo-filled"></v-text-field>
                             </v-col>
                             <v-col cols="6">
                                 <v-text-field label="Data de Nascimento" v-model="dataN"
@@ -49,7 +56,7 @@
                             </v-col>
                         </v-row>
                         <div class="w-100 d-flex">
-                            <v-btn disabled="true" @click="cadastrar" class="ml-auto" color="gray">
+                            <v-btn @click="cadastrar" class="ml-auto" color="green">
                                 Cadastrar
                             </v-btn>
                         </div>
@@ -70,7 +77,7 @@
                                     variant="solo-filled"></v-select>
                             </v-col>
                             <v-col v-if="convertido === 'Sim'" cols="12">
-                                <label for="" class="text-white text-h6">Ah quanto tempo você é convertido?</label>
+                                <label for="" class="text-white text-h6">Há quanto tempo você é convertido?</label>
                                 <v-select label=""
                                     :items="['2 meses a 3 meses', '5 meses a 10 meses', '1 ano a 2 anos', '3 anos ou mais']"
                                     v-model="Tconvertido" variant="solo-filled"></v-select>
@@ -86,7 +93,7 @@
                                 <div class="d-flex"><v-checkbox v-model="Fcelula" color="white" value="Sim"
                                         label="Sim"></v-checkbox> <v-checkbox v-model="Fcelula" color="white" value="Não"
                                         label="Não"></v-checkbox> <v-checkbox v-model="Fcelula" color="white"
-                                        value="As vezes" label="As vezes"></v-checkbox></div>
+                                        value="As vezes" label="Às vezes"></v-checkbox></div>
                             </v-col>
                             <v-col v-if="Fcelula != 'Não'" cols="12">
                                 <label for="" class="text-white text-h6">Qual célula?</label>
@@ -101,7 +108,7 @@
                                         class="text-white" value="Sim" label="Sim"></v-checkbox> <v-checkbox
                                         v-model="Vministerio" color="white" theme="dark" class="text-white" value="Não"
                                         label="Não"></v-checkbox> <v-checkbox v-model="Vministerio" color="white"
-                                        theme="dark" class="text-white" value="As vezes" label="As vezes"></v-checkbox>
+                                        theme="dark" class="text-white" value="As vezes" label="Às vezes"></v-checkbox>
                                 </div>
                             </v-col>
                             <v-col v-if="Vministerio != 'Não'" cols="12">
@@ -120,6 +127,39 @@
     </v-app>
 </template>
 <style scoped>
+.notIncompleted {
+    display: none;
+}
+
+.incompleted {
+    position: absolute;
+    z-index: 9;
+    right: -800px;
+    width: 400px;
+    height: 130px;
+    animation: toast 8s ease-in;
+}
+
+@keyframes toast {
+    10% {
+        opacity: 0.5;
+        right: 0px;
+    }
+
+    11% {
+        opacity: 1;
+    }
+
+    99% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 0;
+        right: 0;
+    }
+}
+
 .blur {
     position: absolute;
     background-color: rgb(171 171 171 / 19%);
@@ -153,6 +193,8 @@
 }
 </style>
 <script>
+import { Inertia } from '@inertiajs/inertia'
+import axios from 'axios'
 export default {
     data: () => ({
         nome: null,
@@ -166,12 +208,13 @@ export default {
         confirm_senha: null,
         pessoais: false,
         convertido: null,
-        ministerio: null,
+        ministerio: 'Nenhum',
         batizado: null,
-        celula: null,
+        celula: 'Nenhuma',
         Fcelula: null,
         Vministerio: null,
         Tconvertido: null,
+        incompleted: 'notIncompleted',
     }),
     watch: {
         // Observa todas as propriedades no objeto `data`
@@ -207,6 +250,7 @@ export default {
             }
 
         }
+
     },
     methods: {
         validarPessoais() {
@@ -228,7 +272,7 @@ export default {
                 this.pessoais = false;
             }
         },
-        cadastrar(){
+        cadastrar() {
             const data = {
                 nome: this.nome,
                 username: this.username,
@@ -238,12 +282,27 @@ export default {
                 numero: this.numero,
                 bairro: this.bairro,
                 password: this.senha,
-                convertido: this.convertido,
+                convertido: this.Tconvertido,
                 ministerio: this.ministerio,
-                batizado: this.batizado,
+                batizado: this.batizado === 'Sim' ? true : false,
                 celula: this.celula,
             }
-            
+            let validador = Object.values(data).some(valor => valor === null || valor === undefined || valor === '');
+            if (validador) {
+                this.incompleted = 'incompleted'
+            } else {
+                axios.post('api/registrar', data).then(response => {
+                    if (response.status === 200) {
+                        // Redirecionar para a página de login
+                        window.location.href = '/login';
+                    }
+                })
+                    .catch(error => {
+                        // Tratar erros
+                        console.error('Erro:', error);
+                    });
+            }
+
         }
     }
 }

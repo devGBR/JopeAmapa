@@ -45,9 +45,8 @@ class AuthController extends Controller
             'batizado' => 'required|boolean',
             'celula' => 'required|string',
         ]);
-
         if ($validate) {
-            User::create([
+            $user = User::create([
                 'nome' => $request->nome,
                 'username' => $request->username,
                 'data_nascimento' => $request->data_nascimento,
@@ -57,14 +56,19 @@ class AuthController extends Controller
                 'numero' => $request->numero,
                 'password' => bcrypt($request->password),
             ]);
-            Jopers::create([
+            $joper = Jopers::create([
+                'user_id' => $user->id,
                 'convertido' => $request->convertido,
                 'ministerio'  => $request->ministerio,
                 'batizado'  => $request->batizado,
                 'celula'  => $request->celula,
             ]);
-
-            return redirect('/login');
+            if($user && $joper){
+                return response()->json([
+                    'menssage' => 'cadastrado com suceeso'
+                ], 200);
+            }
+            
         }else{
             return back()->withErrors([
                 'Error' => 'Preencha todos os dados antes de continuar',

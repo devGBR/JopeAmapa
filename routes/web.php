@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Whoops\Run;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +20,8 @@ use Inertia\Inertia;
 Route::get('/login', function () {
     return Inertia::render('Auth/Login');
 })->name('login');
+
+Route::post('/login', [AuthController::class, 'authenticate']);
 
 Route::get('/', function() {
     return Inertia::render('Home');
