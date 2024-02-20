@@ -8,7 +8,7 @@
                         <v-alert-text class="text-black">{{ mensagem }}</v-alert-text>
                     </v-alert>
                 </span>
-                <div class="" style="width: 70%;">
+                <div class="responsiveimg" style="width: 70%;">
                     <div class="w-100 " style="position: absolute;">
                         <v-img :width="190" aspect-ratio="16/9" cover src="img/Icon.png"></v-img>
                     </div>
@@ -665,7 +665,7 @@
                     </div>
 
                 </div>
-                <div class="h-screen" style="width: 30%;">
+                <div class="h-screen login" style="width: 30%;">
                     <v-card class="w-100 h-100">
                         <div class="d-flex w-100 h-100 flex-column align-center justify-center">
                             <div class="w-75 mb-5">
@@ -831,6 +831,14 @@ export default {
         opacity: 0;
         right: 0;
     }
+}
+@media only screen and (max-width: 768px){
+ .responsiveimg{
+    display: none;
+ }
+ .login{
+    width: 100% !important;
+ }
 }
 
 svg#freepik_stories-team-spirit:not(.animated) .animable {
