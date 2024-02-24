@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->date('data_nascimento');
             $table->string('genero');
+            $table->string('cargo')->default('joper');
             $table->string('endereco');
             $table->string('bairro');
             $table->string('numero');

@@ -21,6 +21,7 @@ class User extends Authenticatable
         'nome',
         'username',
         'data_nascimento',
+        'cargo',
         'genero',
         'endereco',
         'bairro',
