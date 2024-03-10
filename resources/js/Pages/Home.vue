@@ -164,11 +164,47 @@
             </section>
             <section id="midia" class="h-100 w-100">
                 <div style="color: #3e6d0687; font-family: 'GrilledCheese BTN Toasted', sans-serif;"
-                    class="text-center text-h4  my-2">
-                    JOPE social
+                    class="text-center text-h4  mb-2">
+                    FAQ
                 </div>
-                <v-card color="#3e6d0687" rounded="0" class="w-100 h-100  pa-10" style="box-sizing: border-box;">
-                    <div class="w-100 h-100 d-flex flex-column align-end" style="position: relative;">
+                <v-card color="#3e6d0687" rounded="0" class="w-100 h-100 d-flex justify-center pa-10"
+                    style="box-sizing: border-box;">
+
+                    <div class="text-white  mx-8 py-5" :class="mobile === true ? 'w-100' : 'w-25 my-5'"
+                        :style="mobile === true ? 'font-size: 30px !important;' : 'font-size: 70px !important;'" style="font-family: 'Abril Fatface', serif;  margin: 0;
+                        font-weight: 600;
+                        text-align: start;
+                        line-height: 1.2;">
+                        O QUE
+                        MAIS
+                        VOCÊ
+                        PRECISA
+                        SABER?
+                    </div>
+                    <div class="w-50 my-5  py-9">
+                        <v-expansion-panels class="my-1" variant="accordion">
+                            <v-expansion-panel title="Como faço para fazer parte das Missões JOPE?" class="bg-transparent text-white" elevation="0" rounded="0" style="border: 1px solid white;" variant="outlined"
+                                text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima">
+                            </v-expansion-panel>
+                            <v-expansion-panel title="Title" class="bg-transparent text-white" elevation="0" rounded="0" style="border: 1px solid white;" variant="outlined"
+                                text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima">
+                            </v-expansion-panel>
+                            <v-expansion-panel title="Title" class="bg-transparent text-white" elevation="0" rounded="0" style="border: 1px solid white;" variant="outlined"
+                                text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima">
+                            </v-expansion-panel>
+                            <v-expansion-panel title="Title" class="bg-transparent text-white" elevation="0" rounded="0" style="border: 1px solid white;" variant="outlined"
+                                text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima">
+                            </v-expansion-panel>
+                            <v-expansion-panel title="Title" class="bg-transparent text-white" elevation="0" rounded="0" style="border: 1px solid white;" variant="outlined"
+                                text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima">
+                            </v-expansion-panel>
+                            <v-expansion-panel title="Title" class="bg-transparent text-white" elevation="0" rounded="0" style="border: 1px solid white;" variant="outlined"
+                                text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima">
+                            </v-expansion-panel>
+                        </v-expansion-panels>
+                        
+                    </div>
+                    <!-- <div class="w-100 h-100 d-flex flex-column align-end" style="position: relative;">
                         <div class=" pa-7"
                             style="border-left: 2px solid black; width: 90%; border-bottom: 2px solid black;">
                             <p class="text-white" style="font-family: 'Roboto', sans-serif; font-weight: 700;">Ultimas Postagens</p>
@@ -218,7 +254,7 @@
                                 
                             </v-row>
                         </div>
-                    </div>
+                    </div> -->
 
 
                 </v-card>
@@ -339,6 +375,7 @@ export default {
         }
     },
     methods: {
+
         scrollHandler() {
             if (window.scrollY > 0) {
                 this.Bar = '#284703'; // Defina a cor desejada quando o scroll for maior que 0

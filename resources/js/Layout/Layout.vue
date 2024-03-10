@@ -54,7 +54,7 @@
                                 <div class="w-50">
                                     <img src="/public/img/IconBranca.png" width="250" alt="">
                                     <div class="d-flex  align-start px-2" style="width: 250px;">
-                                        <v-btn icon href="#" class="mr-5">
+                                        <v-btn icon href="https://www.facebook.com/profile.php?id=100056057672246" target="_blank" class="mr-5">
                                             <svg class="w-50 h-50" fill="currentColor" viewBox="0 0 24 24"
                                                 aria-hidden="true">
                                                 <path fill-rule="evenodd"
@@ -62,7 +62,7 @@
                                                     clip-rule="evenodd" />
                                             </svg>
                                         </v-btn>
-                                        <v-btn icon href="#" class="">
+                                        <v-btn icon href="https://www.instagram.com/jopemcp/" target="_blank" class="">
                                             <svg class="w-50 h-50" fill="currentColor" viewBox="0 0 24 24"
                                                 aria-hidden="true">
                                                 <path fill-rule="evenodd"
@@ -76,7 +76,7 @@
                                 <div class="w-50 d-flex">
                                     <v-list density="compact" class="bg-transparent ml-auto mr-10">
 
-                                        <v-list-item class="text-blue" title="Live" prepend-icon="mdi-access-point">
+                                        <v-list-item class="text-blue" title="Live" target="_blank" href="https://www.facebook.com/profile.php?id=100056057672246" prepend-icon="mdi-access-point">
                                         </v-list-item>
                                     </v-list>
                                 </div>
@@ -86,19 +86,19 @@
                             <section class=" w-50 d-flex">
                                 <v-list density="compact" class="bg-transparent  ml-5 mr-10">
                                     <v-list-subheader class="text-white" style="font-weight: 600;">PÁGINA</v-list-subheader>
-                                    <v-list-item class="text-blue" title="quem somos">
+                                    <v-list-item class="text-blue" href="#sobre" title="quem somos">
                                     </v-list-item>
-                                    <v-list-item class="text-blue" title="eventos">
+                                    <v-list-item class="text-blue" href="#eventos" title="eventos">
                                     </v-list-item>
-                                    <v-list-item class="text-blue" title="mídias">
-                                    </v-list-item>
+                                    <!-- <v-list-item class="text-blue" title="mídias">
+                                    </v-list-item> -->
                                 </v-list>
                                 <v-list density="compact" class="bg-transparent mr-10">
                                     <v-list-subheader class="text-white"
                                         style="font-weight: 600;">SIGA-NOS</v-list-subheader>
-                                    <v-list-item class="text-blue" title="instagram">
+                                    <v-list-item class="text-blue" href="https://www.instagram.com/jopemcp/" target="_blank"  title="instagram">
                                     </v-list-item>
-                                    <v-list-item class="text-blue" title="Facebook">
+                                    <v-list-item class="text-blue" href="https://www.facebook.com/profile.php?id=100056057672246" target="_blank" title="Facebook">
                                     </v-list-item>
                                 </v-list>
 
