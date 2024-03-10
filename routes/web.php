@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -23,9 +24,9 @@ Route::get('/login', function () {
 
 Route::post('/login', [AuthController::class, 'authenticate']);
 
-Route::get('/', function() {
-    return Inertia::render('Home');
-})->middleware('auth')->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/sair', [AuthController::class, 'logout'])->name('sair');
 
 Route::get('/register', function () {
     return Inertia::render('Auth/Register');

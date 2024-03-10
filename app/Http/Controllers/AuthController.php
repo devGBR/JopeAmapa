@@ -29,7 +29,16 @@ class AuthController extends Controller
             'error' => 'Usuário não encontrado'
         ], 400);
     }
-
+    public function logout(Request $request)
+    {
+        Auth::logout();
+     
+        $request->session()->invalidate();
+     
+        $request->session()->regenerateToken();
+     
+        return redirect('/');
+    }
     public function register(Request $request)
     {
         $validate =  $request->validate([
@@ -54,6 +63,7 @@ class AuthController extends Controller
                 'genero' => $request->genero,
                 'endereco' => $request->endereco,
                 'bairro' => $request->bairro,
+                'cargo' => 'joper',
                 'numero' => $request->numero,
                 'password' => bcrypt($request->password),
             ]);
