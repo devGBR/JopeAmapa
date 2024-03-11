@@ -1,8 +1,8 @@
 <template>
     <v-app>
         <v-layout style="background-color: #FAFAFA; z-index: 5 !important;">
-            <v-app-bar :color="colorBar" style="z-index: 20 !important; position: fixed;" :elevation="0">
-                <template v-slot:prepend>
+            <v-app-bar :color="colorBar" style="z-index: 20 !important; position: fixed;" :elevation="elevacao">
+                <template v-if="$page.props.logger === true" v-slot:prepend>
                     <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
                 </template>
 
@@ -197,6 +197,7 @@ export default {
         colorBar: String,
         Logo: String,
         movel: Boolean,
+        elevacao: Number
     },
     data() {
         return {

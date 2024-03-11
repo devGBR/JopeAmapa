@@ -1,5 +1,5 @@
 <template>
-    <layout :colorBar="Bar" :movel="mobile" :Logo="logo">
+    <layout :colorBar="Bar" :movel="mobile" :elevacao="0" :Logo="logo">
         <v-responsive>
             <div class="w-100">
                 <video autoplay="true" muted="" loop="true" playsinline="" class="w-100 h-100" cover style="object-fit: contain;
