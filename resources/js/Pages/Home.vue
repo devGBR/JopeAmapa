@@ -12,7 +12,7 @@
                     <div class="d-flex justify-center align-center flex-wrap mx-auto">
                         <div class="text-white  mx-8" :class="mobile === true ? 'w-100' : 'w-25 my-5'"
                             :style="mobile === true ? 'font-size: 30px !important;' : 'font-size: 78px !important;'"
-                            style="font-family: 'GrilledCheese BTN Toasted', sans-serif;  margin: 0;
+                            style="font-family: 'Angkor', sans-serif;  margin: 0;
                         font-weight: 600;
                         text-align: start;
                         line-height: 1.2;">
@@ -61,9 +61,9 @@
 
 
             <section id="eventos" class="w-100 my-8 carousel"
-                :style="larguraHome >= 1024 ? 'min-height: 45vw;' : 'min-height: 500px;'"
+                :style="larguraHome >= 1024 ? 'min-height: 40vw;' : 'min-height: 500px;'"
                 style="box-sizing: border-box; ">
-                <div style="color: #3e6d0687; font-family: 'GrilledCheese BTN Toasted', sans-serif;"
+                <div style="color: #3e6d0687; font-family: 'Angkor', sans-serif;"
                     class="text-center text-h4  my-5">
                     Agenda
                 </div>
@@ -162,16 +162,82 @@
 
 
             </section>
-            <section id="midia" class="h-100 w-100">
-                <div style="color: #3e6d0687; font-family: 'GrilledCheese BTN Toasted', sans-serif;"
+            
+            <section id="midia" class=" w-100">
+                <div style="color: #3e6d0687; font-family: 'Angkor', sans-serif;"
                     class="text-center text-h4  mb-2">
-                    FAQ
+                    JOPE social
                 </div>
+                
+                <v-card color="#6ed16747" rounded="0" class="w-100 h-100 d-flex justify-center pa-10"
+                    style="box-sizing: border-box; position: relative;">
+                    <div class="w-100 h-100 d-flex align-center justify-center" style="position: absolute; top: -10px;  background-color: rgb(171 171 171 / 19%);
+    backdrop-filter: blur(10px); z-index: 5;">
+    <p style="font-size: 40px; background-color: white; padding: 15px; border-radius: 8px; font-weight: 700;">EM BREVE</p>    
+</div>
+
+                    <div class="w-100 h-100 d-flex flex-column align-end" style="position: relative;">
+                        <div class=" pa-7"
+                            style="border-left: 2px solid black; width: 90%; border-bottom: 2px solid black;">
+                            <p class="" style="font-family: 'Roboto', sans-serif; font-weight: 700;">Ultimas Postagens</p>
+                        </div>
+                        <div class="w-100 " style="border: 2px solid black; border-top: none; min-height: 300px;">
+                            <v-row class="pa-10">
+                                <v-col cols="12" md="3">
+                                    <div class="w-100 " style="height: 330px;  border: 2px solid black;">
+                                        <v-img class="w-100 " aspect-ratio="1/1" cover style="height: 82%;"
+                                            src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"></v-img>
+                                        <div class=" d-flex align-center"
+                                            style=" height: 15%; width: 98%; margin: 5px auto; border: 2px solid black;">
+                                            <v-icon size="x-large" class="mx-auto text-black" icon="mdi-instagram"></v-icon> <v-card elevation="5" title="TITLE" class="w-75 bg-black h-75 text-center d-flex align-center justify-center rounded mx-auto"></v-card>
+                                        </div>
+                                    </div>
+                                </v-col>
+                                <v-col cols="12" md="3">
+                                    <div class="w-100 " style="height: 330px;  border: 2px solid black;">
+                                        <v-img class="w-100 " aspect-ratio="1/1" cover style="height: 82%;"
+                                            src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"></v-img>
+                                        <div class=" d-flex align-center"
+                                            style=" height: 15%; width: 98%; margin: 5px auto; border: 2px solid black;">
+                                            <v-icon size="x-large" class="mx-auto text-black" icon="mdi-instagram"></v-icon> <v-card elevation="5" title="TITLE" class="w-75 bg-black h-75 text-center d-flex align-center justify-center rounded mx-auto"></v-card>
+                                        </div>
+                                    </div>
+                                </v-col>
+                                <v-col cols="12" md="3">
+                                    <div class="w-100 " style="height: 330px;  border: 2px solid black;">
+                                        <v-img class="w-100 " aspect-ratio="1/1" cover style="height: 82%;"
+                                            src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"></v-img>
+                                        <div class=" d-flex align-center"
+                                            style=" height: 15%; width: 98%; margin: 5px auto; border: 2px solid black;">
+                                            <v-icon size="x-large" class="mx-auto text-black" icon="mdi-instagram"></v-icon> <v-card elevation="5" title="TITLE" class="w-75 bg-black h-75 text-center d-flex align-center justify-center rounded mx-auto"></v-card>
+                                        </div>
+                                    </div>
+                                </v-col>
+                                <v-col cols="12" md="3">
+                                    <div class="w-100 " style="height: 330px;  border: 2px solid black;">
+                                        <v-img class="w-100 " aspect-ratio="1/1" cover style="height: 82%;"
+                                            src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"></v-img>
+                                        <div class=" d-flex align-center"
+                                            style=" height: 15%; width: 98%; margin: 5px auto; border: 2px solid black;">
+                                            <v-icon size="x-large" class="mx-auto text-black" icon="mdi-instagram"></v-icon> <v-card elevation="5" title="TITLE" class="w-75 bg-black h-75 text-center d-flex align-center justify-center rounded mx-auto"></v-card>
+                                        </div>
+                                    </div>
+                                </v-col>
+                                
+                            </v-row>
+                        </div>
+                    </div>
+
+
+                </v-card>
+
+            </section>
+            <section id="faq" class="h-100 w-100">
                 <v-card color="#3e6d0687" rounded="0" class="w-100 h-100 d-flex justify-center pa-10"
                     style="box-sizing: border-box;">
 
                     <div class="text-white  mx-8 py-5" :class="mobile === true ? 'w-100' : 'w-25 my-5'"
-                        :style="mobile === true ? 'font-size: 30px !important;' : 'font-size: 70px !important;'" style="font-family: 'Abril Fatface', serif;  margin: 0;
+                        :style="mobile === true ? 'font-size: 30px !important;' : 'font-size: 67px !important;'" style="font-family: 'Abril Fatface', serif;  margin: 0;
                         font-weight: 600;
                         text-align: start;
                         line-height: 1.2;">
@@ -184,24 +250,26 @@
                     <div class="w-50 my-5  py-9">
                         <v-expansion-panels class="my-1" variant="accordion">
                             <v-expansion-panel title="Como faço para fazer parte das Missões JOPE?" class="bg-transparent text-white" elevation="0" rounded="0" style="border: 1px solid white;" variant="outlined"
-                                text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima">
+                                text="Para fazer parte da Missões JOPE, entre em contato com nosso lider Pr. Eliakim">
                             </v-expansion-panel>
-                            <v-expansion-panel title="Title" class="bg-transparent text-white" elevation="0" rounded="0" style="border: 1px solid white;" variant="outlined"
-                                text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima">
+                            <v-expansion-panel title="Qual é o endereço?" class="bg-transparent text-white" elevation="0" rounded="0" style="border: 1px solid white;" variant="outlined"
+                                text="Nossas reuniões costuma ser em nossa igreja, localizada na Rua: Manoel Eudóxio Pereira, 1253 - Central. 
+                                    Caso tenha algum evento diferente é so acessar a aba de eventos
+                                ">
                             </v-expansion-panel>
-                            <v-expansion-panel title="Title" class="bg-transparent text-white" elevation="0" rounded="0" style="border: 1px solid white;" variant="outlined"
-                                text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima">
+                            <v-expansion-panel title="Com quantos anos posso fazer parte?" class="bg-transparent text-white" elevation="0" rounded="0" style="border: 1px solid white;" variant="outlined"
+                                text="Para ingressar no JOPE Macapá é nescessário ter no minímo 15 anos. ">
                             </v-expansion-panel>
-                            <v-expansion-panel title="Title" class="bg-transparent text-white" elevation="0" rounded="0" style="border: 1px solid white;" variant="outlined"
-                                text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima">
+                            <v-expansion-panel title="Como posso fazer doações para a obra?" class="bg-transparent text-white" elevation="0" rounded="0" style="border: 1px solid white;" variant="outlined"
+                                text="Para fazer doações para o JOPE, entre em contato com nosso lider Eliakim">
                             </v-expansion-panel>
-                            <v-expansion-panel title="Title" class="bg-transparent text-white" elevation="0" rounded="0" style="border: 1px solid white;" variant="outlined"
-                                text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima">
+                            <v-expansion-panel title="Como faço para entrar em um ministério?" class="bg-transparent text-white" elevation="0" rounded="0" style="border: 1px solid white;" variant="outlined"
+                                text="Para ingressar em algum ministério é nescessário fazer parte do JOPE, entre em contato com os líderes de cada departamento. ">
                             </v-expansion-panel>
-                            <v-expansion-panel title="Title" class="bg-transparent text-white" elevation="0" rounded="0" style="border: 1px solid white;" variant="outlined"
-                                text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima">
+                            <v-expansion-panel title="Vou ser acompanhado e discipulado?" class="bg-transparent text-white" elevation="0" rounded="0" style="border: 1px solid white;" variant="outlined"
+                                text="Claro! Nós do JOPE faremos o possível para que você se sinta acolhido, faremos seu acompanhamento e discipulado em nossas células">
                             </v-expansion-panel>
-                        </v-expansion-panels>
+                        </v-expansion-panels> 
                         
                     </div>
                     <!-- <div class="w-100 h-100 d-flex flex-column align-end" style="position: relative;">
@@ -260,6 +328,7 @@
                 </v-card>
 
             </section>
+            
         </v-responsive>
 
 

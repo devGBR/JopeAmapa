@@ -76,8 +76,9 @@
                                 <div class="w-50 d-flex">
                                     <v-list density="compact" class="bg-transparent ml-auto mr-10">
 
-                                        <v-list-item class="text-blue" title="Live" target="_blank" href="https://www.facebook.com/profile.php?id=100056057672246" prepend-icon="mdi-access-point">
-                                        </v-list-item>
+                                        <v-btn class="text-red" text="" target="_blank" href="https://www.facebook.com/profile.php?id=100056057672246" prepend-icon="mdi-access-point">
+                                            <p style="color:black;">Live</p>
+                                        </v-btn>
                                     </v-list>
                                 </div>
 
@@ -86,19 +87,19 @@
                             <section class=" w-50 d-flex">
                                 <v-list density="compact" class="bg-transparent  ml-5 mr-10">
                                     <v-list-subheader class="text-white" style="font-weight: 600;">PÁGINA</v-list-subheader>
-                                    <v-list-item class="text-blue" href="#sobre" title="quem somos">
+                                    <v-list-item class="text-black" href="#sobre" title="quem somos">
                                     </v-list-item>
-                                    <v-list-item class="text-blue" href="#eventos" title="eventos">
+                                    <v-list-item class="text-black" href="#eventos" title="eventos">
                                     </v-list-item>
-                                    <!-- <v-list-item class="text-blue" title="mídias">
-                                    </v-list-item> -->
+                                    <v-list-item class="text-black" href="#midia" title="mídias">
+                                    </v-list-item>
                                 </v-list>
                                 <v-list density="compact" class="bg-transparent mr-10">
                                     <v-list-subheader class="text-white"
                                         style="font-weight: 600;">SIGA-NOS</v-list-subheader>
-                                    <v-list-item class="text-blue" href="https://www.instagram.com/jopemcp/" target="_blank"  title="instagram">
+                                    <v-list-item class="text-black" href="https://www.instagram.com/jopemcp/" target="_blank"  title="instagram">
                                     </v-list-item>
-                                    <v-list-item class="text-blue" href="https://www.facebook.com/profile.php?id=100056057672246" target="_blank" title="Facebook">
+                                    <v-list-item class="text-black" href="https://www.facebook.com/profile.php?id=100056057672246" target="_blank" title="Facebook">
                                     </v-list-item>
                                 </v-list>
 
@@ -152,19 +153,19 @@
                             <section style="box-sizing: border-box;" class=" w-100 d-flex my-1">
                                 <v-list density="compact" class="bg-transparent ">
                                     <v-list-subheader class="text-white" style="font-weight: 600;">PÁGINA</v-list-subheader>
-                                    <v-list-item class="text-blue" title="quem somos">
+                                    <v-list-item class="text-black" title="quem somos">
                                     </v-list-item>
-                                    <v-list-item class="text-blue" title="eventos">
+                                    <v-list-item class="text-black" title="eventos">
                                     </v-list-item>
-                                    <v-list-item class="text-blue" title="mídias">
+                                    <v-list-item class="text-black" title="mídias">
                                     </v-list-item>
                                 </v-list>
                                 <v-list density="compact" class="bg-transparent ml-5">
                                     <v-list-subheader class="text-white"
                                         style="font-weight: 600;">SIGA-NOS</v-list-subheader>
-                                    <v-list-item class="text-blue" title="instagram">
+                                    <v-list-item class="text-black" title="instagram">
                                     </v-list-item>
-                                    <v-list-item class="text-blue" title="Facebook">
+                                    <v-list-item class="text-black" title="Facebook">
                                     </v-list-item>
                                 </v-list>
 
