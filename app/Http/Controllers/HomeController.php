@@ -17,30 +17,37 @@ class HomeController extends Controller
         if ($id) {
             $islogger = true;
             $user =  User::find($id);
-            $verse_day = VerseDay::first();
+            $verse_day = $this->verseDay();
             
-            if ($verse_day === null || date_format($verse_day->created_at, 'Y-m-d') < date('Y-m-d')) {
-                if ($verse_day != null) $verse_day->delete();
-                $http = new Client();
-                $response = $http->get('https://www.abibliadigital.com.br/api/verses/nvi/random');
-                $data = json_decode($response->getBody()->getContents());
-               
-                $create = [
-                    'livro' => $data->book->name,
-                    'author'  => $data->book->author ,
-                    'group'  => $data->book->group,
-                    'captulo'  => $data->chapter,
-                    'versiculo' => $data->number ,
-                    'text' => $data->text
-                ];
-                 $newVerse = VerseDay::create($create);
-                 $verse_day = VerseDay::find($newVerse->id);
-            }
 
-            return Inertia::render('HomeAuth', ['user' => $user, 'logger' => $islogger, ]);
+            return Inertia::render('HomeAuth', ['user' => $user, 'logger' => $islogger, 'verse_day' => $verse_day ]);
         } else {
             $islogger = false;
             return Inertia::render('Home', ['logger' => $islogger]);
+        }
+    }
+    
+    protected function verseDay(){
+        $verse_day = VerseDay::first();
+        if($verse_day){
+            return $verse_day;
+        }   
+        if ($verse_day === null || date_format($verse_day->created_at, 'Y-m-d') < date('Y-m-d')) {
+            if ($verse_day != null) $verse_day->delete();
+            $http = new Client();
+            $response = $http->get('https://www.abibliadigital.com.br/api/verses/nvi/random');
+            $data = json_decode($response->getBody()->getContents());
+           
+            $create = [
+                'livro' => $data->book->name,
+                'author'  => $data->book->author ,
+                'group'  => $data->book->group,
+                'captulo'  => $data->chapter,
+                'versiculo' => $data->number ,
+                'text' => $data->text
+            ];
+             $newVerse = VerseDay::create($create);
+             return $verse_day = VerseDay::find($newVerse->id);
         }
     }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="overflow-x: none !important;" >
 
 <head>
   <meta charset="utf-8" />
@@ -19,6 +19,7 @@
   <style>
     body {
       overflow-y: hidden !important;
+      overflow-x: hidden !important 
     }
   </style>
   @vite('resources/js/app.js')

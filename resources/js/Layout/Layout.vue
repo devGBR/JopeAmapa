@@ -43,7 +43,7 @@
                     <v-list-item prepend-icon="mdi-forum" title="About" value="about"></v-list-item>
                 </v-list>
             </v-navigation-drawer>
-            <v-main class="overflow-y-auto" :class="movel ? null : 'pt-0'" style="z-index: 5 !important; box-sizing: border-box;">
+            <v-main class="overflow-y-auto" :class="movel ? null : 'pt-0'" style="z-index: 5 !important; box-sizing: border-box; overflow-x: hidden;">
                 <slot />
 
                 <v-footer class="w-100 bg-light-green-darken-4 py-6 " v-if="!movel" height="300"
