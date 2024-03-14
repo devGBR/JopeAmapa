@@ -272,59 +272,6 @@
                         </v-expansion-panels> 
                         
                     </div>
-                    <!-- <div class="w-100 h-100 d-flex flex-column align-end" style="position: relative;">
-                        <div class=" pa-7"
-                            style="border-left: 2px solid black; width: 90%; border-bottom: 2px solid black;">
-                            <p class="text-white" style="font-family: 'Roboto', sans-serif; font-weight: 700;">Ultimas Postagens</p>
-                        </div>
-                        <div class="w-100 " style="border: 2px solid black; border-top: none; min-height: 300px;">
-                            <v-row class="pa-10">
-                                <v-col cols="12" md="3">
-                                    <div class="w-100 " style="height: 330px;  border: 2px solid black;">
-                                        <v-img class="w-100 " aspect-ratio="1/1" cover style="height: 82%;"
-                                            src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"></v-img>
-                                        <div class=" d-flex align-center"
-                                            style=" height: 15%; width: 98%; margin: 5px auto; border: 2px solid black;">
-                                            <v-icon size="x-large" class="mx-auto text-white" icon="mdi-instagram"></v-icon> <v-card elevation="5" class="w-75 bg-white h-75  rounded mx-auto"></v-card>
-                                        </div>
-                                    </div>
-                                </v-col>
-                                <v-col cols="12" md="3">
-                                    <div class="w-100 " style="height: 330px;  border: 2px solid black;">
-                                        <v-img class="w-100 " aspect-ratio="1/1" cover style="height: 82%;"
-                                            src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"></v-img>
-                                        <div class=" d-flex align-center"
-                                            style=" height: 15%; width: 98%; margin: 5px auto; border: 2px solid black;">
-                                            <v-icon size="x-large" class="mx-auto text-white" icon="mdi-instagram"></v-icon> <v-card elevation="5" class="w-75 bg-white h-75  rounded mx-auto"></v-card>
-                                        </div>
-                                    </div>
-                                </v-col>
-                                <v-col cols="12" md="3">
-                                    <div class="w-100 " style="height: 330px;  border: 2px solid black;">
-                                        <v-img class="w-100 " aspect-ratio="1/1" cover style="height: 82%;"
-                                            src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"></v-img>
-                                        <div class=" d-flex align-center"
-                                            style=" height: 15%; width: 98%; margin: 5px auto; border: 2px solid black;">
-                                            <v-icon size="x-large" class="mx-auto text-white" icon="mdi-instagram"></v-icon> <v-card elevation="5" class="w-75 bg-white h-75  rounded mx-auto"></v-card>
-                                        </div>
-                                    </div>
-                                </v-col>
-                                <v-col cols="12" md="3">
-                                    <div class="w-100 " style="height: 330px;  border: 2px solid black;">
-                                        <v-img class="w-100 " aspect-ratio="1/1" cover style="height: 82%;"
-                                            src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"></v-img>
-                                        <div class=" d-flex align-center"
-                                            style=" height: 15%; width: 98%; margin: 5px auto; border: 2px solid black;">
-                                            <v-icon size="x-large" class="mx-auto text-white" icon="mdi-instagram"></v-icon> <v-card elevation="5" class="w-75 bg-white h-75  rounded mx-auto"></v-card>
-                                        </div>
-                                    </div>
-                                </v-col>
-                                
-                            </v-row>
-                        </div>
-                    </div> -->
-
-
                 </v-card>
 
             </section>

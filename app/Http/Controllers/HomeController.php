@@ -29,9 +29,7 @@ class HomeController extends Controller
     
     protected function verseDay(){
         $verse_day = VerseDay::first();
-        if($verse_day){
-            return $verse_day;
-        }   
+          
         if ($verse_day === null || date_format($verse_day->created_at, 'Y-m-d') < date('Y-m-d')) {
             if ($verse_day != null) $verse_day->delete();
             $http = new Client();
@@ -43,11 +41,14 @@ class HomeController extends Controller
                 'author'  => $data->book->author ,
                 'group'  => $data->book->group,
                 'captulo'  => $data->chapter,
-                'versiculo' => $data->number ,
+                'versiculo' => $data->number,
+                'img' => rand(0, 8),
                 'text' => $data->text
             ];
              $newVerse = VerseDay::create($create);
              return $verse_day = VerseDay::find($newVerse->id);
+        }else{
+            return $verse_day;
         }
     }
 }

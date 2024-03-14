@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('group');
             $table->string('captulo');
             $table->string('versiculo');
+            $table->bigInteger('img');
             $table->string('text');
             $table->timestamps();
         });

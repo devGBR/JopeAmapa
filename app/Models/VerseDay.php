@@ -15,6 +15,7 @@ class VerseDay extends Model
         'group',
         'captulo',
         'versiculo',
+        'img',
         'text'
     ];
 }
