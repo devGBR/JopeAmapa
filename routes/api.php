@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EventosController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,5 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::post('registrar', [AuthController::class, 'register']);
+
+Route::post('criar-evento', [EventosController::class, 'create'])->middleware('auth');

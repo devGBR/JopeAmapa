@@ -10,14 +10,15 @@
 
                 <template v-slot:append>
                     <div v-if="$page.props.logger === true" class="w-100 d-flex align-center">
-                        <v-btn icon="mdi-location-exit" href="/sair" v-if="movel === false" class="mx-2" size="x-large"></v-btn>
+                        <v-btn icon="mdi-location-exit" href="/sair" v-if="movel === false" class="mx-2"
+                            size="x-large"></v-btn>
 
                         <div class="d-flex align-center px-auto"
                             style="width: 130px; height: 50px; border-radius: 8px; background-color: white;">
                             <span class="px-2 text-black mx-1" style="font-size: 20px; font-weight: 600;">{{
-                                username }}</span>
+                username }}</span>
                             <v-avatar>
-                                <v-img src="img/IconBranca.png" class="mx-3" color="green" size="x-large"
+                                <v-img src="/img/IconBranca.png" class="mx-3" color="green" size="x-large"
                                     alt="John"></v-img>
                             </v-avatar>
                         </div>
@@ -29,24 +30,42 @@
                 </template>
             </v-app-bar>
             <v-navigation-drawer v-model="drawer"
-                :style="colorBar === 'transparent' ? 'position: fixed; top: 0px; height:110%;' : 'position: fixed;'" temporary>
-                <v-list-item prepend-avatar="img/IconBranca.png"
-                    :title="username"></v-list-item>
+                :style="colorBar === 'transparent' ? 'position: fixed; top: 0px; height:110%;' : 'position: fixed;'"
+                temporary>
 
                 <v-divider></v-divider>
 
                 <v-list density="compact" nav>
-                    <v-list-item prepend-icon="mdi-view-dashboard" title="Home" href="/" value="home"></v-list-item>
-                    <v-list-item prepend-icon="mdi-forum" title="Ministerio" value="ministerio"></v-list-item>
-                    <v-list-item prepend-icon="mdi-forum" title="" value="about"></v-list-item>
-                    <v-list-item prepend-icon="mdi-forum" title="About" value="about"></v-list-item>
-                    <v-list-item prepend-icon="mdi-forum" title="About" value="about"></v-list-item>
+                    
+                    <v-menu location="end" transition="scale-transition">
+                        <template v-slot:activator="{ props }">
+                            <v-list density="compact" nav>
+                                <v-list-item prepend-icon="mdi-home" title="Home" href="/" value="home"></v-list-item>
+                                <v-list-item prepend-icon="mdi-sitemap-outline" title="Ministérios" value="Ministerio"
+                                      dark v-bind="props">
+                                </v-list-item>
+                                <v-list-item prepend-icon="mdi-calendar-multiple" href="/events" title="Eventos" value="ministerio"></v-list-item>
+                                <v-list-item prepend-icon="mdi-format-list-checkbox" title="Tarefas" value="about"></v-list-item>
+                                <v-list-item prepend-icon="mdi-monitor-dashboard" title="Dashboard" value="about"></v-list-item>
+                            </v-list>
+                        </template>
+
+                        <v-list density="compact" nav>
+                            <v-list-item prepend-icon="mdi-music" title="Instrumental" value="ministerio"></v-list-item>
+                            <v-list-item prepend-icon="mdi-microphone-variant" title="Louvor" value="ministerio"></v-list-item>
+                            <v-list-item prepend-icon="mdi-human-female-dance" title="Dança" value="ministerio"></v-list-item>
+                            <v-list-item prepend-icon="mdi-drama-masks" title="Teatro" value="ministerio"></v-list-item>
+                            <v-list-item prepend-icon="mdi-puzzle" title="Dinamica" value="ministerio"></v-list-item>
+                            <v-list-item prepend-icon="mdi-camera-iris" title="Midia - Audiovisual" value="ministerio"></v-list-item>
+                        </v-list>
+                    </v-menu>
                 </v-list>
             </v-navigation-drawer>
-            <v-main class="overflow-y-auto" :class="movel ? null : 'pt-0'" style="z-index: 5 !important; box-sizing: border-box; overflow-x: hidden;">
+            <v-main class="" :class="movel ? null : 'pt-0'"
+                style="z-index: 5 !important; box-sizing: border-box; overflow: hidden;">
                 <slot />
-
-                <v-footer class="w-100 bg-light-green-darken-4 py-6 " v-if="!movel" height="300"
+                <div class="w-100" v-if="$page.props.logger === false">
+                    <v-footer class="w-100 bg-light-green-darken-4 py-6 " v-if="!movel" height="300"
                     style="box-sizing: border-box;">
                     <section class="w-100 h-100" style="position: relative; ">
                         <section class="w-100 h-100 d-flex">
@@ -54,7 +73,8 @@
                                 <div class="w-50">
                                     <img src="/public/img/IconBranca.png" width="250" alt="">
                                     <div class="d-flex  align-start px-2" style="width: 250px;">
-                                        <v-btn icon href="https://www.facebook.com/profile.php?id=100056057672246" target="_blank" class="mr-5">
+                                        <v-btn icon href="https://www.facebook.com/profile.php?id=100056057672246"
+                                            target="_blank" class="mr-5">
                                             <svg class="w-50 h-50" fill="currentColor" viewBox="0 0 24 24"
                                                 aria-hidden="true">
                                                 <path fill-rule="evenodd"
@@ -76,7 +96,9 @@
                                 <div class="w-50 d-flex">
                                     <v-list density="compact" class="bg-transparent ml-auto mr-10">
 
-                                        <v-btn class="text-red" text="" target="_blank" href="https://www.facebook.com/profile.php?id=100056057672246" prepend-icon="mdi-access-point">
+                                        <v-btn class="text-red" text="" target="_blank"
+                                            href="https://www.facebook.com/profile.php?id=100056057672246"
+                                            prepend-icon="mdi-access-point">
                                             <p style="color:black;">Live</p>
                                         </v-btn>
                                     </v-list>
@@ -86,7 +108,8 @@
                             <v-divider class="border-opacity-75 h-75" color="white" vertical></v-divider>
                             <section class=" w-50 d-flex">
                                 <v-list density="compact" class="bg-transparent  ml-5 mr-10">
-                                    <v-list-subheader class="text-white" style="font-weight: 600;">PÁGINA</v-list-subheader>
+                                    <v-list-subheader class="text-white"
+                                        style="font-weight: 600;">PÁGINA</v-list-subheader>
                                     <v-list-item class="text-black" href="#sobre" title="quem somos">
                                     </v-list-item>
                                     <v-list-item class="text-black" href="#eventos" title="eventos">
@@ -97,9 +120,12 @@
                                 <v-list density="compact" class="bg-transparent mr-10">
                                     <v-list-subheader class="text-white"
                                         style="font-weight: 600;">SIGA-NOS</v-list-subheader>
-                                    <v-list-item class="text-black" href="https://www.instagram.com/jopemcp/" target="_blank"  title="instagram">
+                                    <v-list-item class="text-black" href="https://www.instagram.com/jopemcp/"
+                                        target="_blank" title="instagram">
                                     </v-list-item>
-                                    <v-list-item class="text-black" href="https://www.facebook.com/profile.php?id=100056057672246" target="_blank" title="Facebook">
+                                    <v-list-item class="text-black"
+                                        href="https://www.facebook.com/profile.php?id=100056057672246" target="_blank"
+                                        title="Facebook">
                                     </v-list-item>
                                 </v-list>
 
@@ -116,14 +142,14 @@
                     </section>
 
                 </v-footer>
-                <v-footer v-else class="w-100 bg-light-green-darken-4 rounded py-6 mt-9" height="350"
+                <v-footer v-else class="w-100 bg-light-green-darken-4 rounded py-6" height="350"
                     style="box-sizing: border-box;">
                     <section class="w-100 h-100" style="position: relative; ">
                         <section class="w-100 h-100">
                             <section class="w-100  d-flex">
                                 <div class="w-50">
                                     <img src="/public/img/IconBranca.png" width="100" alt="">
-                                    
+
                                 </div>
                                 <div class="w-50 d-flex align-end">
                                     <div class="d-flex  align-start px-2" style="width: 100px;">
@@ -145,14 +171,15 @@
 
                                         </v-btn>
                                     </div>
-                                    
+
                                 </div>
 
                             </section>
-                           
+
                             <section style="box-sizing: border-box;" class=" w-100 d-flex my-1">
                                 <v-list density="compact" class="bg-transparent ">
-                                    <v-list-subheader class="text-white" style="font-weight: 600;">PÁGINA</v-list-subheader>
+                                    <v-list-subheader class="text-white"
+                                        style="font-weight: 600;">PÁGINA</v-list-subheader>
                                     <v-list-item class="text-black" title="quem somos">
                                     </v-list-item>
                                     <v-list-item class="text-black" title="eventos">
@@ -182,6 +209,8 @@
                     </section>
 
                 </v-footer>
+                </div>
+                
             </v-main>
 
 
@@ -206,7 +235,7 @@ export default {
         }
     },
     mounted() {
-        if(this.$page.props.logger === true){
+        if (this.$page.props.logger === true) {
             this.username = this.$page.props.user.username
         }
         console.log(this.movel)

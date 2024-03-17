@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EventosController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,9 @@ Route::post('/login', [AuthController::class, 'authenticate']);
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/sair', [AuthController::class, 'logout'])->name('sair');
+
+Route::get('/events', [EventosController::class, 'index'])->middleware('auth')->name('eventos');
+
 
 Route::get('/register', function () {
     return Inertia::render('Auth/Register');

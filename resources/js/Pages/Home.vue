@@ -232,8 +232,8 @@
                 </v-card>
 
             </section>
-            <section id="faq" class="h-100 w-100">
-                <v-card color="#3e6d0687" rounded="0" class="w-100 h-100 d-flex justify-center pa-10"
+            <section id="faq" class="w-100">
+                <v-card color="#3e6d0687" rounded="0" class="w-100 h-100 d-flex justify-center align-center pa-10"
                     style="box-sizing: border-box;">
 
                     <div class="text-white  mx-8 py-5" :class="mobile === true ? 'w-100' : 'w-25 my-5'"

@@ -42,7 +42,7 @@ class HomeController extends Controller
                 'group'  => $data->book->group,
                 'captulo'  => $data->chapter,
                 'versiculo' => $data->number,
-                'img' => rand(0, 8),
+                'img' => rand(0, 7),
                 'text' => $data->text
             ];
              $newVerse = VerseDay::create($create);

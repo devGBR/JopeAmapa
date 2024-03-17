@@ -50,10 +50,10 @@
                                     <v-text-field label="Bairro" v-model="bairro" variant="solo-filled"></v-text-field>
                                 </v-col>
                                 <v-col cols="6">
-                                    <v-text-field label="Senha" v-model="senha" variant="solo-filled"></v-text-field>
+                                    <v-text-field label="Senha" v-model="senha" type="password" variant="solo-filled"></v-text-field>
                                 </v-col>
                                 <v-col cols="6">
-                                    <v-text-field label=" Confirmar senha" v-model="confirm_senha"
+                                    <v-text-field label="Confirmar senha" type="password" v-model="confirm_senha"
                                         variant="solo-filled"></v-text-field>
                                 </v-col>
                             </v-row>
@@ -239,7 +239,16 @@ export default {
         email(newValue, oldValue) {
             this.validarPessoais();
         },
-        dataN(newValue, oldValue) {
+        dataN(newdate, olddate) {
+            if (newdate.length === 2) {
+                this.dataN = newdate + '/'
+            }
+            if (newdate.length === 5) {
+                this.dataN = newdate + '/'
+            }
+            if (olddate != null && olddate.length > 9) {
+                this.dataN = newdate.substring(0, 10)
+            }
             this.validarPessoais();
         },
         genero(newValue, oldValue) {
@@ -291,7 +300,7 @@ export default {
             const data = {
                 nome: this.nome,
                 username: this.username,
-                data_nascimento: this.dataN,
+                data_nascimento: this.dataN.split('/').reverse().join("-"),
                 genero: this.genero,
                 endereco: this.endereco,
                 numero: this.numero,
