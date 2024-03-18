@@ -84,14 +84,19 @@
 
                     <v-window-item value="criar">
                         <v-card class="w-100 h-100 pa-8 my-5">
-                            <form @submit.prevent="submit">
-                                <v-text-field label="Nome do Evento" blur="" color="#3e6d0687" variant="outlined"></v-text-field>
-                                <v-text-field label="Data do Evento" color="#3e6d0687" type="date" variant="outlined"> </v-text-field>
-                                <v-text-field label="Horario do Evento" type="time" color="#3e6d0687" variant="outlined"></v-text-field>
-                                <v-textarea label="Descrição do Evento" color="#3e6d0687" variant="outlined"></v-textarea>
-                                <v-file-input label="Flyer do Evento" color="#3e6d0687" prepend-icon="mdi-camera"
-                                    variant="outlined"></v-file-input>
-                                <v-btn class="me-4" variant="outlined" color="green"  append-icon="mdi-send" type="submit">
+                            <form @submit.prevent="createEvent">
+                                <v-text-field label="Nome do Evento" v-model="nome" color="#3e6d0687"
+                                    variant="outlined"></v-text-field>
+                                <v-text-field label="Data do Evento" v-model="data" color="#3e6d0687" type="date"
+                                    variant="outlined"> </v-text-field>
+                                <v-text-field label="Horario do Evento" v-model="horario" type="time" color="#3e6d0687"
+                                    variant="outlined"></v-text-field>
+                                <v-textarea label="Descrição do Evento" v-model="descricao" color="#3e6d0687"
+                                    variant="outlined"></v-textarea>
+                                <v-file-input label="Flyer do Evento" v-model="banner" color="#3e6d0687"
+                                    prepend-icon="mdi-camera" variant="outlined"></v-file-input>
+                                <v-btn class="me-4" variant="outlined" color="green" append-icon="mdi-send"
+                                    type="submit">
                                     Criar
                                 </v-btn>
                             </form>
@@ -106,7 +111,9 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Layout from '../../Layout/Layout.vue'
+import { Inertia } from "@inertiajs/inertia"
 export default {
     components: {
         Layout,
@@ -119,6 +126,11 @@ export default {
             mobile: false,
             show: false,
             model: "ver",
+            nome: null,
+            data: null,
+            horario: null,
+            descricao: null,
+            banner: null,
         }
     },
     mounted() {
@@ -127,6 +139,30 @@ export default {
             this.Bar = '#284703';
             this.logo = '/img/IconBranca.png'
             this.mobile = true;
+        }
+    },
+    methods: {
+        createEvent() {
+            if (this.nome !== null || this.data !== null || this.horario !== null || this.descricao !== null || this.banner !== null) {
+                const data = {
+                    nome: this.nome,
+                    data: this.data,
+                    horario: this.horario,
+                    descricao: this.descricao,
+                    banner: this.banner,
+                }
+                axios.post('/api/criar-evento', {
+                    data
+                }).then(response => {
+                    if (response.status === 200) {
+                        // Redirecionar para a página de login
+                        window.location.href = '/events';
+                    }
+                }).catch(error => {
+                    // Tratar erros
+                    console.error('Erro:', error);
+                });
+            }
         }
     }
 }
