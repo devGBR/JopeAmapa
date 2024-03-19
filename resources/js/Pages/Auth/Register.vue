@@ -29,7 +29,7 @@
                                     <v-text-field label="Nome" v-model="nome" variant="solo-filled"></v-text-field>
                                 </v-col>
                                 <v-col cols="12">
-                                    <v-text-field label="Nome de usuário" v-model="username"
+                                    <v-text-field label="Nome de usuário" type="text" v-model="username"
                                         variant="solo-filled"></v-text-field>
                                 </v-col>
                                 <v-col cols="6">

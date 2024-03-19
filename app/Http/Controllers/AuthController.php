@@ -56,6 +56,7 @@ class AuthController extends Controller
             'celula' => 'required|string',
         ]);
         if ($validate) {
+            $token = base64_encode($request->username .":". $request->password);
             $user = User::create([
                 'nome' => $request->nome,
                 'username' => $request->username,
@@ -65,6 +66,7 @@ class AuthController extends Controller
                 'bairro' => $request->bairro,
                 'cargo' => 'joper',
                 'numero' => $request->numero,
+                'token_api' => $token,
                 'password' => bcrypt($request->password),
             ]);
             $joper = Jopers::create([

@@ -30,7 +30,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/sair', [AuthController::class, 'logout'])->name('sair');
 
 Route::get('/events', [EventosController::class, 'index'])->middleware('auth')->name('eventos');
-
+Route::post('/events', [EventosController::class, 'create']);
 
 Route::get('/register', function () {
     return Inertia::render('Auth/Register');

@@ -151,17 +151,7 @@ export default {
                     descricao: this.descricao,
                     banner: this.banner,
                 }
-                axios.post('/api/criar-evento', {
-                    data
-                }).then(response => {
-                    if (response.status === 200) {
-                        // Redirecionar para a página de login
-                        window.location.href = '/events';
-                    }
-                }).catch(error => {
-                    // Tratar erros
-                    console.error('Erro:', error);
-                });
+                Inertia.post('events', data);
             }
         }
     }

@@ -19,4 +19,3 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('registrar', [AuthController::class, 'register']);
 
-Route::post('criar-evento', [EventosController::class, 'create'])->middleware('auth');

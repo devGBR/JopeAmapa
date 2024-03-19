@@ -18,8 +18,6 @@ class HomeController extends Controller
             $islogger = true;
             $user =  User::find($id);
             $verse_day = $this->verseDay();
-            
-
             return Inertia::render('HomeAuth', ['user' => $user, 'logger' => $islogger, 'verse_day' => $verse_day ]);
         } else {
             $islogger = false;

@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('numero');
             $table->timestamp('username_verified_at')->nullable();
             $table->string('password');
+            $table->string('token_api')->unique()->index();
             $table->rememberToken();
             $table->timestamps();
         });

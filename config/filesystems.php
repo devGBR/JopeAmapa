@@ -38,7 +38,7 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
+            'root' => public_path(), // Altere esta linha para apontar diretamente para a pasta 'public'
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
             'throw' => false,
@@ -70,8 +70,7 @@ return [
     */
 
     'links' => [
-        public_path('storage') => storage_path('app/public'),
-        public_path('images') => storage_path('app/public/eventos'),
+        public_path('storage') => storage_path('app/public')
     ],
 
 ];

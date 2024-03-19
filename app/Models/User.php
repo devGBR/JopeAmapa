@@ -26,6 +26,7 @@ class User extends Authenticatable
         'endereco',
         'bairro',
         'numero',
+        'token_api',
         'password',
     ];
 
