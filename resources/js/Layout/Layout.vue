@@ -47,12 +47,12 @@
                         </template>
 
                         <v-list density="compact" nav>
-                            <v-list-item prepend-icon="mdi-music" title="Instrumental" value="ministerio"></v-list-item>
-                            <v-list-item prepend-icon="mdi-microphone-variant" title="Louvor" value="ministerio"></v-list-item>
-                            <v-list-item prepend-icon="mdi-human-female-dance" title="Dança" value="ministerio"></v-list-item>
-                            <v-list-item prepend-icon="mdi-drama-masks" title="Teatro" value="ministerio"></v-list-item>
-                            <v-list-item prepend-icon="mdi-puzzle" title="Dinamica" value="ministerio"></v-list-item>
-                            <v-list-item prepend-icon="mdi-camera-iris" title="Midia - Audiovisual" value="ministerio"></v-list-item>
+                            <v-list-item v-if="$page.props.cargos.includes('instrumental') || $page.props.cargos.includes('lider')" prepend-icon="mdi-music" title="Instrumental" value="ministerio"></v-list-item>
+                            <v-list-item v-if="$page.props.cargos.includes('louvor') || $page.props.cargos.includes('lider')" prepend-icon="mdi-microphone-variant" title="Louvor" value="ministerio"></v-list-item>
+                            <v-list-item v-if="$page.props.cargos.includes('dança') || $page.props.cargos.includes('lider')" prepend-icon="mdi-human-female-dance" title="Dança" value="ministerio"></v-list-item>
+                            <v-list-item v-if="$page.props.cargos.includes('teatro') || $page.props.cargos.includes('lider')" prepend-icon="mdi-drama-masks" title="Teatro" value="ministerio"></v-list-item>
+                            <v-list-item v-if="$page.props.cargos.includes('dinamica') || $page.props.cargos.includes('lider')" prepend-icon="mdi-puzzle" title="Dinamica" value="ministerio"></v-list-item>
+                            <v-list-item v-if="$page.props.cargos.includes('mídia') || $page.props.cargos.includes('lider')" prepend-icon="mdi-camera-iris" title="Midia - Audiovisual" value="ministerio"></v-list-item>
                         </v-list>
                     </v-menu>
                 </v-list>

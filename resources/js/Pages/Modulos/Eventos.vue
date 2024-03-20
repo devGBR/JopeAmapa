@@ -12,11 +12,14 @@
                         <v-text-field v-model="search" clearable density="comfortable" hide-details
                             placeholder="Pequisar" prepend-inner-icon="mdi-magnify" style="max-width: 300px;"
                             variant="solo"></v-text-field>
-                        <v-btn color="green" class="ml-auto" v-if="model === 'ver'" prepend-icon="mdi-plus"
-                            @click=" model = 'criar'" variant="outlined">Criar
-                            Evento</v-btn>
-                        <v-btn color="green" class="ml-auto" v-else prepend-icon="mdi-arrow-left"
-                            @click=" model = 'ver'" variant="outlined">Voltar</v-btn>
+                        <div class="ml-auto" v-if="$page.props.cargos.includes('mídia') || $page.props.cargos.includes('lider')">
+                            <v-btn color="green" class="ml-auto" v-if="model === 'ver'" prepend-icon="mdi-plus"
+                                @click=" model = 'criar'" variant="outlined">Criar
+                                Evento</v-btn>
+                            <v-btn color="green" class="ml-auto" v-else prepend-icon="mdi-arrow-left"
+                                @click=" model = 'ver'" variant="outlined">Voltar</v-btn>
+                        </div>
+
                     </v-toolbar>
 
                 </div>
@@ -182,7 +185,7 @@ export default {
                         setTimeout(() => {
                             location.reload()
                         }, 2000)
-                       
+
                     } else if (response.status === 500) {
                         this.title = "Error Delete"
                         this.mensagem = "Erro ao tentar deletar o evento!"

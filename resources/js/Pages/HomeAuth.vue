@@ -127,6 +127,7 @@
                                                                             cargo === 'dança' ? 'orange' :
                                                                             cargo === 'teatro' ? 'yellow' :
                                                                             cargo === 'dinamica' ? 'gray' :
+                                                                            cargo === 'lider' ? 'black' :
                                                                             null">
                                                             <v-icon :icon="cargo === 'joper' ? 'mdi-alien' : 
                                                                             cargo === 'mídia' ? 'mdi-camera-iris': 
@@ -134,7 +135,8 @@
                                                                             cargo === 'louvor' ? 'mdi-microphone-variant':
                                                                             cargo === 'dança' ? 'mdi-human-female-dance' :
                                                                             cargo === 'teatro' ? 'mdi-drama-masks' :
-                                                                            cargo === 'dinamica' ? 'mdi-puzzle' :
+                                                                            cargo === 'dinamica' ? 'mdi-puzzle' : 
+                                                                            cargo === 'lider' ? 'mdi-brain' :
                                                                             null"></v-icon>
                                                             <v-tooltip
                                                                 activator="parent"

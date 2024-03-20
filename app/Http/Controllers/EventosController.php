@@ -20,7 +20,8 @@ class EventosController extends Controller
         $id = Auth::id();
         $user =  User::find($id);
         $event = EventosResource::collection(Eventos::orderBy('data', 'asc')->get());
-        return Inertia::render('Modulos/Eventos', ['user' => $user,  'logger' => $islogger, 'events' => $event]);
+        $cargos = explode("|",$user->cargo);
+        return Inertia::render('Modulos/Eventos', ['user' => $user,  'logger' => $islogger, 'events' => $event, "cargos" => $cargos]);
     }
 
     public function create(Request $request)
@@ -29,7 +30,7 @@ class EventosController extends Controller
             $id = Auth::id();
             $user = User::find($id);
             $cargos = explode("|", $user->cargo);
-            if (count($cargos) > 1 && in_array("Lider", $cargos) || in_array("Midia", $cargos)) {
+            if (count($cargos) > 1 && in_array("lider", $cargos) || in_array("mídia", $cargos)) {
                 foreach ($request->file('banner') as $file) {
                     $file->storeAs('storage/eventos', $file->getClientOriginalName(), 'public');
                     $file = '/storage/eventos/' . $file->getClientOriginalName();
