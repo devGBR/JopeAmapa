@@ -19,3 +19,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('registrar', [AuthController::class, 'register']);
 
+Route::delete('deletar-event', [EventosController::class, 'delete']);

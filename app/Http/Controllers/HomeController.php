@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Eventos;
 use App\Models\User;
 use App\Models\VerseDay;
 use GuzzleHttp\Client;
@@ -18,10 +19,12 @@ class HomeController extends Controller
             $islogger = true;
             $user =  User::find($id);
             $verse_day = $this->verseDay();
-            return Inertia::render('HomeAuth', ['user' => $user, 'logger' => $islogger, 'verse_day' => $verse_day ]);
+            $event = Eventos::where('data' ,'>=' , date("Y-m-d") )->orderBy('data', 'asc')->first(); 
+            return Inertia::render('HomeAuth', ['user' => $user, 'logger' => $islogger, 'verse_day' => $verse_day,  'event' => $event]);
         } else {
             $islogger = false;
-            return Inertia::render('Home', ['logger' => $islogger]);
+            $event = Eventos::orderBy('data', 'asc')->get();    
+            return Inertia::render('Home', ['logger' => $islogger, 'events' => $event]);
         }
     }
     

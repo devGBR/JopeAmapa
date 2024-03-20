@@ -61,7 +61,7 @@
 
 
             <section id="eventos" class="w-100 my-8 carousel"
-                :style="larguraHome >= 1024 ? 'min-height: 40vw;' : 'min-height: 500px;'"
+                :style="larguraHome >= 1024 ? 'min-height: 42vw;' : 'min-height: 500px;'"
                 style="box-sizing: border-box; ">
                 <div style="color: #3e6d0687; font-family: 'Angkor', sans-serif;"
                     class="text-center text-h4  my-5">
@@ -75,19 +75,19 @@
                         prepend-inner-icon="mdi-magnify" style="max-width: 300px;" variant="solo"></v-text-field>
                 </v-toolbar>
                 <div color="transparent" class="overflow-y-auto"
-                    :style="mobile === true ? 'height: 360px' : 'height: 500px;'">
-                    <v-data-iterator :items="games" style="z-index: 2;" :items-per-page="3" :search="search">
+                    :style="mobile === true ? 'height: 360px' : 'height: 540px;'">
+                    <v-data-iterator :items="$page.props.events" style="z-index: 2;" :items-per-page="3" :search="search">
 
                         <template v-slot:default="{ items }">
                             <v-container class="pa-2" fluid>
                                 <v-row dense>
-                                    <v-col v-for="item in items" :key="item.title" cols="auto" md="4">
-                                        <v-card class="pb-3" color="#3e6d0687" border flat>
-                                            <v-img :src="item.raw.img"></v-img>
+                                    <v-col v-for="item in items" :key="item.id" cols="auto" md="4">
+                                        <v-card class="pb-3" height="370" color="#3e6d0687" border flat>
+                                            <v-img  cover aspect-ratio="4/3" max-height="250" :src="item.raw.banner"></v-img>
 
-                                            <v-list-item class="mb-2" :subtitle="item.raw.subtitle">
+                                            <v-list-item class="mb-2" :subtitle="item.raw.descricao">
                                                 <template v-slot:title>
-                                                    <strong class="text-h6 mb-2">{{ item.raw.title }}</strong>
+                                                    <strong class="text-h6 mb-2">{{ item.raw.evento }}</strong>
                                                 </template>
                                             </v-list-item>
 
@@ -95,7 +95,7 @@
                                                 <div class="d-flex align-center  text-medium-emphasis me-1">
                                                     <v-icon icon="mdi-clock" start></v-icon>
 
-                                                    <div class="text-truncate">{{ item.raw.duration }}</div>
+                                                    <div class="text-truncate">{{ item.raw.horario }}</div>
                                                 </div>
 
                                                 <v-dialog transition="dialog-bottom-transition" width="auto">
@@ -106,24 +106,25 @@
 
                                                     </template>
                                                     <template v-slot:default="{ isActive }">
-                                                        <v-card>
-                                                            <v-toolbar color="#284703" title="Evento"></v-toolbar>
-                                                            <v-img container height="" :src="item.raw.img"></v-img>
+                                                        <v-card rounded="3" style="max-width: 447px !important;">
+                                                            <v-app-bar  color="#284703" title="Evento" style="position: fixed; top: 0; border-radius: 2px;"></v-app-bar>
+                                                            <!-- <v-toolbar  style="" ></v-toolbar> -->
+                                                            <v-img cover :src="item.raw.banner"></v-img>
 
                                                             <v-card-text>
-                                                                <v-card-title>{{ item.raw.title }}</v-card-title>
+                                                                <v-card-title>{{ item.raw.evento }}</v-card-title>
                                                                 <v-card-subtitile style="font-weight: bold;">Descrição:
-                                                                </v-card-subtitile>
-                                                                {{ item.raw.subtitle }}
+                                                                </v-card-subtitile >
+                                                                {{ item.raw.descricao }}
                                                                 <br />
                                                                 <v-card-subtitile class="mt-7 d-flex align-baseline "
                                                                     style="font-weight: bold;">Horário: &nbsp<p
-                                                                        class="mt-1" style="font-weight: 500;"> 18:30
+                                                                        class="mt-1" style="font-weight: 500;"> {{ item.raw.horario }}
                                                                     </p> </v-card-subtitile>
                                                                 <v-card-subtitile class="mt-7 d-flex align-baseline "
                                                                     style="font-weight: bold;">Data: &nbsp<p
                                                                         class="mt-1" style="font-weight: 500;">
-                                                                        25/02/2024</p> </v-card-subtitile>
+                                                                        {{ formatData(item.raw.data) }}</p> </v-card-subtitile>
 
                                                             </v-card-text>
 
@@ -300,64 +301,6 @@ export default {
             logo: '/img/Icon.png',
             mobile: false,
             search: '',
-            games: [
-                {
-                    img: 'https://cdn.vuetifyjs.com/docs/images/graphics/games/4.png',
-                    title: 'The Sci-Fi Shooter Experience',
-                    subtitle: 'Dive into a futuristic world of intense battles and alien encounters.',
-                    advanced: false,
-                    duration: '8 minutes',
-                },
-                {
-                    img: 'https://cdn.vuetifyjs.com/docs/images/graphics/games/2.png',
-                    title: 'Epic Adventures in Open Worlds',
-                    subtitle: 'Embark on a journey through vast, immersive landscapes and quests.',
-                    advanced: true,
-                    duration: '10 minutes',
-                },
-                {
-                    img: 'https://cdn.vuetifyjs.com/docs/images/graphics/games/3.png',
-                    title: 'Surviving the Space Station Horror',
-                    subtitle: 'Navigate a haunted space station in this chilling survival horror game.',
-                    advanced: false,
-                    duration: '9 minutes',
-                },
-                {
-                    img: 'https://cdn.vuetifyjs.com/docs/images/graphics/games/5.png',
-                    title: 'Neon-Lit High-Speed Racing Thrills',
-                    subtitle: 'Experience adrenaline-pumping races in a futuristic, neon-soaked city.',
-                    advanced: true,
-                    duration: '12 minutes',
-                },
-                {
-                    img: 'https://cdn.vuetifyjs.com/docs/images/graphics/games/6.png',
-                    title: 'Retro-Style Platformer Adventures',
-                    subtitle: 'Jump and dash through pixelated worlds in this classic-style platformer.',
-                    advanced: false,
-                    duration: '11 minutes',
-                },
-                {
-                    img: 'https://cdn.vuetifyjs.com/docs/images/graphics/games/7.png',
-                    title: 'Medieval Strategic War Campaigns',
-                    subtitle: 'Lead armies into epic battles and conquer kingdoms in this strategic game.',
-                    advanced: true,
-                    duration: '10 minutes',
-                },
-                {
-                    img: 'https://cdn.vuetifyjs.com/docs/images/graphics/games/1.png',
-                    title: 'Underwater VR Exploration Adventure',
-                    subtitle: 'Dive deep into the ocean and discover the mysteries of the underwater world.',
-                    advanced: true,
-                    duration: '11 minutes',
-                },
-                {
-                    img: 'https://cdn.vuetifyjs.com/docs/images/graphics/games/8.png',
-                    title: '1920s Mystery Detective Chronicles',
-                    subtitle: 'Solve crimes and uncover secrets in the glamourous 1920s era.',
-                    advanced: false,
-                    duration: '9 minutes',
-                },
-            ],
         }
     },
     mounted() {
@@ -400,6 +343,9 @@ export default {
                 this.Bar = 'transparent'; // Defina a cor inicial quando o scroll for igual a 0
                 this.logo = '/img/Icon.png'
             }
+        },
+        formatData(data) {
+            return data.split('-').reverse().join('/')
         }
     },
     beforeDestroy() {

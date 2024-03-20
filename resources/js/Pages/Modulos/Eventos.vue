@@ -1,5 +1,10 @@
 <template>
     <Layout :colorBar="Bar" :movel="mobile" :elevacao="5" :class="!mobile ? 'mt-16' : ''" :Logo="logo">
+        <span :class="toast" style="">
+            <v-alert closable :title="title" class="w-100 h-100 text-white bg-white" :type="type">
+                <v-alert-text class="text-black">{{ mensagem }}</v-alert-text>
+            </v-alert>
+        </span>
         <section class="">
             <div class="px-16 my-5">
                 <div class="d-flex">
@@ -17,22 +22,23 @@
                 </div>
                 <v-window v-model="model">
                     <v-window-item value="ver">
-                        <v-card class="mx-auto w-100 text-white pa-5 pr-0 " color="#3e6d0687">
+                        <v-card class="mx-auto w-100 text-white pa-5 pr-0  my-3"
+                            v-for="event in $page.props.events.data" :key="event.index" color="#3e6d0687">
                             <div class="d-flex">
-                                <v-img height="180px" class="w-25 rounded"
-                                    src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" cover></v-img>
+                                <v-img height="180px" class="w-25 rounded" :src="event.banner" cover></v-img>
 
                                 <v-card-title class="w-75 py-5 px-8 d-flex flex-column flex-wrap justify-space-between">
                                     <div class="w-100 d-flex">
                                         <div class="w-75">
-                                            Top western road trips
+                                            {{ event.evento }}
                                             <v-card-subtitle>
-                                                1,000 miles of wonder
+
                                             </v-card-subtitle>
                                         </div>
                                         <div class="w-25 text-end">
 
-                                            <v-btn prepend-icon="mdi-delete" class="" color="red">
+                                            <v-btn prepend-icon="mdi-delete" class="" @click="deleteEvent(event.id)"
+                                                color="red">
                                                 Excluir
                                             </v-btn>
                                         </div>
@@ -43,14 +49,21 @@
                                     <div class="d-flex">
                                         <div class="d-flex align-center w-50   me-1 justify-space-between"
                                             style="padding: 0px 190px 0px 0px;">
-                                            <div class="d-flex align-center">
-                                                <v-icon icon="mdi-clock" start></v-icon>
+                                            <div class="d-flex flex-column">
 
-                                                <div class="text-truncate">Horario</div>
+
+                                                <div class="text-truncate"><v-icon icon="mdi-clock"
+                                                        start></v-icon>Horario</div>
+                                                <div class="pl-10">
+                                                    <p>{{ event.horario }}</p>
+                                                </div>
                                             </div>
-                                            <div class="d-flex align-center">
-                                                <v-icon icon="mdi-calendar-multiselect" start></v-icon>
-                                                <div class="text-truncate">Data</div>
+                                            <div class="d-flex flex-column mx-10">
+                                                <div class="text-truncate"><v-icon icon="mdi-calendar-multiselect"
+                                                        start></v-icon>Data</div>
+                                                <div class="pl-10">
+                                                    <p>{{ formatData(event.data) }}</p>
+                                                </div>
                                             </div>
                                         </div>
                                         <v-card-actions class="w-50 text-end" style="position: relative;">
@@ -69,13 +82,7 @@
                                     <v-divider></v-divider>
 
                                     <v-card-text>
-                                        I'm a thing. But, like most politicians, he promised more than he could deliver.
-                                        You
-                                        won't have time for sleeping, soldier, not with all the bed making you'll be
-                                        doing. Then
-                                        we'll go with that data file! Hey, you add a one and two zeros to that or we
-                                        walk!
-                                        You're going to do his laundry? I've got to find a way to escape.
+                                        {{ event.descricao }}
                                     </v-card-text>
                                 </div>
                             </v-expand-transition>
@@ -128,6 +135,10 @@ export default {
             model: "ver",
             nome: null,
             data: null,
+            toast: 'notError',
+            mensagem: null,
+            title: null,
+            type: null,
             horario: null,
             descricao: null,
             banner: null,
@@ -151,12 +162,79 @@ export default {
                     descricao: this.descricao,
                     banner: this.banner,
                 }
-                Inertia.post('events', data);
+                Inertia.post('events', data)
             }
+        },
+        deleteEvent(id) {
+            axios.delete('/api/deletar-event', {
+                data: {
+                    token: this.$page.props.user.token_api,
+                    id: id
+                }
+            }).then(
+                response => {
+                    if (response.status === 200) {
+                        // Redirecionar para a página de login
+                        this.title = "Deletado"
+                        this.mensagem = "Evento deletado com sucesso"
+                        this.type = "success"
+                        this.toast = "cardtoast"
+                        setTimeout(() => {
+                            location.reload()
+                        }, 2000)
+                       
+                    } else if (response.status === 500) {
+                        this.title = "Error Delete"
+                        this.mensagem = "Erro ao tentar deletar o evento!"
+                        this.type = "error"
+                        this.toast = 'cardtoast';
+                    }
+                })
+                .catch(error => {
+                    this.title = "Error Delete"
+                    this.mensagem = 'Ops tivemos um erro';
+                    this.type = "error"
+                    this.toast = 'cardtoast';
+                });
+        },
+        formatData(data) {
+            return data.split('-').reverse().join('/')
         }
     }
 }
 
 </script>
 
-<style scoped></style>
+<style scoped>
+.notError {
+    display: none;
+}
+
+.cardtoast {
+    position: fixed;
+    z-index: 9;
+    width: 350px;
+    right: -800px;
+    animation: toast 8s ease-in;
+}
+
+@keyframes toast {
+    10% {
+        opacity: 0.5;
+        right: 0px;
+    }
+
+    11% {
+        opacity: 1;
+    }
+
+    99% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 0;
+        right: 0;
+    }
+}
+</style>

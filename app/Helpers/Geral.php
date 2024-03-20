@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
+use Vinkla\Hashids\Facades\Hashids;
 
 function ValidToken($token){
     $dados = explode(":",base64_decode($token));
@@ -13,4 +14,11 @@ function ValidToken($token){
     }else{
         return false;
     }
+}
+
+function HashIdsEncode($id){
+    return Hashids::encode($id);
+}
+function HashIdsDecode($hash){
+    return (string) Hashids::decode($hash)[0];
 }
