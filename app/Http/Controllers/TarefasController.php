@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
+use App\Models\Jopers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,32 +11,43 @@ use Inertia\Inertia;
 
 class TarefasController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $islogger = true;
         $id = Auth::id();
         $user =  User::find($id);
-        $users = 
-        $cargos = explode("|",$user->cargo);
+        $dados = Jopers::where('user_id', $id)->first();
+        $lider = explode("|", $dados->lider_ministerio);
+        $cargos = explode("|", $user->cargo);
+        if (!empty($lider)) {
+            $users = UserResource::collection(User::where(function ($query) use ($lider) {
+                foreach ($lider as $cargo) {
+                    $query->orWhere('cargo', 'like', '%' . $cargo . '%');
+                }
+            })->where('username', '<>', $user->username)->get());
+            return Inertia::render('Modulos/Tarefas', ['user' => $user, 'users' => $users, 'logger' => $islogger, "cargos" => $cargos]);
+        }
+
         return Inertia::render('Modulos/Tarefas', ['user' => $user,  'logger' => $islogger, "cargos" => $cargos]);
     }
-    
-    public function create(Request $request){
-    
+
+    public function create(Request $request)
+    {
     }
-    
-    public function store(Request $request){
-    
+
+    public function store(Request $request)
+    {
     }
-    
-    public function show(Request $request){
-    
+
+    public function show(Request $request)
+    {
     }
-    
-    public function update(Request $request){
-    
+
+    public function update(Request $request)
+    {
     }
-    
-    public function delete(Request $request){
-    
+
+    public function delete(Request $request)
+    {
     }
 }
