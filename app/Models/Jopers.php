@@ -11,6 +11,7 @@ class Jopers extends Model
 
    protected $fillable = [
     'user_id',
+    'lider_ministerio',
     'convertido',
     'ministerio',
     'batizado',

@@ -13,15 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('jopers', function (Blueprint $table) {
+        Schema::create('tarefas', function (Blueprint $table) {
             $table->id();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->string("tarefa");
+            $table->string("descricao");
             $table->unsignedBigInteger('user_id');
-            $table->string('lider_ministerio')->nullable();
-            $table->string('convertido');
-            $table->string('ministerio');
-            $table->boolean('batizado');
-            $table->string('celula')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->string("ministerio");
+            $table->date("vencimento");
+            $table->string("status");
+            $table->string("ids_equipe");
             $table->timestamps();
         });
     }
@@ -33,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jopers');
+        Schema::dropIfExists('tarefas');
     }
 };

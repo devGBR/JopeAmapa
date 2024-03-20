@@ -41,8 +41,8 @@
                                       dark v-bind="props">
                                 </v-list-item>
                                 <v-list-item prepend-icon="mdi-calendar-multiple" href="/events" title="Eventos" value="ministerio"></v-list-item>
-                                <v-list-item prepend-icon="mdi-format-list-checkbox" title="Tarefas" value="about"></v-list-item>
-                                <v-list-item prepend-icon="mdi-monitor-dashboard" title="Dashboard" value="about"></v-list-item>
+                                <v-list-item prepend-icon="mdi-format-list-checkbox" href="/tarefas" title="Tarefas" value="tarefas"></v-list-item>
+                                <v-list-item prepend-icon="mdi-monitor-dashboard" title="Dashboard" value="dashboard"></v-list-item>
                             </v-list>
                         </template>
 

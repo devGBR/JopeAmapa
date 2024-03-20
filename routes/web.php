@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventosController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TarefasController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -31,6 +32,8 @@ Route::get('/sair', [AuthController::class, 'logout'])->name('sair');
 
 Route::get('/events', [EventosController::class, 'index'])->middleware('auth')->name('eventos');
 Route::post('/events', [EventosController::class, 'create']);
+
+Route::get('/tarefas', [TarefasController::class, 'index'])->middleware('auth')->name('tarefas');
 
 Route::get('/register', function () {
     return Inertia::render('Auth/Register');
