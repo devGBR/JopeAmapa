@@ -9,9 +9,9 @@
             <div class="px-16 my-5">
                 <div class="d-flex">
                     <v-toolbar class="px-2 d-flex text-end" color="transparent" style="z-index: 5;">
-                        <v-text-field v-model="search" clearable density="comfortable" hide-details
+                        <!-- <v-text-field v-model="search" clearable density="comfortable" hide-details
                             placeholder="Pequisar" prepend-inner-icon="mdi-magnify" style="max-width: 300px;"
-                            variant="solo"></v-text-field>
+                            variant="solo"></v-text-field> -->
                         <div class="ml-auto"
                             v-if="$page.props.cargos.includes('mídia') || $page.props.cargos.includes('lider')">
                             <v-btn color="green" class="ml-auto" v-if="model === 'ver'" prepend-icon="mdi-plus"
@@ -35,11 +35,18 @@
                             <form @submit.prevent="createEvent">
                                 <v-text-field label="Tarefa" v-model="nome" color="#3e6d0687"
                                     variant="outlined"></v-text-field>
-                                <v-text-field label="Data de vencimento" v-model="vencimento" color="#3e6d0687" type="date"
-                                    variant="outlined"> </v-text-field>
-                                <v-select label="Responsável" v-model="responsavel" color="#3e6d0687" variant="outlined"></v-select>
-                                <v-select label="Ajudantes" multiple v-model="ids_equipe" color="#3e6d0687" variant="outlined"></v-select>
-                                <v-select label="Status" variant="outlined" :items="['Pendente', 'Completa', 'Em andamento']"></v-select>
+                                <v-text-field label="Data de vencimento" v-model="vencimento" color="#3e6d0687"
+                                    type="date" variant="outlined"> </v-text-field>
+                                <v-select label="Responsável" v-model="responsavel" :items="users" item-title="nome" item-value="id" color="#3e6d0687"
+                                    variant="outlined"></v-select>
+                                <v-select label="Ajudantes" multiple v-model="ids_equipe" item-value="id" :items="users"
+                                    item-title="nome" color="#3e6d0687" variant="outlined">
+                                    <template v-slot:item="{ props, item }">
+                                        <v-list-item v-bind="props" :subtitle="item.raw.cargo"></v-list-item>
+                                    </template>
+                                </v-select>
+                                <v-select label="Status" variant="outlined"
+                                    :items="['Pendente', 'Completa', 'Em andamento']"></v-select>
                                 <v-textarea label="Descrição da tarefa" v-model="descricao" color="#3e6d0687"
                                     variant="outlined"></v-textarea>
 
@@ -78,8 +85,9 @@ export default {
             mensagem: null,
             title: null,
             type: null,
+            users: [],
 
-// Form 
+            // Form 
             nome: null,
             vencimento: null,
             responsavel: null,
@@ -87,7 +95,17 @@ export default {
             ids_equipe: null,
         }
     },
+    watch: {
+        responsavel(){
+            console.log(this.responsavel);
+        },
+        ids_equipe(){
+            console.log(this.ids_equipe);
+        }
+    },
     mounted() {
+        this.users = this.$page.props.users.data
+        console.log(this.$page.props.users.data)
         this.larguraHome = window.innerWidth;
         if (this.larguraHome < 501) {
             this.Bar = '#284703';

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\UserResource;
+use App\Http\Resources\TaskUsersResource;
 use App\Models\Jopers;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,11 +20,11 @@ class TarefasController extends Controller
         $lider = explode("|", $dados->lider_ministerio);
         $cargos = explode("|", $user->cargo);
         if (!empty($lider)) {
-            $users = UserResource::collection(User::where(function ($query) use ($lider) {
+            $users = TaskUsersResource::collection(User::where(function ($query) use ($lider) {
                 foreach ($lider as $cargo) {
                     $query->orWhere('cargo', 'like', '%' . $cargo . '%');
                 }
-            })->where('username', '<>', $user->username)->get());
+            })->get());
             return Inertia::render('Modulos/Tarefas', ['user' => $user, 'users' => $users, 'logger' => $islogger, "cargos" => $cargos]);
         }
 
