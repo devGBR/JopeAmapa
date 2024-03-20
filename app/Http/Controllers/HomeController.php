@@ -19,8 +19,9 @@ class HomeController extends Controller
             $islogger = true;
             $user =  User::find($id);
             $verse_day = $this->verseDay();
-            $event = Eventos::where('data' ,'>=' , date("Y-m-d") )->orderBy('data', 'asc')->first(); 
-            return Inertia::render('HomeAuth', ['user' => $user, 'logger' => $islogger, 'verse_day' => $verse_day,  'event' => $event]);
+            $event = Eventos::where('data' ,'>=' , date("Y-m-d") )->orderBy('data', 'asc')->first();
+            $cargos = explode("|",$user->cargo);
+            return Inertia::render('HomeAuth', ['user' => $user, 'logger' => $islogger, 'verse_day' => $verse_day,  'event' => $event,"cargos" => $cargos]);
         } else {
             $islogger = false;
             $event = Eventos::orderBy('data', 'asc')->get();    

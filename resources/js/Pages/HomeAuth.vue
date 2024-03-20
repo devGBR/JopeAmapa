@@ -118,10 +118,29 @@
                                             <v-col cols="12" md="6">
                                                 <v-card-title>
                                                     Insígnias
-                                                    <p class="text-uppercase  text-white"
+                                                    <p class="text-white text-center"
                                                         style="font-weight: 800 !important;">
-                                                        <v-chip prepend-icon="mdi-alien" color="green">
-                                                            {{ $page.props.user.cargo }}
+                                                        <v-chip v-for="cargo in $page.props.cargos"  :color="cargo === 'joper' ? 'green' : 
+                                                                            cargo === 'mídia' ? 'blue': 
+                                                                            cargo === 'instrumental' ? 'red': 
+                                                                            cargo === 'louvor' ? 'aqua':
+                                                                            cargo === 'dança' ? 'orange' :
+                                                                            cargo === 'teatro' ? 'yellow' :
+                                                                            cargo === 'dinamica' ? 'gray' :
+                                                                            null">
+                                                            <v-icon :icon="cargo === 'joper' ? 'mdi-alien' : 
+                                                                            cargo === 'mídia' ? 'mdi-camera-iris': 
+                                                                            cargo === 'instrumental' ? 'mdi-music': 
+                                                                            cargo === 'louvor' ? 'mdi-microphone-variant':
+                                                                            cargo === 'dança' ? 'mdi-human-female-dance' :
+                                                                            cargo === 'teatro' ? 'mdi-drama-masks' :
+                                                                            cargo === 'dinamica' ? 'mdi-puzzle' :
+                                                                            null"></v-icon>
+                                                            <v-tooltip
+                                                                activator="parent"
+                                                                location="top"
+                                                                class="text-uppercase"
+                                                            >{{ cargo }}</v-tooltip>            
                                                         </v-chip>
                                                     </p>
                                                 </v-card-title>

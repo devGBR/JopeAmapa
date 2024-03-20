@@ -15,12 +15,8 @@
 
                         <div class="d-flex align-center px-auto"
                             style="width: 130px; height: 50px; border-radius: 8px; background-color: white;">
-                            <span class="px-2 text-black mx-1" style="font-size: 20px; font-weight: 600;">{{
+                            <span class="px-2 text-black mx-auto" style="font-size: 20px; font-weight: 600;">{{
                 username }}</span>
-                            <v-avatar>
-                                <v-img src="/img/IconBranca.png" class="mx-3" color="green" size="x-large"
-                                    alt="John"></v-img>
-                            </v-avatar>
                         </div>
                     </div>
                     <div v-else>
