@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventosController;
+use App\Http\Controllers\TarefasController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,5 @@ use Illuminate\Support\Facades\Route;
 Route::post('registrar', [AuthController::class, 'register']);
 
 Route::delete('deletar-event', [EventosController::class, 'delete']);
+
+Route::post('/task-create', [TarefasController::class, 'store']);

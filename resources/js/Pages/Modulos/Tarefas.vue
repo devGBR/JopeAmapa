@@ -33,20 +33,22 @@
                         <v-card class="w-100 h-100 pa-8 my-5">
                             <v-card-title class="my-1 text-h4 mb-3">Nova Tarefa</v-card-title>
                             <form @submit.prevent="createEvent">
-                                <v-text-field label="Tarefa" v-model="nome" color="#3e6d0687"
+                                <v-text-field label="Tarefa" v-model="tarefa" color="#3e6d0687"
                                     variant="outlined"></v-text-field>
                                 <v-text-field label="Data de vencimento" v-model="vencimento" color="#3e6d0687"
                                     type="date" variant="outlined"> </v-text-field>
-                                <v-select label="Responsável" v-model="responsavel" :items="users" item-title="nome" item-value="id" color="#3e6d0687"
-                                    variant="outlined"></v-select>
+                                <v-select label="Departamento" variant="outlined" v-model="ministerio"
+                                    :items="departamentos"></v-select>
+                                <v-select label="Responsável" v-model="responsavel" :items="users" item-title="nome"
+                                    item-value="id" color="#3e6d0687" variant="outlined"></v-select>
                                 <v-select label="Ajudantes" multiple v-model="ids_equipe" item-value="id" :items="users"
                                     item-title="nome" color="#3e6d0687" variant="outlined">
                                     <template v-slot:item="{ props, item }">
                                         <v-list-item v-bind="props" :subtitle="item.raw.cargo"></v-list-item>
                                     </template>
                                 </v-select>
-                                <v-select label="Status" variant="outlined"
-                                    :items="['Pendente', 'Completa', 'Em andamento']"></v-select>
+                                <v-select label="Status" variant="outlined" v-model="status"
+                                    :items="['Pendente', 'Em andamento']"></v-select>
                                 <v-textarea label="Descrição da tarefa" v-model="descricao" color="#3e6d0687"
                                     variant="outlined"></v-textarea>
 
@@ -82,30 +84,48 @@ export default {
             show: false,
             model: "ver",
             toast: 'notError',
+            departamentos: [],
             mensagem: null,
             title: null,
             type: null,
             users: [],
 
             // Form 
-            nome: null,
+            tarefa: null,
             vencimento: null,
+            ministerio: null,
             responsavel: null,
+            status: null,
             descricao: null,
             ids_equipe: null,
         }
     },
     watch: {
-        responsavel(){
-            console.log(this.responsavel);
+        responsavel() {
+            if (this.ids_equipe !== null) {
+                if (this.ids_equipe.includes(this.responsavel)) {
+                    let index = this.ids_equipe.indexOf(this.responsavel);
+                    console.log(index)
+                    if (index !== -1) {
+                        this.ids_equipe.splice(index, 1);
+                    }
+                }
+            }
+
         },
-        ids_equipe(){
-            console.log(this.ids_equipe);
+        ids_equipe() {
+            if (this.responsavel !== null) {
+                if (this.responsavel.includes(this.ids_equipe)) {
+                    this.responsavel = null
+                }
+            }
+
         }
     },
     mounted() {
         this.users = this.$page.props.users.data
-        console.log(this.$page.props.users.data)
+
+        this.departamentos = this.$page.props.cargos.includes('lider') ? ['instrumental', 'dança', 'louvor', 'teatro', 'dinamica', 'mídia'] : this.$page.props.lideranca
         this.larguraHome = window.innerWidth;
         if (this.larguraHome < 501) {
             this.Bar = '#284703';
@@ -115,18 +135,38 @@ export default {
     },
     methods: {
         createEvent() {
-            if (this.nome !== null || this.data !== null || this.horario !== null || this.descricao !== null || this.banner !== null) {
-                const data = {
-                    nome: this.nome,
-                    data: this.data,
-                    horario: this.horario,
+            if (this.tarefa !== null || this.vencimento !== null || this.responsavel !== null || this.descricao !== null || this.ids_equipe !== null || this.status !== null || this.ministerio !== null) {
+                axios.post('/api/task-create', {
+
+                    token: this.$page.props.user.token_api,
+                    tarefa: this.tarefa,
+                    vencimento: this.vencimento.split('/').reverse().join('-'),
+                    responsavel: this.responsavel,
+                    ids_equipe: this.ids_equipe,
+                    status: this.status,
                     descricao: this.descricao,
-                    banner: this.banner,
-                }
-                Inertia.post('events', data)
+                    ministerio: this.ministerio
+
+                })
+                    .then(
+                        response => {
+                            if (response.status === 200) {
+                                this.title = "Tarefa"
+                                this.mensagem = "Tarefa criada com sucesso"
+                                this.type = "success"
+                                this.toast = "cardtoast"
+                                setTimeout(() => {
+                                    window.location.href = '/tarefas'
+                                }, 2000)
+                            }
+                        }
+                    )
+                    .catch(error => {
+
+                    })
             }
         },
-        deleteEvent(id) {
+        deleteTarefa(id) {
             axios.delete('/api/deletar-event', {
                 data: {
                     token: this.$page.props.user.token_api,

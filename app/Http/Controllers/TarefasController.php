@@ -19,24 +19,45 @@ class TarefasController extends Controller
         $dados = Jopers::where('user_id', $id)->first();
         $lider = explode("|", $dados->lider_ministerio);
         $cargos = explode("|", $user->cargo);
-        if (!empty($lider)) {
+
+        if ($lider[0] != "") {
             $users = TaskUsersResource::collection(User::where(function ($query) use ($lider) {
                 foreach ($lider as $cargo) {
                     $query->orWhere('cargo', 'like', '%' . $cargo . '%');
                 }
             })->get());
-            return Inertia::render('Modulos/Tarefas', ['user' => $user, 'users' => $users, 'logger' => $islogger, "cargos" => $cargos]);
+            return Inertia::render('Modulos/Tarefas', ['user' => $user, 'users' => $users, 'logger' => $islogger, "cargos" => $cargos,  'lideranca' => $lider]);
         }
 
         return Inertia::render('Modulos/Tarefas', ['user' => $user,  'logger' => $islogger, "cargos" => $cargos]);
     }
 
-    public function create(Request $request)
-    {
-    }
-
     public function store(Request $request)
     {
+        try {
+            $login = ValidToken($request->token);
+            if ($login) {
+                $user = User::where('token_api', $request->token)->first();
+                $dados = Jopers::where('user_id', $user->id)->first();
+                $permissao = explode("|", $dados->lider_ministerio);
+                if ($permissao[0] != "" || $permissao != null) {
+                    $create = [
+                        'tarefa' => $request->tarefa,
+                        'descricao' => $request->descricao,
+                        'user_id' => HashIdsDecode($request->responsavel),
+                        'ministerio' => $request->ministerio,
+                        'vencimento' => $request->vencimento,
+                        'status' => $request->status,
+                        'ids_equipe' => $request->ids_equipe
+                    ];
+                    dd($create);
+                }
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                "mensagem" => $e->getMessage()
+            ], 500);
+        }
     }
 
     public function show(Request $request)
