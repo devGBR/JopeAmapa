@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\TaskUsersResource;
 use App\Models\Jopers;
+use App\Models\Tarefas;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +20,12 @@ class TarefasController extends Controller
         $dados = Jopers::where('user_id', $id)->first();
         $lider = explode("|", $dados->lider_ministerio);
         $cargos = explode("|", $user->cargo);
-
+        $my_tarefas = Tarefas::where("user_id", $id)->get();
+        $group_tarefas = Tarefas::where(function ($query) use ($cargos) {
+            foreach ($cargos as $cargo) {
+                $query->orWhere('cargo', 'like', '%' . $cargo . '%');
+            }
+        })->get();
         if ($lider[0] != "") {
             $users = TaskUsersResource::collection(User::where(function ($query) use ($lider) {
                 foreach ($lider as $cargo) {
@@ -50,7 +56,12 @@ class TarefasController extends Controller
                         'status' => $request->status,
                         'ids_equipe' => $request->ids_equipe
                     ];
-                    dd($create);
+                    $task = Tarefas::create($create);
+                    if($task->id){
+                        return response()->json([
+                            "mensagem" => "Tarefa criada com sucesso!"
+                        ], 200);
+                    }
                 }
             }
         } catch (\Exception $e) {
