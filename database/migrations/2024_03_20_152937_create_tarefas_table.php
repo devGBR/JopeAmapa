@@ -23,6 +23,7 @@ return new class extends Migration
             $table->date("vencimento");
             $table->string("status");
             $table->string("ids_equipe");
+            $table->string("equipe");
             $table->timestamps();
         });
     }

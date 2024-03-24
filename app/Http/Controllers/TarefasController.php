@@ -21,18 +21,37 @@ class TarefasController extends Controller
         $lider = explode("|", $dados->lider_ministerio);
         $cargos = explode("|", $user->cargo);
         $my_tarefas = Tarefas::where("user_id", $id)->get();
+        $tasks = [];
+        $usersTasks = [];
+
         $group_tarefas = Tarefas::where(function ($query) use ($cargos) {
             foreach ($cargos as $cargo) {
                 $query->orWhere('ministerio', 'like', '%' . $cargo . '%');
             }
-        })->where('ids_equipe','like', '%' . HashIdsEncode($id) . '%')->get();
+        })->where('ids_equipe', 'like', '%' . HashIdsEncode($id) . '%')->get();
+        if ($group_tarefas) {
+            foreach ($group_tarefas as $task) {
+                if ($task->ids_equipe) {
+                    foreach (explode("|", $task->ids_equipe) as $id) {
+                        $usertask = User::select("username", "nome", "cargo")->where('id', HashIdsDecode($id))->first();
+                        $usersTasks[] = [
+                            "username" => $usertask->username,
+                            "nome" => $usertask->nome,
+                            "cargos" => $usertask->cargo
+                        ];
+                    }
+                    $tasks[$task->id] = $usersTasks;
+                    $usersTasks = [];
+                }
+            }
+        }
         if ($lider[0] != "") {
             $users = TaskUsersResource::collection(User::where(function ($query) use ($lider) {
                 foreach ($lider as $cargo) {
                     $query->orWhere('cargo', 'like', '%' . $cargo . '%');
                 }
             })->get());
-            return Inertia::render('Modulos/Tarefas', ['user' => $user, 'users' => $users, 'logger' => $islogger, "cargos" => $cargos, 'minhastarefas' => $my_tarefas, 'tarefasgrupo' => $group_tarefas, 'lideranca' => $lider]);
+            return Inertia::render('Modulos/Tarefas', ['user' => $user, 'users' => $users, "userstaskgroup" => $tasks, 'logger' => $islogger, "cargos" => $cargos, 'minhastarefas' => $my_tarefas, 'tarefasgrupo' => $group_tarefas, 'lideranca' => $lider]);
         }
 
         return Inertia::render('Modulos/Tarefas', ['user' => $user,  'logger' => $islogger, "cargos" => $cargos]);
@@ -57,7 +76,7 @@ class TarefasController extends Controller
                         'ids_equipe' => implode("|", $request->ids_equipe)
                     ];
                     $task = Tarefas::create($create);
-                    if($task->id){
+                    if ($task->id) {
                         return response()->json([
                             "mensagem" => "Tarefa criada com sucesso!"
                         ], 200);

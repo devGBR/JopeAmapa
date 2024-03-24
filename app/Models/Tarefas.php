@@ -16,6 +16,7 @@ class Tarefas extends Model
         'ministerio',
         'vencimento',
         'status',
-        'ids_equipe'
+        'ids_equipe',
+        'equipe'
     ];
 }

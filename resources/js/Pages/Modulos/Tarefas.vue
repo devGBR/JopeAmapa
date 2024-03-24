@@ -25,9 +25,9 @@
                     <v-window-item value="ver">
                         <section class="px-6 d-flex h-screen flex-column">
                             <div class="h-50 ">
-                                <v-card-title>Tarefas Responsável</v-card-title>
-                                <v-card class="">
-                                    <v-table height="300px" fixed-header>
+                                <v-card-title class="pt-0">Tarefas Responsável</v-card-title>
+                                <v-card class="pa-5 pt-3">
+                                    <v-table height="270px" fixed-header>
                                         <thead>
                                             <tr>
                                                 <th class="text-center">
@@ -52,9 +52,10 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="item in $page.props.minhastarefas" :key="item.name">
-                                                <td class="text-center" >{{ item.tarefa }}</td>
+                                                <td class="text-center">{{ item.tarefa }}</td>
                                                 <td class="text-center">{{ item.ministerio }}</td>
-                                                <td class="text-center">{{ item.vencimento.split('-').reverse().join('/') }}</td>
+                                                <td class="text-center">{{
+        item.vencimento.split('-').reverse().join('/') }}</td>
                                                 <td class="text-center">{{ item.ids_equipe }}</td>
                                                 <td class="text-center">{{ item.status }}</td>
                                                 <td class="text-center">{{ item.descricao }}</td>
@@ -65,8 +66,8 @@
                             </div>
                             <div class="h-50">
                                 <v-card-title>Tarefas Mencionado(a)</v-card-title>
-                                <v-card class="">
-                                    <v-table height="300px" fixed-header>
+                                <v-card class="pa-5 pt-3">
+                                    <v-table height="270px" fixed-header>
                                         <thead>
                                             <tr>
                                                 <th class="text-center">
@@ -79,24 +80,46 @@
                                                     DATA FINAL
                                                 </th>
                                                 <th class="text-center">
-                                                    EQUIPE
+                                                    DESCRIÇÃO
                                                 </th>
                                                 <th class="text-center">
                                                     STATUS
                                                 </th>
                                                 <th class="text-center">
-                                                    DESCRIÇÃO
+                                                    EQUIPE
                                                 </th>
+                                                <th class="text-center">
+                                                    AÇÕES
+                                                </th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr v-for="item in $page.props.tarefasgrupo" :key="item.name">
-                                                <td class="text-center" >{{ item.tarefa }}</td>
+                                                <td class="text-center">{{ item.tarefa }}</td>
                                                 <td class="text-center">{{ item.ministerio }}</td>
-                                                <td class="text-center">{{ item.vencimento.split('-').reverse().join('/') }}</td>
-                                                <td class="text-center">{{ item.ids_equipe }}</td>
+                                                <td class="text-center">{{
+        item.vencimento.split('-').reverse().join('/') }}</td>
+                                                <td class="text-center pa-0">
+                                                    <v-tooltip location="top" :text="item.descricao">
+                                                        <template v-slot:activator="{ props }">
+                                                            <v-icon v-bind="props"
+                                                                icon="mdi-information-variant-circle-outline">
+
+                                                            </v-icon>
+                                                        </template>
+                                                    </v-tooltip>
+
+                                                </td>
                                                 <td class="text-center">{{ item.status }}</td>
-                                                <td class="text-center">{{ item.descricao }}</td>
+
+                                                <td class="text-center pa-0"><v-chip color="green" class="px-2 mx-1"
+                                                        v-for="(user, index) in $page.props.userstaskgroup[item.id]"
+                                                        :key="index">
+                                                        {{ user.username }}
+                                                        <!-- Supondo que 'username' é um atributo dos usuários -->
+                                                    </v-chip></td>
+                                                <td class="text-center"><v-btn icon></v-btn></td>
                                             </tr>
                                         </tbody>
                                     </v-table>
@@ -200,7 +223,7 @@ export default {
     },
     mounted() {
         this.users = this.$page.props.users.data
-        console.log(this.$page.props.minhastarefas)
+        console.log(this.$page.props.minhastarefas, this.$page.props.userstaskgroup)
         this.departamentos = this.$page.props.cargos.includes('lider') ? ['instrumental', 'dança', 'louvor', 'teatro', 'dinamica', 'mídia'] : this.$page.props.lideranca
         this.larguraHome = window.innerWidth;
         if (this.larguraHome < 501) {
