@@ -9,9 +9,6 @@
             <div class="px-16 my-5">
                 <div class="d-flex">
                     <v-toolbar class="px-2 d-flex text-end" color="transparent" style="z-index: 5;">
-                        <!-- <v-text-field v-model="search" clearable density="comfortable" hide-details
-                            placeholder="Pequisar" prepend-inner-icon="mdi-magnify" style="max-width: 300px;"
-                            variant="solo"></v-text-field> -->
                         <div class="ml-auto"
                             v-if="$page.props.cargos.includes('mídia') || $page.props.cargos.includes('lider')">
                             <v-btn color="green" class="ml-auto" v-if="model === 'ver'" prepend-icon="mdi-plus"
@@ -26,7 +23,86 @@
                 </div>
                 <v-window v-model="model">
                     <v-window-item value="ver">
-
+                        <section class="px-6 d-flex h-screen flex-column">
+                            <div class="h-50 ">
+                                <v-card-title>Tarefas Responsável</v-card-title>
+                                <v-card class="">
+                                    <v-table height="300px" fixed-header>
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">
+                                                    TAREFA
+                                                </th>
+                                                <th class="text-center">
+                                                    DEPARTAMENTO
+                                                </th>
+                                                <th class="text-center">
+                                                    DATA FINAL
+                                                </th>
+                                                <th class="text-center">
+                                                    EQUIPE
+                                                </th>
+                                                <th class="text-center">
+                                                    STATUS
+                                                </th>
+                                                <th class="text-center">
+                                                    DESCRIÇÃO
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="item in $page.props.minhastarefas" :key="item.name">
+                                                <td class="text-center" >{{ item.tarefa }}</td>
+                                                <td class="text-center">{{ item.ministerio }}</td>
+                                                <td class="text-center">{{ item.vencimento.split('-').reverse().join('/') }}</td>
+                                                <td class="text-center">{{ item.ids_equipe }}</td>
+                                                <td class="text-center">{{ item.status }}</td>
+                                                <td class="text-center">{{ item.descricao }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </v-table>
+                                </v-card>
+                            </div>
+                            <div class="h-50">
+                                <v-card-title>Tarefas Mencionado(a)</v-card-title>
+                                <v-card class="">
+                                    <v-table height="300px" fixed-header>
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">
+                                                    TAREFA
+                                                </th>
+                                                <th class="text-center">
+                                                    DEPARTAMENTO
+                                                </th>
+                                                <th class="text-center">
+                                                    DATA FINAL
+                                                </th>
+                                                <th class="text-center">
+                                                    EQUIPE
+                                                </th>
+                                                <th class="text-center">
+                                                    STATUS
+                                                </th>
+                                                <th class="text-center">
+                                                    DESCRIÇÃO
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="item in $page.props.tarefasgrupo" :key="item.name">
+                                                <td class="text-center" >{{ item.tarefa }}</td>
+                                                <td class="text-center">{{ item.ministerio }}</td>
+                                                <td class="text-center">{{ item.vencimento.split('-').reverse().join('/') }}</td>
+                                                <td class="text-center">{{ item.ids_equipe }}</td>
+                                                <td class="text-center">{{ item.status }}</td>
+                                                <td class="text-center">{{ item.descricao }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </v-table>
+                                </v-card>
+                            </div>
+                        </section>
                     </v-window-item>
 
                     <v-window-item value="criar">
@@ -124,7 +200,7 @@ export default {
     },
     mounted() {
         this.users = this.$page.props.users.data
-
+        console.log(this.$page.props.minhastarefas)
         this.departamentos = this.$page.props.cargos.includes('lider') ? ['instrumental', 'dança', 'louvor', 'teatro', 'dinamica', 'mídia'] : this.$page.props.lideranca
         this.larguraHome = window.innerWidth;
         if (this.larguraHome < 501) {
