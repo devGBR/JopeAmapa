@@ -23,6 +23,10 @@ class TarefasController extends Controller
         $my_tarefas = Tarefas::where("user_id", $id)->get();
         $tasks = [];
         $usersTasks = [];
+        $usersTasksresp = [];
+        $userstaskresp = [];
+
+        
 
         $group_tarefas = Tarefas::where(function ($query) use ($cargos) {
             foreach ($cargos as $cargo) {
@@ -45,13 +49,29 @@ class TarefasController extends Controller
                 }
             }
         }
+        if ($my_tarefas) {
+            foreach ($my_tarefas as $task) {
+                if ($task->ids_equipe) {
+                    foreach (explode("|", $task->ids_equipe) as $id) {
+                        $usertaskresp = User::select("username", "nome", "cargo")->where('id', HashIdsDecode($id))->first();
+                        $usersTasksresp[] = [
+                            "username" => $usertaskresp->username,
+                            "nome" => $usertaskresp->nome,
+                            "cargos" => $usertaskresp->cargo
+                        ];
+                    }
+                    $userstaskresp[$task->id] = $usersTasksresp;
+                    $usersTasksresp = [];
+                }
+            }
+        }
         if ($lider[0] != "") {
             $users = TaskUsersResource::collection(User::where(function ($query) use ($lider) {
                 foreach ($lider as $cargo) {
                     $query->orWhere('cargo', 'like', '%' . $cargo . '%');
                 }
             })->get());
-            return Inertia::render('Modulos/Tarefas', ['user' => $user, 'users' => $users, "userstaskgroup" => $tasks, 'logger' => $islogger, "cargos" => $cargos, 'minhastarefas' => $my_tarefas, 'tarefasgrupo' => $group_tarefas, 'lideranca' => $lider]);
+            return Inertia::render('Modulos/Tarefas', ['user' => $user, 'users' => $users, "userstaskgroup" => $tasks, 'userstaskresp' => $userstaskresp,'logger' => $islogger, "cargos" => $cargos, 'minhastarefas' => $my_tarefas, 'tarefasgrupo' => $group_tarefas, 'lideranca' => $lider]);
         }
 
         return Inertia::render('Modulos/Tarefas', ['user' => $user,  'logger' => $islogger, "cargos" => $cargos]);

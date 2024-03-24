@@ -40,25 +40,48 @@
                                                     DATA FINAL
                                                 </th>
                                                 <th class="text-center">
-                                                    EQUIPE
+                                                    DESCRIÇÃO
                                                 </th>
                                                 <th class="text-center">
                                                     STATUS
                                                 </th>
                                                 <th class="text-center">
-                                                    DESCRIÇÃO
+                                                    EQUIPE
+                                                </th>
+                                                <th class="text-center">
+                                                    AÇÕES
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr v-for="item in $page.props.minhastarefas" :key="item.name">
+
                                                 <td class="text-center">{{ item.tarefa }}</td>
                                                 <td class="text-center">{{ item.ministerio }}</td>
                                                 <td class="text-center">{{
         item.vencimento.split('-').reverse().join('/') }}</td>
-                                                <td class="text-center">{{ item.ids_equipe }}</td>
+                                                <td class="text-center pa-0">
+                                                    <v-tooltip location="top" :text="item.descricao">
+                                                        <template v-slot:activator="{ props }">
+                                                            <v-icon v-bind="props" color="green"
+                                                                icon="mdi-information-variant-circle-outline">
+
+                                                            </v-icon>
+                                                        </template>
+                                                    </v-tooltip>
+
+                                                </td>
                                                 <td class="text-center">{{ item.status }}</td>
-                                                <td class="text-center">{{ item.descricao }}</td>
+
+                                                <td class="text-center pa-0"><v-chip color="green" class="px-2 mx-1"
+                                                        v-for="(user, index) in $page.props.userstaskresp[item.id]"
+                                                        :key="index">
+                                                        {{ user.username }}
+
+                                                    </v-chip></td>
+                                                <td class="text-center d-flex justify-center gap-1"><v-btn
+                                                        icon="mdi-eye" color="green" variant="plain"></v-btn> <v-btn
+                                                        icon="mdi-delete" color="red" variant="plain"></v-btn></td>
                                             </tr>
                                         </tbody>
                                     </v-table>
@@ -103,7 +126,7 @@
                                                 <td class="text-center pa-0">
                                                     <v-tooltip location="top" :text="item.descricao">
                                                         <template v-slot:activator="{ props }">
-                                                            <v-icon v-bind="props"
+                                                            <v-icon v-bind="props" color="green"
                                                                 icon="mdi-information-variant-circle-outline">
 
                                                             </v-icon>
@@ -119,7 +142,73 @@
                                                         {{ user.username }}
                                                         <!-- Supondo que 'username' é um atributo dos usuários -->
                                                     </v-chip></td>
-                                                <td class="text-center"><v-btn icon></v-btn></td>
+                                                <td class="text-center d-flex justify-center gap-1">
+                                                    <v-dialog transition="dialog-bottom-transition" width="auto">
+                                                        <template v-slot:activator="{ props: activatorProps }">
+                                                            <v-btn v-bind="activatorProps" icon="mdi-eye" color="green"
+                                                                variant="plain"></v-btn>
+                                                        </template>
+
+                                                        <template v-slot:default="{ isActive }">
+                                                            <v-card width="400">
+                                                                <v-toolbar :title="item.tarefa"></v-toolbar>
+
+                                                                <v-card-text class="d-flex flex-wrap gap-1 pa-5">
+                                                                    <div>
+                                                                        <h3 class="text-h5">
+                                                                            Descrição
+                                                                        </h3>
+                                                                        <p class="text-caption">{{ item.descricao }}</p>
+                                                                    </div>
+                                                                    <div>
+                                                                        <h3 class="text-h5">
+                                                                            Status
+                                                                        </h3>
+                                                                        <p class="text-caption">{{ item.descricao }}</p>
+                                                                    </div>
+                                                                    <div>
+                                                                        <h3 class="text-h5">
+                                                                            Departamento
+                                                                        </h3>
+                                                                        <p class="text-caption">{{ item.descricao }}</p>
+                                                                    </div>
+                                                                    <div>
+                                                                        <h3 class="text-h5">
+                                                                            Equipe
+                                                                        </h3>
+                                                                        <p class="text-caption">{{ item.descricao }}</p>
+                                                                    </div>
+                                                                </v-card-text>
+
+                                                                <v-card-actions class="justify-end">
+                                                                    <v-btn text="Close"
+                                                                        @click="isActive.value = false"></v-btn>
+                                                                </v-card-actions>
+                                                            </v-card>
+                                                        </template>
+                                                    </v-dialog>
+                                                    <v-dialog transition="dialog-bottom-transition" width="auto">
+                                                        <template v-slot:activator="{ props: activatorProps }">
+                                                            <v-btn v-bind="activatorProps" icon="mdi-delete" color="red"
+                                                                variant="plain"></v-btn>
+                                                        </template>
+
+                                                        <template v-slot:default="{ isActive }">
+                                                            <v-card>
+                                                                <v-toolbar title="Opening from the Bottom"></v-toolbar>
+
+                                                                <v-card-text class="text-h2 pa-12">
+                                                                    Hello world!
+                                                                </v-card-text>
+
+                                                                <v-card-actions class="justify-end">
+                                                                    <v-btn text="Close"
+                                                                        @click="isActive.value = false"></v-btn>
+                                                                </v-card-actions>
+                                                            </v-card>
+                                                        </template>
+                                                    </v-dialog>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </v-table>
