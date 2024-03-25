@@ -126,7 +126,7 @@
                                                                             cargo === 'louvor' ? 'aqua':
                                                                             cargo === 'dança' ? 'orange' :
                                                                             cargo === 'teatro' ? 'yellow' :
-                                                                            cargo === 'dinamica' ? 'gray' :
+                                                                            cargo === 'dinamica' ? 'grey' :
                                                                             cargo === 'lider' ? 'black' :
                                                                             null">
                                                             <v-icon :icon="cargo === 'joper' ? 'mdi-alien' : 
