@@ -149,42 +149,68 @@
                                                                 variant="plain"></v-btn>
                                                         </template>
 
-                                                        <template v-slot:default="{ isActive }">
-                                                            <v-card width="400">
-                                                                <v-toolbar :title="item.tarefa"></v-toolbar>
+                                                        <template v-slot:default="{ isActive }"
+                                                            style="position: relative;">
+                                                            <v-btn color="white" dark
+                                                                style="position: absolute; top: 0px; right: -10px; z-index: 5;"
+                                                                icon="mdi-close" @click="isActive.value = false">
+                                                            </v-btn>
+                                                            <v-card class="mx-auto my-5"
+                                                                style="width: 400px; background: linear-gradient(to right, rgb(27 48 2), #4c8705fc); color: white;">
 
-                                                                <v-card-text class="d-flex flex-wrap gap-1 pa-5">
+                                                                <v-card-title class="justify-space-between">
                                                                     <div>
-                                                                        <h3 class="text-h5">
-                                                                            Descrição
-                                                                        </h3>
-                                                                        <p class="text-caption">{{ item.descricao }}</p>
+                                                                        <v-icon large
+                                                                            left>mdi-briefcase-outline</v-icon>
+                                                                        <span class="headline mx-2">Tarefa</span>
                                                                     </div>
-                                                                    <div>
-                                                                        <h3 class="text-h5">
-                                                                            Status
-                                                                        </h3>
-                                                                        <p class="text-caption">{{ item.descricao }}</p>
+                                                                    <v-chip class="ma-2" color="green"
+                                                                        text-color="white">
+                                                                        {{ item.status }}
+                                                                    </v-chip>
+                                                                </v-card-title>
+
+                                                                <v-card-text>
+                                                                    <div class="my-2 mt-0">
+                                                                        <h3 class="text-h5 ">Descrição</h3>
+                                                                        <p>{{ item.descricao }}</p>
                                                                     </div>
-                                                                    <div>
-                                                                        <h3 class="text-h5">
-                                                                            Departamento
-                                                                        </h3>
-                                                                        <p class="text-caption">{{ item.descricao }}</p>
+                                                                    <div class="my-2">
+                                                                        <h3 class="text-h5 ">Departamento</h3>
+                                                                        <p>{{ item.ministerio }}</p>
                                                                     </div>
-                                                                    <div>
-                                                                        <h3 class="text-h5">
-                                                                            Equipe
-                                                                        </h3>
-                                                                        <p class="text-caption">{{ item.descricao }}</p>
+                                                                    <div class="my-2">
+                                                                        <h3 class="text-h5 ">Equipe</h3>
+                                                                        <v-chip color="yellow" class="px-2 mx-1"
+                                                                            v-for="(user, index) in $page.props.userstaskgroup[item.id]"
+                                                                            :key="index">
+                                                                            {{ user.username }}
+                                                                            <!-- Supondo que 'username' é um atributo dos usuários -->
+                                                                        </v-chip>
                                                                     </div>
                                                                 </v-card-text>
 
-                                                                <v-card-actions class="justify-end">
-                                                                    <v-btn text="Close"
-                                                                        @click="isActive.value = false"></v-btn>
-                                                                </v-card-actions>
+                                                                <div class="w-100 d-flex  pa-2 ">
+                                                                    <div class="w-50 d-flex align-center">
+                                                                        <div class="text-truncate d-flex align-center">
+                                                                            <v-icon icon="mdi-calendar-multiselect"
+                                                                                start></v-icon>
+                                                                            <p>{{ item.vencimento.split('-').reverse().join('/')}}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="w-50 d-flex justify-end">
+                                                                        <v-btn color="red mx-2">
+                                                                            Deletar
+                                                                        </v-btn>
+                                                                        <v-btn color="green">
+                                                                            Editar
+                                                                        </v-btn>
+                                                                    </div>
+
+                                                                </div>
+
                                                             </v-card>
+
                                                         </template>
                                                     </v-dialog>
                                                     <v-dialog transition="dialog-bottom-transition" width="auto">
