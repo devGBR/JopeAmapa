@@ -1,147 +1,126 @@
 <template>
-    <v-data-table-server
-      v-model:items-per-page="itemsPerPage"
-      :headers="headers"
-      :items="serverItems"
-      :items-length="totalItems"
-      :loading="loading"
-      item-value="name"
-      @update:options="loadItems"
-    ></v-data-table-server>
-  </template>
+  <v-table height="340px" fixed-header>
+    <thead>
+      <tr>
+        <th class="text-center">
+          TAREFA
+        </th>
+        <th class="text-center">
+          DEPARTAMENTO
+        </th>
+        <th class="text-center">
+          DATA FINAL
+        </th>
+        <th class="text-center">
+          DESCRIÇÃO
+        </th>
+        <th class="text-center">
+          STATUS
+        </th>
+        <th class="text-center">
+          AÇÕES
+        </th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="item in task" :key="item.name">
+        <td class="text-center">{{ item.tarefa }}</td>
+        <td class="text-center">{{ item.ministerio }}</td>
+        <td class="text-center">{{
+        item.vencimento.split('-').reverse().join('/') }}</td>
+        <td class="text-center pa-0">
+          <v-tooltip location="top" :text="item.descricao">
+            <template v-slot:activator="{ props }">
+              <v-icon v-bind="props" color="green" icon="mdi-information-variant-circle-outline">
+
+              </v-icon>
+            </template>
+          </v-tooltip>
+
+        </td>
+        <td class="text-center"><v-chip class="ma-2"
+            :color="item.status === 'Completo' ? 'green' : item.status === 'Em andamento' ? 'orange' : 'grey'"
+            text-color="white">
+            {{ item.status }}
+          </v-chip></td>
+        <td class="text-center d-flex justify-center gap-1">
+          <v-dialog transition="dialog-bottom-transition" width="auto">
+            <template v-slot:activator="{ props: activatorProps }">
+              <v-btn v-bind="activatorProps" icon="mdi-eye" color="green" variant="plain"></v-btn>
+            </template>
+
+            <template v-slot:default="{ isActive }" style="position: relative;">
+              <v-btn color="#529606" dark class="text-white"
+                style="position: absolute; top: 0px; right: -10px; z-index: 5;" icon="mdi-close"
+                @click="isActive.value = false">
+              </v-btn>
+              <v-card class="mx-auto my-5"
+                style="width: 400px; background: linear-gradient(to right, rgb(27 48 2), #4c8705fc); color: white;">
+
+                <v-card-title class="justify-space-between">
+                  <div>
+                    <v-icon large left>mdi-briefcase-outline</v-icon>
+                    <span class="headline mx-2">Tarefa</span>
+                  </div>
+                  <v-chip class="ma-2"
+                    :color="item.status === 'Completo' ? 'green' : item.status === 'Em andamento' ? 'orange' : 'grey'"
+                    text-color="white">
+                    {{ item.status }}
+                  </v-chip>
+                </v-card-title>
+
+                <v-card-text>
+                  <div class="my-2 mt-0">
+                    <h3 class="text-h5 ">Descrição</h3>
+                    <p>{{ item.descricao }}</p>
+                  </div>
+                  <div class="my-2">
+                    <h3 class="text-h5 ">Departamento</h3>
+                    <p>{{ item.ministerio }}</p>
+                  </div>
+                </v-card-text>
+
+                <div class="w-100 d-flex  pa-2 ">
+                  <div class="w-50 d-flex align-center">
+
+                  </div>
+                  <div class="w-50 d-flex justify-end">
+                    <div class="text-truncate d-flex align-center">
+                      <v-icon icon="mdi-calendar-multiselect" start></v-icon>
+                      <p>{{
+        item.vencimento.split('-').reverse().join('/')
+                        }}
+                      </p>
+                    </div>
+                  </div>
+
+                </div>
+
+              </v-card>
+
+            </template>
+          </v-dialog>
+        </td>
+      </tr>
+    </tbody>
+  </v-table>
+</template>
 
 <script>
-const desserts = [
-  {
-    name: 'Frozen Yogurt',
-    calories: 159,
-    fat: 6.0,
-    carbs: 24,
-    protein: 4.0,
-    iron: '1',
-  },
-  {
-    name: 'Jelly bean',
-    calories: 375,
-    fat: 0.0,
-    carbs: 94,
-    protein: 0.0,
-    iron: '0',
-  },
-  {
-    name: 'KitKat',
-    calories: 518,
-    fat: 26.0,
-    carbs: 65,
-    protein: 7,
-    iron: '6',
-  },
-  {
-    name: 'Eclair',
-    calories: 262,
-    fat: 16.0,
-    carbs: 23,
-    protein: 6.0,
-    iron: '7',
-  },
-  {
-    name: 'Gingerbread',
-    calories: 356,
-    fat: 16.0,
-    carbs: 49,
-    protein: 3.9,
-    iron: '16',
-  },
-  {
-    name: 'Ice cream sandwich',
-    calories: 237,
-    fat: 9.0,
-    carbs: 37,
-    protein: 4.3,
-    iron: '1',
-  },
-  {
-    name: 'Lollipop',
-    calories: 392,
-    fat: 0.2,
-    carbs: 98,
-    protein: 0,
-    iron: '2',
-  },
-  {
-    name: 'Cupcake',
-    calories: 305,
-    fat: 3.7,
-    carbs: 67,
-    protein: 4.3,
-    iron: '8',
-  },
-  {
-    name: 'Honeycomb',
-    calories: 408,
-    fat: 3.2,
-    carbs: 87,
-    protein: 6.5,
-    iron: '45',
-  },
-  {
-    name: 'Donut',
-    calories: 452,
-    fat: 25.0,
-    carbs: 51,
-    protein: 4.9,
-    iron: '22',
-  },
-]
-
-const FakeAPI = {
-  async fetch ({ page, itemsPerPage, sortBy }) {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        const start = (page - 1) * itemsPerPage
-        const end = start + itemsPerPage
-        const items = desserts.slice()
-
-        if (sortBy.length) {
-          const sortKey = sortBy[0].key
-          const sortOrder = sortBy[0].order
-          items.sort((a, b) => {
-            const aValue = a[sortKey]
-            const bValue = b[sortKey]
-            return sortOrder === 'desc' ? bValue - aValue : aValue - bValue
-          })
-        }
-
-        const paginated = items.slice(start, end)
-
-        resolve({ items: paginated, total: items.length })
-      }, 500)
-    })
-  },
-}
 
 export default {
+  props: {
+    task: Array
+  },
   data: () => ({
     itemsPerPage: 5,
-    headers: [
-      {
-        title: 'Dessert (100g serving)',
-        align: 'start',
-        sortable: false,
-        key: 'name',
-      },
-      { title: 'Calories', key: 'calories', align: 'end' },
-      { title: 'Fat (g)', key: 'fat', align: 'end' },
-      { title: 'Carbs (g)', key: 'carbs', align: 'end' },
-      { title: 'Protein (g)', key: 'protein', align: 'end' },
-      { title: 'Iron (%)', key: 'iron', align: 'end' },
-    ],
     serverItems: [],
     loading: true,
     totalItems: 0,
   }),
   methods: {
-    loadItems ({ page, itemsPerPage, sortBy }) {
+    loadItems({ page, itemsPerPage, sortBy }) {
       this.loading = true
       FakeAPI.fetch({ page, itemsPerPage, sortBy }).then(({ items, total }) => {
         this.serverItems = items

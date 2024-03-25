@@ -37,7 +37,7 @@
                         <template v-slot:activator="{ props }">
                             <v-list density="compact" nav>
                                 <v-list-item prepend-icon="mdi-home" title="Home" href="/" value="home"></v-list-item>
-                                <v-list-item prepend-icon="mdi-sitemap-outline" title="Ministérios" value="Ministerio"
+                                <v-list-item prepend-icon="mdi-sitemap-outline" title="Ministérios" subtitle="EM BREVE" disabled value="Ministerio"
                                       dark v-bind="props">
                                 </v-list-item>
                                 <v-list-item prepend-icon="mdi-calendar-multiple" href="/events" title="Eventos" value="ministerio"></v-list-item>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Eventos;
+use App\Models\Tarefas;
 use App\Models\User;
 use App\Models\VerseDay;
 use GuzzleHttp\Client;
@@ -20,8 +21,10 @@ class HomeController extends Controller
             $user =  User::find($id);
             $verse_day = $this->verseDay();
             $event = Eventos::where('data' ,'>=' , date("Y-m-d") )->orderBy('data', 'asc')->first();
+            $minhasTarefas = Tarefas::where('user_id', $id)->get();
+            $tarefas = $minhasTarefas->merge(Tarefas::where('ids_equipe', 'like', '%' . HashIdsEncode($id) . '%')->get()) ?? null;
             $cargos = explode("|",$user->cargo);
-            return Inertia::render('HomeAuth', ['user' => $user, 'logger' => $islogger, 'verse_day' => $verse_day,  'event' => $event,"cargos" => $cargos]);
+            return Inertia::render('HomeAuth', ['user' => $user, 'logger' => $islogger, 'verse_day' => $verse_day,  'event' => $event,"cargos" => $cargos, "tarefas" => $tarefas]);
         } else {
             $islogger = false;
             $event = Eventos::orderBy('data', 'asc')->get();    

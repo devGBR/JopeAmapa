@@ -71,7 +71,11 @@
                                                     </v-tooltip>
 
                                                 </td>
-                                                <td class="text-center">{{ item.status }}</td>
+                                                <td class="text-center"><v-chip class="ma-2"
+                                                        :color="item.status === 'Completo' ? 'green' : item.status === 'Em andamento' ? 'orange' : 'grey'"
+                                                        text-color="white">
+                                                        {{ item.status }}
+                                                    </v-chip></td>
 
                                                 <td class="text-center pa-0"><v-chip color="green" class="px-2 mx-1"
                                                         v-for="(user, index) in $page.props.userstaskresp[item.id]"
@@ -101,7 +105,8 @@
                                                                             left>mdi-briefcase-outline</v-icon>
                                                                         <span class="headline mx-2">Tarefa</span>
                                                                     </div>
-                                                                    <v-chip class="ma-2" color="green"
+                                                                    <v-chip class="ma-2"
+                                                                        :color="item.status === 'Completo' ? 'green' : item.status === 'Em andamento' ? 'orange' : 'grey'"
                                                                         text-color="white">
                                                                         {{ item.status }}
                                                                     </v-chip>
@@ -139,7 +144,8 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="w-50 d-flex justify-end">
-                                                                        <v-btn color="#529606" v-show="item.status !== 'Completo'"
+                                                                        <v-btn color="#529606"
+                                                                            v-show="item.status !== 'Completo'"
                                                                             @click="completarTask(item.id), isActive.value = false"
                                                                             prepend-icon="mdi-check">
                                                                             Completar
@@ -236,7 +242,11 @@
                                                     </v-tooltip>
 
                                                 </td>
-                                                <td class="text-center">{{ item.status }}</td>
+                                                <td class="text-center"><v-chip class="ma-2"
+                                                        :color="item.status === 'Completo' ? 'green' : item.status === 'Em andamento' ? 'orange' : 'grey'"
+                                                        text-color="white">
+                                                        {{ item.status }}
+                                                    </v-chip></td>
 
                                                 <td class="text-center pa-0"><v-chip color="green" class="px-2 mx-1"
                                                         v-for="(user, index) in $page.props.userstaskgroup[item.id]"
@@ -266,7 +276,8 @@
                                                                             left>mdi-briefcase-outline</v-icon>
                                                                         <span class="headline mx-2">Tarefa</span>
                                                                     </div>
-                                                                    <v-chip class="ma-2" color="green"
+                                                                    <v-chip class="ma-2"
+                                                                        :color="item.status === 'Completo' ? 'green' : item.status === 'Em andamento' ? 'orange' : 'grey'"
                                                                         text-color="white">
                                                                         {{ item.status }}
                                                                     </v-chip>

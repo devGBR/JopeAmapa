@@ -80,7 +80,7 @@
                         <v-col cols="12" :class="!mobile ? 'pb-10' : ''">
                             <v-card title="Proximas tarefas" class="w-100 mx-3">
                                 <div class="w-100 h-100 px-5">
-                                    <DataTable />
+                                    <DataTable :task="$page.props.tarefas" />
                                 </div>
 
                             </v-card>
