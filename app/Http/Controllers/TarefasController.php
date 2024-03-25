@@ -120,5 +120,23 @@ class TarefasController extends Controller
 
     public function delete(Request $request)
     {
+        try {
+            $login = ValidToken($request->token);
+            if ($login) {
+                $id = $request->id;
+                $event = Tarefas::find($id);
+                if ($event) {
+                    if ($event->delete()) {
+                        return response()->json([
+                            "mensagem" => "Tarefa deletada"
+                        ], 200);
+                    }
+                }
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                "mensagem" => $e->getMessage()
+            ], 500);
+        }
     }
 }

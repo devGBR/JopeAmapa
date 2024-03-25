@@ -79,9 +79,109 @@
                                                         {{ user.username }}
 
                                                     </v-chip></td>
-                                                <td class="text-center d-flex justify-center gap-1"><v-btn
-                                                        icon="mdi-eye" color="green" variant="plain"></v-btn> <v-btn
-                                                        icon="mdi-delete" color="red" variant="plain"></v-btn></td>
+                                                <td class="text-center d-flex justify-center gap-1"><v-dialog
+                                                        transition="dialog-bottom-transition" width="auto">
+                                                        <template v-slot:activator="{ props: activatorProps }">
+                                                            <v-btn v-bind="activatorProps" icon="mdi-eye" color="green"
+                                                                variant="plain"></v-btn>
+                                                        </template>
+
+                                                        <template v-slot:default="{ isActive }"
+                                                            style="position: relative;">
+                                                            <v-btn color="#529606" dark class="text-white"
+                                                                style="position: absolute; top: 0px; right: -10px; z-index: 5;"
+                                                                icon="mdi-close" @click="isActive.value = false">
+                                                            </v-btn>
+                                                            <v-card class="mx-auto my-5"
+                                                                style="width: 400px; background: linear-gradient(to right, rgb(27 48 2), #4c8705fc); color: white;">
+
+                                                                <v-card-title class="justify-space-between">
+                                                                    <div>
+                                                                        <v-icon large
+                                                                            left>mdi-briefcase-outline</v-icon>
+                                                                        <span class="headline mx-2">Tarefa</span>
+                                                                    </div>
+                                                                    <v-chip class="ma-2" color="green"
+                                                                        text-color="white">
+                                                                        {{ item.status }}
+                                                                    </v-chip>
+                                                                </v-card-title>
+
+                                                                <v-card-text>
+                                                                    <div class="my-2 mt-0">
+                                                                        <h3 class="text-h5 ">Descrição</h3>
+                                                                        <p>{{ item.descricao }}</p>
+                                                                    </div>
+                                                                    <div class="my-2">
+                                                                        <h3 class="text-h5 ">Departamento</h3>
+                                                                        <p>{{ item.ministerio }}</p>
+                                                                    </div>
+                                                                    <div class="my-2">
+                                                                        <h3 class="text-h5 ">Equipe</h3>
+                                                                        <v-chip color="yellow" class="px-2 mx-1"
+                                                                            v-for="(user, index) in $page.props.userstaskresp[item.id]"
+                                                                            :key="index">
+                                                                            {{ user.username }}
+                                                                            <!-- Supondo que 'username' é um atributo dos usuários -->
+                                                                        </v-chip>
+                                                                    </div>
+                                                                </v-card-text>
+
+                                                                <div class="w-100 d-flex  pa-2 ">
+                                                                    <div class="w-50 d-flex align-center">
+                                                                        <div class="text-truncate d-flex align-center">
+                                                                            <v-icon icon="mdi-calendar-multiselect"
+                                                                                start></v-icon>
+                                                                            <p>{{
+        item.vencimento.split('-').reverse().join('/')
+    }}
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="w-50 d-flex justify-end">
+                                                                        <v-btn color="#529606" prepend-icon="mdi-check">
+                                                                            Completar
+                                                                        </v-btn>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </v-card>
+
+                                                        </template>
+                                                    </v-dialog>
+                                                    <v-dialog transition="dialog-bottom-transition" width="auto">
+                                                        <template v-slot:activator="{ props: activatorProps }">
+                                                            <v-btn v-bind="activatorProps" icon="mdi-delete" color="red"
+                                                                variant="plain"></v-btn>
+                                                        </template>
+
+                                                        <template v-slot:default="{ isActive }">
+                                                            <v-card class="rounded-top">
+                                                                <v-toolbar
+                                                                    class="text-h3 pb-0 border-bottom border-secondary rounded-top text-white"
+                                                                    color="#3e6d0687"
+                                                                    title="Remover tarefa?"></v-toolbar>
+                                                                <v-card-text class="mt-3 px-3">
+                                                                    Isso irá excluir a tarefa permanentemente!
+                                                                </v-card-text>
+                                                                <v-card-actions>
+                                                                    <v-spacer></v-spacer>
+                                                                    <v-btn class="mx-auto ml-1" color="red"
+                                                                        variant="plain" icon="mdi-cancel"
+                                                                        @click="isActive.value = false">
+
+                                                                    </v-btn>
+                                                                    <v-btn class=" ml-2 d-flex" color="green"
+                                                                        variant="plain" icon="mdi-check"
+                                                                        @click="deleteTarefa(item.id)">
+
+                                                                    </v-btn>
+                                                                </v-card-actions>
+                                                            </v-card>
+                                                        </template>
+                                                    </v-dialog>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </v-table>
@@ -151,7 +251,7 @@
 
                                                         <template v-slot:default="{ isActive }"
                                                             style="position: relative;">
-                                                            <v-btn color="white" dark
+                                                            <v-btn color="#529606" dark class="text-white"
                                                                 style="position: absolute; top: 0px; right: -10px; z-index: 5;"
                                                                 icon="mdi-close" @click="isActive.value = false">
                                                             </v-btn>
@@ -192,46 +292,23 @@
 
                                                                 <div class="w-100 d-flex  pa-2 ">
                                                                     <div class="w-50 d-flex align-center">
+
+                                                                    </div>
+                                                                    <div class="w-50 d-flex justify-end">
                                                                         <div class="text-truncate d-flex align-center">
                                                                             <v-icon icon="mdi-calendar-multiselect"
                                                                                 start></v-icon>
-                                                                            <p>{{ item.vencimento.split('-').reverse().join('/')}}</p>
+                                                                            <p>{{
+        item.vencimento.split('-').reverse().join('/')
+                                                                                }}
+                                                                            </p>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="w-50 d-flex justify-end">
-                                                                        <v-btn color="red mx-2">
-                                                                            Deletar
-                                                                        </v-btn>
-                                                                        <v-btn color="green">
-                                                                            Editar
-                                                                        </v-btn>
                                                                     </div>
 
                                                                 </div>
 
                                                             </v-card>
 
-                                                        </template>
-                                                    </v-dialog>
-                                                    <v-dialog transition="dialog-bottom-transition" width="auto">
-                                                        <template v-slot:activator="{ props: activatorProps }">
-                                                            <v-btn v-bind="activatorProps" icon="mdi-delete" color="red"
-                                                                variant="plain"></v-btn>
-                                                        </template>
-
-                                                        <template v-slot:default="{ isActive }">
-                                                            <v-card>
-                                                                <v-toolbar title="Opening from the Bottom"></v-toolbar>
-
-                                                                <v-card-text class="text-h2 pa-12">
-                                                                    Hello world!
-                                                                </v-card-text>
-
-                                                                <v-card-actions class="justify-end">
-                                                                    <v-btn text="Close"
-                                                                        @click="isActive.value = false"></v-btn>
-                                                                </v-card-actions>
-                                                            </v-card>
                                                         </template>
                                                     </v-dialog>
                                                 </td>
@@ -338,7 +415,6 @@ export default {
     },
     mounted() {
         this.users = this.$page.props.users.data
-        console.log(this.$page.props.minhastarefas, this.$page.props.userstaskgroup)
         this.departamentos = this.$page.props.cargos.includes('lider') ? ['instrumental', 'dança', 'louvor', 'teatro', 'dinamica', 'mídia'] : this.$page.props.lideranca
         this.larguraHome = window.innerWidth;
         if (this.larguraHome < 501) {
@@ -381,7 +457,7 @@ export default {
             }
         },
         deleteTarefa(id) {
-            axios.delete('/api/deletar-event', {
+            axios.delete('/api/deletar-task', {
                 data: {
                     token: this.$page.props.user.token_api,
                     id: id

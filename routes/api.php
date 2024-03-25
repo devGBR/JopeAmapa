@@ -22,4 +22,6 @@ Route::post('registrar', [AuthController::class, 'register']);
 
 Route::delete('deletar-event', [EventosController::class, 'delete']);
 
+
 Route::post('/task-create', [TarefasController::class, 'store']);
+Route::delete('deletar-task', [TarefasController::class, 'delete']);
