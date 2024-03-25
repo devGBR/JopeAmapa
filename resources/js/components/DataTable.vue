@@ -45,7 +45,7 @@
             {{ item.status }}
           </v-chip></td>
         <td class="text-center d-flex justify-center gap-1">
-          <v-dialog transition="dialog-bottom-transition" width="auto">
+          <v-dialog transition="dialog-bottom-transition"  width="auto">
             <template v-slot:activator="{ props: activatorProps }">
               <v-btn v-bind="activatorProps" icon="mdi-eye" color="green" variant="plain"></v-btn>
             </template>
@@ -56,7 +56,7 @@
                 @click="isActive.value = false">
               </v-btn>
               <v-card class="mx-auto my-5"
-                style="width: 400px; background: linear-gradient(to right, rgb(27 48 2), #4c8705fc); color: white;">
+                style="width: auto; max-width: 400px; background: linear-gradient(to right, rgb(27 48 2), #4c8705fc); color: white;">
 
                 <v-card-title class="justify-space-between">
                   <div>

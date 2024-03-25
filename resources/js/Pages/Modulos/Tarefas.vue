@@ -10,7 +10,7 @@
                 <div class="d-flex">
                     <v-toolbar class="px-2 d-flex text-end" color="transparent" style="z-index: 5;">
                         <div class="ml-auto"
-                            v-if="$page.props.cargos.includes('mídia') || $page.props.cargos.includes('lider')">
+                            v-if="$page.props.lideranca[0] !== ''">
                             <v-btn color="green" class="ml-auto" v-if="model === 'ver'" prepend-icon="mdi-plus"
                                 @click=" model = 'criar'" variant="outlined">Criar
                                 Tarefa</v-btn>
@@ -58,8 +58,7 @@
 
                                                 <td class="text-center">{{ item.tarefa }}</td>
                                                 <td class="text-center">{{ item.ministerio }}</td>
-                                                <td class="text-center">{{
-        item.vencimento.split('-').reverse().join('/') }}</td>
+                                                <td class="text-center">{{item.vencimento.split('-').reverse().join('/') }}</td>
                                                 <td class="text-center pa-0">
                                                     <v-tooltip location="top" :text="item.descricao">
                                                         <template v-slot:activator="{ props }">
@@ -97,7 +96,7 @@
                                                                 icon="mdi-close" @click="isActive.value = false">
                                                             </v-btn>
                                                             <v-card class="mx-auto my-5"
-                                                                style="width: 400px; background: linear-gradient(to right, rgb(27 48 2), #4c8705fc); color: white;">
+                                                                style="width: auto; min-width: 364px; max-width: 400px; background: linear-gradient(to right, rgb(27 48 2), #4c8705fc); color: white;">
 
                                                                 <v-card-title class="justify-space-between">
                                                                     <div>
@@ -268,7 +267,7 @@
                                                                 icon="mdi-close" @click="isActive.value = false">
                                                             </v-btn>
                                                             <v-card class="mx-auto my-5"
-                                                                style="width: 400px; background: linear-gradient(to right, rgb(27 48 2), #4c8705fc); color: white;">
+                                                                style="width: auto; min-width: 364px; max-width: 400px; background: linear-gradient(to right, rgb(27 48 2), #4c8705fc); color: white;">
 
                                                                 <v-card-title class="justify-space-between">
                                                                     <div>
@@ -427,7 +426,10 @@ export default {
         }
     },
     mounted() {
-        this.users = this.$page.props.users.data
+        if(this.$page.props.users){
+            this.users = this.$page.props.users.data??null
+        }
+       
         this.departamentos = this.$page.props.cargos.includes('lider') ? ['instrumental', 'dança', 'louvor', 'teatro', 'dinamica', 'mídia'] : this.$page.props.lideranca
         this.larguraHome = window.innerWidth;
         if (this.larguraHome < 501) {

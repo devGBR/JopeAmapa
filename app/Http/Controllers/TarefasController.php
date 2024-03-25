@@ -74,7 +74,7 @@ class TarefasController extends Controller
             return Inertia::render('Modulos/Tarefas', ['user' => $user, 'users' => $users, "userstaskgroup" => $tasks, 'userstaskresp' => $userstaskresp,'logger' => $islogger, "cargos" => $cargos, 'minhastarefas' => $my_tarefas, 'tarefasgrupo' => $group_tarefas, 'lideranca' => $lider]);
         }
 
-        return Inertia::render('Modulos/Tarefas', ['user' => $user,  'logger' => $islogger, "cargos" => $cargos]);
+        return Inertia::render('Modulos/Tarefas', ['user' => $user,  'users' => null, 'logger' => $islogger, "cargos" => $cargos,  "userstaskgroup" => $tasks, 'userstaskresp' => $userstaskresp,'logger' => $islogger, "cargos" => $cargos, 'minhastarefas' => $my_tarefas, 'tarefasgrupo' => $group_tarefas, 'lideranca' => $lider]);
     }
 
     public function store(Request $request)
