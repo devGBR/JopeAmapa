@@ -139,7 +139,9 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="w-50 d-flex justify-end">
-                                                                        <v-btn color="#529606" prepend-icon="mdi-check">
+                                                                        <v-btn color="#529606" v-show="item.status !== 'Completo'"
+                                                                            @click="completarTask(item.id), isActive.value = false"
+                                                                            prepend-icon="mdi-check">
                                                                             Completar
                                                                         </v-btn>
                                                                     </div>
@@ -452,9 +454,43 @@ export default {
                         }
                     )
                     .catch(error => {
-
+                        this.title = "Error ao criar tarefa"
+                        this.mensagem = "Erro ao tentar criar a tarefa!"
+                        this.type = "error"
+                        this.toast = 'cardtoast';
+                        setTimeout(() => {
+                            this.toast = 'notError'
+                        }, 3000)
                     })
             }
+        },
+        completarTask(id) {
+            axios.post('/api/update-task', {
+                token: this.$page.props.user.token_api,
+                id: id
+            }).then(
+                response => {
+                    if (response.status === 200) {
+                        // Redirecionar para a página de login
+                        this.title = "Tarefa Completa"
+                        this.mensagem = "Tarefa completada com sucesso"
+                        this.type = "success"
+                        this.toast = "cardtoast"
+                        setTimeout(() => {
+                            location.reload()
+                        }, 2000)
+
+                    }
+                })
+                .catch(error => {
+                    this.title = "Error ao completar"
+                    this.mensagem = "Erro ao tentar completar a tarefa!"
+                    this.type = "error"
+                    this.toast = 'cardtoast';
+                    setTimeout(() => {
+                        this.toast = 'notError'
+                    }, 3000)
+                });
         },
         deleteTarefa(id) {
             axios.delete('/api/deletar-task', {
@@ -467,25 +503,23 @@ export default {
                     if (response.status === 200) {
                         // Redirecionar para a página de login
                         this.title = "Deletado"
-                        this.mensagem = "Evento deletado com sucesso"
+                        this.mensagem = "Tarefa deletada com sucesso"
                         this.type = "success"
                         this.toast = "cardtoast"
                         setTimeout(() => {
                             location.reload()
                         }, 2000)
 
-                    } else if (response.status === 500) {
-                        this.title = "Error Delete"
-                        this.mensagem = "Erro ao tentar deletar o evento!"
-                        this.type = "error"
-                        this.toast = 'cardtoast';
                     }
                 })
                 .catch(error => {
                     this.title = "Error Delete"
-                    this.mensagem = 'Ops tivemos um erro';
+                    this.mensagem = "Erro ao tentar deletar o tarefa!"
                     this.type = "error"
                     this.toast = 'cardtoast';
+                    setTimeout(() => {
+                        this.toast = 'notError'
+                    }, 3000)
                 });
         },
         formatData(data) {

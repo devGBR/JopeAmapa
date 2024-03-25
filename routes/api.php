@@ -25,3 +25,4 @@ Route::delete('deletar-event', [EventosController::class, 'delete']);
 
 Route::post('/task-create', [TarefasController::class, 'store']);
 Route::delete('deletar-task', [TarefasController::class, 'delete']);
+Route::post('update-task', [TarefasController::class, 'update']);

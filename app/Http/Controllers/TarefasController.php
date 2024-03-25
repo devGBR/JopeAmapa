@@ -116,6 +116,28 @@ class TarefasController extends Controller
 
     public function update(Request $request)
     {
+        try {
+            $login = ValidToken($request->token);
+            
+            if ($login) {
+                $id = $request->id;
+                $task = Tarefas::find($id);
+                if ($task) {
+                    $update = [
+                        "status" => "Completo"
+                    ];
+                    if ($task->update($update)) {
+                        return response()->json([
+                            "mensagem" => "Tarefa deletada"
+                        ], 200);
+                    }
+                }
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                "mensagem" => $e->getMessage()
+            ], 500);
+        }
     }
 
     public function delete(Request $request)
@@ -124,9 +146,9 @@ class TarefasController extends Controller
             $login = ValidToken($request->token);
             if ($login) {
                 $id = $request->id;
-                $event = Tarefas::find($id);
-                if ($event) {
-                    if ($event->delete()) {
+                $task = Tarefas::find($id);
+                if ($task) {
+                    if ($task->delete()) {
                         return response()->json([
                             "mensagem" => "Tarefa deletada"
                         ], 200);
