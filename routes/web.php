@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventosController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LiderJopeController;
 use App\Http\Controllers\TarefasController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,8 @@ Route::get('/events', [EventosController::class, 'index'])->middleware('auth')->
 Route::post('/events', [EventosController::class, 'create']);
 
 Route::get('/tarefas', [TarefasController::class, 'index'])->middleware('auth')->name('tarefas');
+
+Route::get('/dashboard', [LiderJopeController::class, 'index'])->middleware('auth')->name('dash');
 
 Route::get('/register', function () {
     return Inertia::render('Auth/Register');

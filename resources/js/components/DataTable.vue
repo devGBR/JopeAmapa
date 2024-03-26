@@ -56,7 +56,7 @@
                 @click="isActive.value = false">
               </v-btn>
               <v-card class="mx-auto my-5"
-                style="width: auto; max-width: 400px; background: linear-gradient(to right, rgb(27 48 2), #4c8705fc); color: white;">
+                style="width: auto; min-width: 364px; max-width: 400px; background: linear-gradient(to right, rgb(27 48 2), #4c8705fc); color: white;">
 
                 <v-card-title class="justify-space-between">
                   <div>

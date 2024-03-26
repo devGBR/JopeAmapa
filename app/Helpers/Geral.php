@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Vinkla\Hashids\Facades\Hashids;
 
@@ -21,4 +22,9 @@ function HashIdsEncode($id){
 }
 function HashIdsDecode($hash){
     return (string) Hashids::decode($hash)[0];
+}
+
+function getUser(){
+    $id = Auth::id();
+    return User::find($id);
 }
