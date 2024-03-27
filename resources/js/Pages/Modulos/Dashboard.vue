@@ -2,9 +2,9 @@
     <Layout :colorBar="Bar" :movel="mobile" :elevacao="5" :class="!mobile ? 'mt-16' : ''" :Logo="logo">
         <section class="w-100 mt-5" :style="`max-width: ${larguraHome}px;`">
             <v-row>
-                <v-col cols="12" class="" md="8">
+                <v-col cols="12" class="" md="12">
                     <v-row class="w-100 h-75 py-1">
-                        <v-col cols="12" class="py-5" md="4">
+                        <v-col cols="12" class="py-5" md="3">
                             <v-card title="Jovens cadastrados" elevation="10" class="w-100 mx-3 text-white"
                                 style="background: linear-gradient(to right, rgb(27 48 2), #4c8705fc); position: relative;"
                                 :height="'270'">
@@ -29,7 +29,7 @@
 
                             </v-card>
                         </v-col>
-                        <v-col cols="12" class="py-5" md="4">
+                        <v-col cols="12" class="py-5" md="3">
 
                             <v-card :height="'270'" title="Convertidos" color="#3e6d06" class="w-100 mx-3"
                                 style="position: relative;">
@@ -40,7 +40,7 @@
 
                             </v-card>
                         </v-col>
-                        <v-col cols="12" class="py-5" md="4">
+                        <v-col cols="12" class="py-5" md="3">
                             <v-card title="Batizados" elevation="10" class="w-100 mx-3 text-white"
                                 style="background: linear-gradient(to right, rgb(27 48 2), #4c8705fc); position: relative;"
                                 :height="'270'">
@@ -65,6 +65,29 @@
 
                             </v-card>
                         </v-col>
+                        <v-col cols="12" class="py-5" md="3">
+                            <v-card title="Faixa de idade" elevation="10" class="w-100 mx-3 text-white"
+                                style="background: linear-gradient(to right, rgb(27 48 2), #4c8705fc); position: relative;"
+                                :height="'270'">
+                                <div class="mx-5" style="width: auto;">
+                                    <p style="font-weight: 700;" class="d-flex align-baseline"> <v-icon
+                                            class="mr-2">mdi-baby</v-icon>Menores de 18</p>
+                                    <span style="font-size: 2rem; position: relative; left: 25%;">{{ Menordeidade }}</span>
+                                </div>
+                                <div class="mx-5" style="width: auto;">
+                                    <p style="font-weight: 700;" class="d-flex align-baseline"> <v-icon
+                                            class="mr-2">mdi-hiking</v-icon>Maiores de 18</p>
+                                    <span style="font-size: 2.5rem; position: relative; left: 25%;">{{ Maiordeidade }}</span>
+                                </div>
+                                <div class="h-75" style=" width: 40%;   position: absolute;
+    bottom: 10px;
+    right: 20px;">
+                                  <BarHorizontal :maior="Maiordeidade" :menor="Menordeidade" />
+                                </div>
+
+
+                            </v-card>
+                        </v-col>
                         <v-col cols="12" class="py-5" md="6">
 
                             <v-card :height="'270'" class="w-100 d-flex align-center justify-center mx-3"
@@ -82,20 +105,6 @@
                         </v-col>
                     </v-row>
                 </v-col>
-                <v-col cols="12" class="d-flex justify-center px-5" md="4">
-
-                    <v-row class="w-100 h-100  py-3">
-                        <v-col cols="12" class="">
-                            <v-card class="w-100 h-100 text-center pa-3 h-100" style="position: relative;">
-
-
-
-
-
-                            </v-card>
-                        </v-col>
-                    </v-row>
-                </v-col>
             </v-row>
 
 
@@ -106,11 +115,14 @@
 <script>
 import Layout from '../../Layout/Layout.vue';
 import DoughnutComp from '../../components/DounghnutComp.vue'
+import BarHorizontal from '../../components/BarHorizontal.vue'
+import moment from "moment"
 
 export default {
     components: {
         Layout,
-        DoughnutComp
+        DoughnutComp,
+        BarHorizontal,
     },
     data() {
         return {
@@ -125,7 +137,9 @@ export default {
             homensBatizados: 0,
             mulheresBatizadas : 0,
             qtdMO: null,
-            qtdMA: null
+            qtdMA: null,
+            Menordeidade: 0,
+            Maiordeidade: 0,
 
         }
     },
@@ -148,7 +162,8 @@ export default {
                 const user = this.$page.props.users.find(user => user.id === dado.user_id);
                 return user && user.genero === 'Masculino' && dado.batizado === 1;
             }).length;
-
+            this.Menordeidade = this.$page.props.users.filter(user => moment().format('YYYY') - moment(user.data_nascimento).format('YYYY') <= 18).length
+            this.Maiordeidade = this.$page.props.users.filter(user => moment().format('YYYY') - moment(user.data_nascimento).format('YYYY') > 18).length
             this.mulheresBatizadas = this.$page.props.dados.filter(dado => {
                 const user = this.$page.props.users.find(user => user.id === dado.user_id);
                 return user && user.genero === 'Feminino' && dado.batizado === 1;
