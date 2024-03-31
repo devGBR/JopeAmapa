@@ -25,7 +25,7 @@
 
                 </template>
             </v-app-bar>
-            <v-navigation-drawer v-model="drawer"
+            <v-navigation-drawer v-if="$page.props.logger === true" v-model="drawer"
                 :style="colorBar === 'transparent' ? 'position: fixed; top: 0px; height:110%;' : 'position: fixed;'"
                 temporary>
 
@@ -42,7 +42,7 @@
                                 </v-list-item>
                                 <v-list-item prepend-icon="mdi-calendar-multiple" href="/events" title="Eventos" value="ministerio"></v-list-item>
                                 <v-list-item prepend-icon="mdi-format-list-checkbox" href="/tarefas" title="Tarefas" value="tarefas"></v-list-item>
-                                <v-list-item prepend-icon="mdi-monitor-dashboard" href="/dashboard" title="Dashboard" value="dashboard"></v-list-item>
+                                <v-list-item prepend-icon="mdi-monitor-dashboard" v-if="$page.props.cargos.includes('lider')" href="/dashboard" title="Dashboard" value="dashboard"></v-list-item>
                             </v-list>
                         </template>
 
@@ -234,7 +234,7 @@ export default {
         if (this.$page.props.logger === true) {
             this.username = this.$page.props.user.username
         }
-        console.log(this.movel)
+       
     }
 
 

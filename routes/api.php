@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventosController;
+use App\Http\Controllers\LiderJopeController;
 use App\Http\Controllers\TarefasController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,3 +27,5 @@ Route::delete('deletar-event', [EventosController::class, 'delete']);
 Route::post('/task-create', [TarefasController::class, 'store']);
 Route::delete('deletar-task', [TarefasController::class, 'delete']);
 Route::post('update-task', [TarefasController::class, 'update']);
+
+Route::put('edituser',  [LiderJopeController::class, 'update']);

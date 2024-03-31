@@ -29,7 +29,7 @@
                                     <v-text-field label="Nome" v-model="nome" variant="solo-filled"></v-text-field>
                                 </v-col>
                                 <v-col cols="12">
-                                    <v-text-field label="Nome de usuário" type="text" v-model="username"
+                                    <v-text-field label="Nome de usuário" type="text" autocomplete="off" v-model="username"
                                         variant="solo-filled"></v-text-field>
                                 </v-col>
                                 <v-col cols="6">
@@ -50,10 +50,10 @@
                                     <v-text-field label="Bairro" v-model="bairro" variant="solo-filled"></v-text-field>
                                 </v-col>
                                 <v-col cols="6">
-                                    <v-text-field label="Senha" v-model="senha" type="password" variant="solo-filled"></v-text-field>
+                                    <v-text-field label="Senha" v-model="senha" autocomplete="off" type="password" variant="solo-filled"></v-text-field>
                                 </v-col>
                                 <v-col cols="6">
-                                    <v-text-field label="Confirmar senha" type="password" v-model="confirm_senha"
+                                    <v-text-field label="Confirmar senha" type="password" autocomplete="new-password" v-model="confirm_senha"
                                         variant="solo-filled"></v-text-field>
                                 </v-col>
                             </v-row>
@@ -228,7 +228,7 @@ export default {
         celula: 'Nenhuma',
         Fcelula: null,
         Vministerio: null,
-        Tconvertido: null,
+        Tconvertido: "Não convertido",
         incompleted: 'notIncompleted',
     }),
     watch: {
@@ -314,6 +314,9 @@ export default {
             let validador = Object.values(data).some(valor => valor === null || valor === undefined || valor === '');
             if (validador) {
                 this.incompleted = 'incompleted'
+                setTimeout( () => {
+                    this.incompleted = 'notIncompleted'
+                }, 5000)
             } else {
                 axios.post('api/registrar', data).then(response => {
                     if (response.status === 200) {

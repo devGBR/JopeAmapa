@@ -38,7 +38,7 @@
 
                                             </v-card-subtitle>
                                         </div>
-                                        <div class="w-25 text-end">
+                                        <div class="w-25 text-end" v-if="$page.props.cargos.includes('mídia') || $page.props.cargos.includes('lider')">
 
                                             <v-btn prepend-icon="mdi-delete" class="" @click="deleteEvent(event.id)"
                                                 color="red">

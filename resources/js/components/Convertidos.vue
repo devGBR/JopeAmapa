@@ -1,6 +1,28 @@
 <template>
-    <Doughnut :data="data" :options="options" ref="chart" />
-    <p style="position: absolute; bottom: 10px; left: 10px; ">{{ maior??null }}</p>
+    <div class="w-100 h-100 d-flex flex-wrap">
+    <div style="width: 270px; height: 270px;" :class="mobile ? 'mt-8 mx-auto' : 'mx-auto'" >
+        <Doughnut :data="data" :options="options" ref="chart" />
+    </div>
+    
+    <div :class="mobile ? 'w-100' : 'w-50 my-auto'" class=" px-3 ml-auto">
+        <v-table class="pa-2 rounded" density="compact">
+            <thead>
+                <tr>
+                    <th class="text-left">Período de Conversão</th>
+                    <th class="text-left">Quantidade</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(value, key, index) in maior" :key="index">
+                    <td>{{ key }}</td>
+                    <td class="text-center">{{ value }}</td>
+                </tr>
+            </tbody>
+        </v-table>
+    </div>
+    </div>
+   
 </template>
 <script>
 
@@ -11,14 +33,15 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, PointEl
 
 export default {
     props: {
-        dados: Array
+        dados: Array,
     },
     components: {
         Doughnut,
     },
     data() {
         return {
-            maior: null,
+            maior: {},
+            mobile:  window.innerWidth < 501 ? true : false,
             data: {
                 labels: ['2 a 3 meses', '5 a 10 meses', '1 a 2 anos', '3 anos ou mais'],
                 datasets: [
@@ -34,7 +57,7 @@ export default {
                 responsive: true,
                 plugins: {
                     legend: {
-                        position: 'left',
+                        position: this.position(),
                         align: 'center',
                         labels: {
                             color: '#fff' // cor da legenda
@@ -54,17 +77,33 @@ export default {
     },
 
     methods: {
+        position(){
+            this.mobile = window.innerWidth < 501 ? true : false
+            return this.mobile ? 'bottom' : 'left'
+        },
         calculo() {
             // '2 meses a 3 meses', '5 meses a 10 meses', '1 ano a 2 anos', '3 anos ou mais'
             let doisTres = this.dados.filter(data => data.convertido === "2 meses a 3 meses").length
             let cincoDez = this.dados.filter(data => data.convertido === "5 meses a 10 meses").length
             let umDois = this.dados.filter(data => data.convertido === "1 ano a 2 anos").length
             let tresMais = this.dados.filter(data => data.convertido === "3 anos ou mais").length
-            let array = [doisTres, cincoDez, umDois, tresMais]
-            let titles = ['2 a 3 meses', '5 a 10 meses', '1 a 2 anos', '3 anos ou mais']
-            const maiorNumero = Math.max(...array);
-            const posicao = array.indexOf(maiorNumero);
-            this.maior = titles[posicao] + " : " + maiorNumero;
+            let array = {
+                '2 a 3 meses': doisTres,
+                '5 a 10 meses': cincoDez,
+                '1 a 2 anos': umDois,
+                '3 anos ou mais': tresMais
+            }
+            let entries = Object.entries(array);
+
+            // Classificar a matriz com base nos valores (contagens)
+            entries.sort((a, b) => b[1] - a[1]);
+            let sortedArray = {};
+            entries.forEach(entry => {
+                sortedArray[entry[0]] = entry[1];
+            });
+
+            this.maior = sortedArray
+
             return [doisTres, cincoDez, umDois, tresMais]
         }
     }

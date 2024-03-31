@@ -408,7 +408,6 @@ export default {
             if (this.ids_equipe !== null) {
                 if (this.ids_equipe.includes(this.responsavel)) {
                     let index = this.ids_equipe.indexOf(this.responsavel);
-                    console.log(index)
                     if (index !== -1) {
                         this.ids_equipe.splice(index, 1);
                     }

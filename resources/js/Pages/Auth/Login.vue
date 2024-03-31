@@ -676,11 +676,11 @@
 
 
                             <div class="w-75">
-                                <v-text-field label="Nome de usuário" class="mb-2" v-model="username" :rules="usernameRules"
+                                <v-text-field label="Nome de usuário" class="mb-2" @keydown.enter="onSubmit" v-model="username" :rules="usernameRules"
                                     variant="outlined">
                                 </v-text-field>
                                 <div class="input-icons colorinput">
-                                    <v-text-field label="Senha" variant="outlined" :type="tipo" v-model="password" style=""
+                                    <v-text-field label="Senha" @keydown.enter="onSubmit" variant="outlined" :type="tipo" v-model="password" style=""
                                         :rules="passwordRules">
                                     </v-text-field>
                                 </div>

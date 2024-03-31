@@ -96,14 +96,19 @@
                                 <div class="w-100 pa-3 text-center bg-green d-flex  justify-center"
                                     style="position: absolute; top: 0; left: 0;">
                                     JOPER
-                                    <v-btn icon size="small" style="position: absolute; right: 10px; top: 10%;">
+                                    <!-- <v-btn icon size="small" style="position: absolute; right: 10px; top: 10%;">
                                         <v-tooltip activator="parent" location="bottom">Editar cadastro</v-tooltip>
                                         <v-icon>mdi-pencil</v-icon>
-                                    </v-btn>
+                                    </v-btn> -->
                                 </div>
                                 <div class="w-100 h-100 d-flex flex-column py-16 justify-center align-center">
-                                    <v-avatar image="img/IconBranca.png" class="bg-green"
-                                        style="box-shadow: gray 0px 4px 6px 0px;" size="200"></v-avatar>
+                                    <v-avatar  class="bg-green"
+                                        style="box-shadow: gray 0px 4px 6px 0px;" size="200">
+                                        <v-img
+        alt="John"
+        src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="
+      ></v-img>
+                                    </v-avatar>
                                     <p class="text-center pa-5">{{ $page.props.user.nome }}</p>
                                     <div class="w-100 ">
                                         <v-row>

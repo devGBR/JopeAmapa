@@ -24,14 +24,14 @@ export default {
                     {
                         label: 'Maiores',
                         data: [this.maior],
-                        borderColor: 'red',
-                        backgroundColor: ('#4c8705fc'),
+                        borderColor: 'limegreen',
+                        backgroundColor: ('lime'),
                     },
                     {
                         label: 'Menores',
                         data: [this.menor],
-                        borderColor: 'blue',
-                        backgroundColor: ('blue'),
+                        borderColor: 'green',
+                        backgroundColor: ('green'),
                     }
                 ]
                 

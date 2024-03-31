@@ -346,9 +346,6 @@ export default {
         }
     },
     mounted() {
-
-        console.log(this.$page.props.user)
-
         // Crie um novo objeto Image
         this.img = new Image();
 

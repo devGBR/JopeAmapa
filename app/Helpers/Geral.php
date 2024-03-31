@@ -11,7 +11,7 @@ function ValidToken($token){
         "password" => $dados[1]
     ];
     if(Auth::attempt($credentials)){
-        return true;
+        return User::where('token_api', $token)->first();
     }else{
         return false;
     }
