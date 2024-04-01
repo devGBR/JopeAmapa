@@ -29,3 +29,4 @@ Route::delete('deletar-task', [TarefasController::class, 'delete']);
 Route::post('update-task', [TarefasController::class, 'update']);
 
 Route::put('edituser',  [LiderJopeController::class, 'update']);
+Route::delete('deletar-user', [LiderJopeController::class, 'delete']);

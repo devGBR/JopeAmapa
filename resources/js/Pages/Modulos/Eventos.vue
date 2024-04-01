@@ -9,9 +9,9 @@
             <div class="px-16 my-5">
                 <div class="d-flex">
                     <v-toolbar class="px-2 d-flex text-end" color="transparent" style="z-index: 5;">
-                        <v-text-field v-model="search" clearable density="comfortable" hide-details
+                        <!-- <v-text-field v-model="search" clearable density="comfortable" hide-details
                             placeholder="Pequisar" prepend-inner-icon="mdi-magnify" style="max-width: 300px;"
-                            variant="solo"></v-text-field>
+                            variant="solo"></v-text-field> -->
                         <div class="ml-auto" v-if="$page.props.cargos.includes('mídia') || $page.props.cargos.includes('lider')">
                             <v-btn color="green" class="ml-auto" v-if="model === 'ver'" prepend-icon="mdi-plus"
                                 @click=" model = 'criar'" variant="outlined">Criar

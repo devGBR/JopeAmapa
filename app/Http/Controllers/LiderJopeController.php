@@ -51,13 +51,13 @@ class LiderJopeController extends Controller
                             'endereco' => $request->endereco,
                             'bairro' => $request->bairro,
                             'numero' => $request->numero,
-                            'cargo' =>  implode("|",$request->ministerio),
+                            'cargo' =>  implode("|", $request->ministerio),
                         ];
                         $updateData = [
-                            'convertido' => $request->convertido??"Não converido",
+                            'convertido' => $request->convertido ?? "Não converido",
                             'batizado'  => $request->batizado,
                             'celula'  => $request->celula,
-                            'lider_ministerio' => is_array($request->lideranca) ? implode("|",$request->lideranca) : null
+                            'lider_ministerio' => is_array($request->lideranca) ? implode("|", $request->lideranca) : null
                         ];
                         if ($updateUser && $updateData) {
                             $joper = User::find(HashIdsDecode($request->user));
@@ -82,5 +82,28 @@ class LiderJopeController extends Controller
 
     public function delete(Request $request)
     {
+        try {
+            $user = ValidToken($request->token);
+            if ($user) {
+                $cargos = explode("|", $user->cargo);
+                if (count($cargos) > 1 && in_array("lider", $cargos)) {
+                    if ($request->id) {
+                        $joper = User::find(HashIdsDecode($request->id));
+                        $data = Jopers::where('user_id', $joper->id)->first();
+                        $data->delete();
+                        $joper->delete();
+                        return response()->json([
+                            "mensagem" => "Usuário atualizado"
+                        ], 200);
+                    } else {
+                        throw new Exception("Dados incompleto");
+                    }
+                }
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                "mensagem" => $e->getMessage()
+            ], 500);
+        }
     }
 }

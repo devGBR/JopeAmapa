@@ -139,11 +139,11 @@
                         <v-col cols="12" :class="!mobile ? 'pb-10' : ''">
                             <v-card class="w-100 mx-3 pa-2 " height="700"
                                 style="background: linear-gradient(to right, rgb(27 48 2), #4c8705fc); position: relative;">
-                                <v-toolbar class="px-2" color="transparent" style="z-index: 5;">
+                                <!-- <v-toolbar class="px-2" color="transparent" style="z-index: 5;">
                                     <v-text-field v-model="search" clearable density="comfortable" hide-details
                                         placeholder="Pequisar" prepend-inner-icon="mdi-magnify"
                                         style="max-width: 300px;" variant="solo"></v-text-field>
-                                </v-toolbar>
+                                </v-toolbar> -->
                                 <v-table height="600px" class="my-auto" fixed-header>
                                     <thead>
                                         <tr class="text-uppercase">
@@ -207,7 +207,7 @@
                                                         <v-card class="mx-auto my-5"
                                                             style="max-width: 600px; min-width: 364px; box-sizing: border-box;  background: linear-gradient(to right, rgb(27 48 2), #4c8705fc); box-shadow: darkgreen -5px -5px 13px 0px; color: white;">
 
-                                                            <v-card-title  class="justify-space-between">
+                                                            <v-card-title class="justify-space-between">
                                                                 <div>
                                                                     <v-icon large left>mdi-pencil</v-icon>
                                                                     <span class="headline mx-2">Editar</span>
@@ -236,7 +236,8 @@
                                                                         variant="solo-filled" />
                                                                 </v-col>
                                                                 <v-col cols="12" class="py-0">
-                                                                    <v-select multiple label="Liderança de Departamentos"
+                                                                    <v-select multiple
+                                                                        label="Liderança de Departamentos"
                                                                         v-model="lideranca" :items="deparments"
                                                                         item-title="name" item-value="value"
                                                                         variant="solo-filled" />
@@ -277,7 +278,9 @@
 
                                                                 </div>
                                                                 <div class="w-50 d-flex justify-end">
-                                                                    <v-btn append-icon="mdi-send" @click="edit(item.id), isActive.value = false" color="#529606">
+                                                                    <v-btn append-icon="mdi-send"
+                                                                        @click="edit(item.id), isActive.value = false"
+                                                                        color="#529606">
                                                                         Editar
                                                                     </v-btn>
                                                                 </div>
@@ -310,7 +313,7 @@
                                                                 </v-btn>
                                                                 <v-btn class=" ml-2 d-flex" color="green"
                                                                     variant="plain" icon="mdi-check"
-                                                                    @click="deleteTarefa(item.id)">
+                                                                    @click="deleteUser(item.id), isActive.value = false">
 
                                                                 </v-btn>
                                                             </v-card-actions>
@@ -410,7 +413,7 @@ export default {
             batizado: null,
             celula: 'null',
             Tconvertido: "Não convertido",
-            lideranca : null,
+            lideranca: null,
 
 
         }
@@ -429,45 +432,76 @@ export default {
         }
     },
     methods: {
+        deleteUser(id) {
+            axios.delete('/api/deletar-user', {
+                data: {
+                    token: this.$page.props.user.token_api,
+                    id: id
+                }
+            }).then(
+                response => {
+                    if (response.status === 200) {
+                        // Redirecionar para a página de login
+                        this.title = "Deletado"
+                        this.mensagem = "Usuário deletado com sucesso"
+                        this.type = "success"
+                        this.toast = "cardtoast"
+                        setTimeout(() => {
+                            location.reload()
+                        }, 2000)
 
-        edit(id){
-            axios.put("/api/edituser" ,{
+                    } else if (response.status === 500) {
+                        this.title = "Error Delete"
+                        this.mensagem = "Erro ao tentar deletar o usuário!"
+                        this.type = "error"
+                        this.toast = 'cardtoast';
+                    }
+                })
+                .catch(error => {
+                    this.title = "Error Delete"
+                    this.mensagem = 'Ops tivemos um erro';
+                    this.type = "error"
+                    this.toast = 'cardtoast';
+                });
+        },
+        edit(id) {
+            axios.put("/api/edituser", {
 
-token: this.$page.props.user.token_api,
-user: id,
-endereco: this.endereco,
-bairro: this.bairro,
-numero: this.numero,
-ministerio: this.ministerio,
-batizado : this.batizado === 'Sim' ? '1' : '0',
-celula: this.celula,
-convertido: this.Tconvertido,
-lideranca: this.lideranca 
+                token: this.$page.props.user.token_api,
+                user: id,
+                endereco: this.endereco,
+                bairro: this.bairro,
+                numero: this.numero,
+                ministerio: this.ministerio,
+                batizado: this.batizado === 'Sim' ? '1' : '0',
+                celula: this.celula,
+                convertido: this.Tconvertido,
+                lideranca: this.lideranca
 
-})
-.then(
-    response => {
-        if (response.status === 200) {
-            this.title = "Sucesso"
-            this.mensagem = "Dados do usuário editado com sucesso"
-            this.type = "success"
-            this.toast = "cardtoast"
-            // console.log(this.toast)
-            setTimeout(() => {
-                window.location.href = '/dashboard'
-            }, 2000)
-        }
-    }
-)
-.catch(error => {
-    this.title = "Error ao editar usuário"
-    this.mensagem = "Erro ao tentar editar o usuário!"
-    this.type = "error"
-    this.toast = 'cardtoast';
-    setTimeout(() => {
-        this.toast = 'notError'
-    }, 3000)
-})
+            })
+                .then(
+                    response => {
+                        if (response.status === 200) {
+                            this.title = "Sucesso"
+                            this.mensagem = "Dados do usuário editado com sucesso"
+                            this.type = "success"
+                            this.toast = "cardtoast"
+                            // console.log(this.toast)
+                            setTimeout(() => {
+                                window.location.href = '/dashboard'
+                            }, 2000)
+                        }
+                    }
+                )
+                .catch(error => {
+                    this.title = "Error ao editar usuário"
+                    this.mensagem = "Erro ao tentar editar o usuário!"
+                    this.type = "error"
+                    this.toast = 'cardtoast';
+                    setTimeout(() => {
+                        this.toast = 'notError'
+                    }, 3000)
+                })
         },
 
         insertDataI(user) {
@@ -482,7 +516,7 @@ lideranca: this.lideranca
                 this.batizado = user.batizado ? 'Sim' : 'Não';
                 this.celula = user.celula;
                 this.Tconvertido = user.convertido;
-                this.lideranca = user.lider_ministerio ? user.lider_ministerio.split('|') : null 
+                this.lideranca = user.lider_ministerio ? user.lider_ministerio.split('|') : null
             }
         },
         calcDate(date) {
