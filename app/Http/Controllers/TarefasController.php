@@ -124,7 +124,7 @@ class TarefasController extends Controller
                 $task = Tarefas::find($id);
                 if ($task) {
                     $update = [
-                        "status" => "Completo"
+                        "status" => $request->status
                     ];
                     if ($task->update($update)) {
                         return response()->json([

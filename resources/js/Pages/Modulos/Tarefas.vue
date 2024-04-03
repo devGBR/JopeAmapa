@@ -96,7 +96,7 @@
                                                                 icon="mdi-close" @click="isActive.value = false">
                                                             </v-btn>
                                                             <v-card class="mx-auto my-5"
-                                                                style="width: auto; min-width: 364px; max-width: 400px; background: linear-gradient(to right, rgb(27 48 2), #4c8705fc); color: white;">
+                                                                style="width: auto; min-width: 364px; max-height: 400px; max-width: 400px; background: linear-gradient(to right, rgb(27 48 2), #4c8705fc); color: white;">
 
                                                                 <v-card-title class="justify-space-between">
                                                                     <div>
@@ -142,11 +142,23 @@
                                                                             </p>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="w-50 d-flex justify-end">
+                                                                    <div style="position: absolute; bottom: 10px; right: 10px; height: 95px;" class="d-flex justify-space-evenly flex-column">
+                                                                        <v-btn color="grey" class="text-white"
+                                                                        v-show="item.status !== 'Pendente'"
+                                                                        @click="statusTask(item.id, 'Pendente'), isActive.value = false"
+                                                                            prepend-icon="mdi-timer-sand-paused">
+                                                                            Pendente
+                                                                        </v-btn>
+                                                                        <v-btn color="orange" class="text-white"
+                                                                        v-show="item.status !== 'Em andamento'"
+                                                                            @click="statusTask(item.id, 'Em andamento'), isActive.value = false"
+                                                                            prepend-icon="mdi-timer-sand">
+                                                                            Em andamento
+                                                                        </v-btn>
                                                                         <v-btn color="#529606"
                                                                             v-show="item.status !== 'Completo'"
-                                                                            @click="completarTask(item.id), isActive.value = false"
-                                                                            prepend-icon="mdi-check">
+                                                                            @click="statusTask(item.id, 'Completo'), isActive.value = false"
+                                                                            prepend-icon="mdi-timer-sand-complete">
                                                                             Completar
                                                                         </v-btn>
                                                                     </div>
@@ -476,16 +488,17 @@ export default {
                     })
             }
         },
-        completarTask(id) {
+        statusTask(id, status) {
             axios.post('/api/update-task', {
                 token: this.$page.props.user.token_api,
-                id: id
+                id: id,
+                status: status
             }).then(
                 response => {
                     if (response.status === 200) {
                         // Redirecionar para a página de login
-                        this.title = "Tarefa Completa"
-                        this.mensagem = "Tarefa completada com sucesso"
+                        this.title = "Status da Tarefa"
+                        this.mensagem = "Status da tarefa alterada com sucesso"
                         this.type = "success"
                         this.toast = "cardtoast"
                         setTimeout(() => {
@@ -495,8 +508,8 @@ export default {
                     }
                 })
                 .catch(error => {
-                    this.title = "Error ao completar"
-                    this.mensagem = "Erro ao tentar completar a tarefa!"
+                    this.title = "Error"
+                    this.mensagem = "Erro ao tentar alterar o status da tarefa!"
                     this.type = "error"
                     this.toast = 'cardtoast';
                     setTimeout(() => {

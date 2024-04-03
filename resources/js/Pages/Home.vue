@@ -266,10 +266,10 @@
 
             </section>
             <section id="faq" class="w-100">
-                <v-card color="#3e6d0687" rounded="0" class="w-100 h-100 d-flex justify-center align-center pa-10"
+                <v-card color="#3e6d0687" rounded="0" class="w-100 h-100 d-flex flex-wrap justify-center align-center pa-10"
                     style="box-sizing: border-box;">
 
-                    <div class="text-white  mx-8 py-5" :class="mobile === true ? 'w-100' : 'w-25 my-5'"
+                    <div class="text-white  mx-8 py-5" :class="mobile === true ? 'w-100' : 'w-25'"
                         :style="mobile === true ? 'font-size: 30px !important;' : 'font-size: 67px !important;'" style="font-family: 'Abril Fatface', serif;  margin: 0;
                         font-weight: 600;
                         text-align: start;
@@ -280,7 +280,7 @@
                         PRECISA
                         SABER?
                     </div>
-                    <div class="w-50 my-5  py-9">
+                    <div :class="mobile === true ? 'w-100 my-2 py-0' : 'w-50 my-5  py-9'" >
                         <v-expansion-panels class="my-1" variant="accordion">
                             <v-expansion-panel title="Como faço para fazer parte das Missões JOPE?"
                                 class="bg-transparent text-white" elevation="0" rounded="0"
