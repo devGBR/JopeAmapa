@@ -215,7 +215,7 @@
                                         </v-list-item>
                                     </v-list>
 
-                                    <v-list density="compact" style="position: absolute; right: -20px;" class="bg-transparent ml-auto mr-10">
+                                    <v-list density="compact" style="position: absolute; right: -20px; bottom: 30px;" class="bg-transparent ml-auto mr-10">
 
                                         <v-btn class="text-red" text="" target="_blank"
                                             href="https://www.facebook.com/profile.php?id=100056057672246"
