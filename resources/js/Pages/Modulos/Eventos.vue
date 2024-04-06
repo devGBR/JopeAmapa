@@ -6,13 +6,14 @@
             </v-alert>
         </span>
         <section class="">
-            <div class="px-16 my-5">
+            <div :class="mobile ? 'px-2 my-5' : 'px-16 my-5'">
                 <div class="d-flex">
                     <v-toolbar class="px-2 d-flex text-end" color="transparent" style="z-index: 5;">
                         <!-- <v-text-field v-model="search" clearable density="comfortable" hide-details
                             placeholder="Pequisar" prepend-inner-icon="mdi-magnify" style="max-width: 300px;"
                             variant="solo"></v-text-field> -->
-                        <div class="ml-auto" v-if="$page.props.cargos.includes('mídia') || $page.props.cargos.includes('lider')">
+                        <div class="ml-auto"
+                            v-if="$page.props.cargos.includes('mídia') || $page.props.cargos.includes('lider')">
                             <v-btn color="green" class="ml-auto" v-if="model === 'ver'" prepend-icon="mdi-plus"
                                 @click=" model = 'criar'" variant="outlined">Criar
                                 Evento</v-btn>
@@ -25,12 +26,14 @@
                 </div>
                 <v-window v-model="model">
                     <v-window-item value="ver">
-                        <v-card class="mx-auto w-100 text-white pa-5 pr-0  my-3"
+                        <v-card class="mx-auto w-100 text-white pa-5 my-3" :class="!mobile && 'pr-0'"
                             v-for="event in $page.props.events.data" :key="event.index" color="#3e6d0687">
-                            <div class="d-flex">
-                                <v-img height="180px" class="w-25 rounded" :src="event.banner" cover></v-img>
+                            <div :class="mobile ? 'd-flex flex-wrap' : 'd-flex'">
+                                <v-img height="180px" :class="mobile ? 'w-100 rounded' : 'w-25 rounded'"
+                                    :src="event.banner" cover></v-img>
 
-                                <v-card-title class="w-75 py-5 px-8 d-flex flex-column flex-wrap justify-space-between">
+                                <v-card-title :class="mobile ? 'w-100 px-2' : 'px-8 w-75'"
+                                    class=" py-5  d-flex flex-column flex-wrap justify-space-between">
                                     <div class="w-100 d-flex">
                                         <div class="w-75">
                                             {{ event.evento }}
@@ -38,7 +41,8 @@
 
                                             </v-card-subtitle>
                                         </div>
-                                        <div class="w-25 text-end" v-if="$page.props.cargos.includes('mídia') || $page.props.cargos.includes('lider')">
+                                        <div class="w-50 text-end"
+                                            v-if="$page.props.cargos.includes('mídia') || $page.props.cargos.includes('lider')">
 
                                             <v-btn prepend-icon="mdi-delete" class="" @click="deleteEvent(event.id)"
                                                 color="red">
@@ -46,30 +50,27 @@
                                             </v-btn>
                                         </div>
                                     </div>
-                                    <div>
-
-                                    </div>
-                                    <div class="d-flex">
-                                        <div class="d-flex align-center w-50   me-1 justify-space-between"
+                                    <div class="d-flex flex-wrap w-100 mt-2" style="box-sizing: border-box;">
+                                        <div class="d-flex align-center w-50 me-1 justify-space-between"
                                             style="padding: 0px 190px 0px 0px;">
                                             <div class="d-flex flex-column">
 
 
                                                 <div class="text-truncate"><v-icon icon="mdi-clock"
-                                                        start></v-icon>Horario</div>
-                                                <div class="pl-10">
+                                                        start></v-icon>{{ mobile ?  event.horario : 'Horario' }}</div>
+                                                <div class="pl-10" v-if="!mobile">
                                                     <p>{{ event.horario }}</p>
                                                 </div>
                                             </div>
                                             <div class="d-flex flex-column mx-10">
                                                 <div class="text-truncate"><v-icon icon="mdi-calendar-multiselect"
-                                                        start></v-icon>Data</div>
-                                                <div class="pl-10">
+                                                        start></v-icon> {{ mobile ?  formatData(event.data) : 'Data' }}</div>
+                                                <div class="pl-10" v-if="!mobile">
                                                     <p>{{ formatData(event.data) }}</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <v-card-actions class="w-50 text-end" style="position: relative;">
+                                        <v-card-actions class="text-end w-100" style="position: relative;">
                                             <v-spacer></v-spacer>
                                             <v-btn :icon="show ? 'mdi-chevron-up' : 'mdi-chevron-down'"
                                                 @click="show = !show"
