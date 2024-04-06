@@ -6,7 +6,7 @@
             </v-alert>
         </span>
         <section class="">
-            <div class="px-16 my-5">
+            <div :class="!mobile ? 'px-16' : 'px-2'" class="my-5">
                 <div class="d-flex">
                     <v-toolbar class="px-2 d-flex text-end" color="transparent" style="z-index: 5;">
                         <div class="ml-auto"
@@ -23,10 +23,10 @@
                 </div>
                 <v-window v-model="model">
                     <v-window-item value="ver">
-                        <section class="px-6 d-flex h-screen flex-column">
+                        <section :class="!mobile && 'px-6'" class="d-flex h-screen flex-column">
                             <div class="h-50 ">
                                 <v-card-title class="pt-0">Tarefas Responsável</v-card-title>
-                                <v-card class="pa-5 pt-3">
+                                <v-card class="pa-5 pt-3" v-if="!mobile">
                                     <v-table height="270px" fixed-header>
                                         <thead>
                                             <tr>
@@ -136,9 +136,7 @@
                                                                         <div class="text-truncate d-flex align-center">
                                                                             <v-icon icon="mdi-calendar-multiselect"
                                                                                 start></v-icon>
-                                                                            <p>{{
-        item.vencimento.split('-').reverse().join('/')
-    }}
+                                                                            <p>{{item.vencimento.split('-').reverse().join('/')}}
                                                                             </p>
                                                                         </div>
                                                                     </div>
@@ -205,6 +203,7 @@
                                         </tbody>
                                     </v-table>
                                 </v-card>
+                                <TableMobile :tarefas="$page.props.minhastarefas" :equipes="$page.props.userstaskresp"  v-else/>
                             </div>
                             <div class="h-50">
                                 <v-card-title>Tarefas Mencionado(a)</v-card-title>
@@ -385,11 +384,12 @@
 <script>
 import axios from 'axios';
 import Layout from '../../Layout/Layout.vue'
+import TableMobile from '../../components/TableMobile.vue'
 import { Inertia } from "@inertiajs/inertia"
 export default {
     components: {
         Layout,
-
+        TableMobile
     },
     data() {
         return {
