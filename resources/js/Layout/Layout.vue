@@ -16,7 +16,7 @@
                         <div class="d-flex align-center px-auto"
                             style="width: 130px; height: 50px; border-radius: 8px; background-color: white;">
                             <span class="px-2 text-black mx-auto" style="font-size: 20px; font-weight: 600;">{{
-                username }}</span>
+                                username }}</span>
                         </div>
                     </div>
                     <div v-else>
@@ -47,6 +47,8 @@
                                 <v-list-item prepend-icon="mdi-monitor-dashboard"
                                     v-if="$page.props.cargos.includes('lider')" href="/dashboard" title="Dashboard"
                                     value="dashboard"></v-list-item>
+                                <v-list-item prepend-icon="mdi-location-exit" v-if="movel === true" href="/sair"
+                                    title="Sair" value="dashboard"></v-list-item>
                             </v-list>
                         </template>
 
@@ -215,7 +217,8 @@
                                         </v-list-item>
                                     </v-list>
 
-                                    <v-list density="compact" style="position: absolute; right: -20px; bottom: 30px;" class="bg-transparent ml-auto mr-10">
+                                    <v-list density="compact" style="position: absolute; right: -20px; bottom: 30px;"
+                                        class="bg-transparent ml-auto mr-10">
 
                                         <v-btn class="text-red" text="" target="_blank"
                                             href="https://www.facebook.com/profile.php?id=100056057672246"

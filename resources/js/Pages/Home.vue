@@ -107,7 +107,7 @@
 
                                                     </template>
                                                     <template v-slot:default="{ isActive }">
-                                                        <v-card rounded="3" style="max-width: 447px !important;">
+                                                        <v-card rounded="3" style=" width: auto; min-width: 364px; max-width: 447px !important;">
                                                             <v-app-bar color="#284703" title="Evento"
                                                                 style="position: fixed; top: 0; border-radius: 2px;"></v-app-bar>
                                                             <!-- <v-toolbar  style="" ></v-toolbar> -->
