@@ -203,11 +203,11 @@
                                         </tbody>
                                     </v-table>
                                 </v-card>
-                                <TableMobile :tarefas="$page.props.minhastarefas" :equipes="$page.props.userstaskresp"  v-else/>
+                                <TableMobile :responsavel="true" :tarefas="$page.props.minhastarefas" :equipes="$page.props.userstaskresp"  v-else/>
                             </div>
                             <div class="h-50">
                                 <v-card-title>Tarefas Mencionado(a)</v-card-title>
-                                <v-card class="pa-5 pt-3">
+                                <v-card class="pa-5 pt-3" v-if="!mobile">
                                     <v-table height="270px" fixed-header>
                                         <thead>
                                             <tr>
@@ -339,6 +339,7 @@
                                         </tbody>
                                     </v-table>
                                 </v-card>
+                                <TableMobile :responsavel="false" :tarefas="$page.props.tarefasgrupo" :equipes="$page.props.userstaskgroup"  v-else/>
                             </div>
                         </section>
                     </v-window-item>
