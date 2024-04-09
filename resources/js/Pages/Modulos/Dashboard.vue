@@ -74,7 +74,7 @@
                         </v-col>
                         <v-col cols="12" class="py-5" md="6">
 
-                            <v-card title="Celula" color="#3e6d06" :height="mobile ? '580' : '270'" class="w-100 mx-3"
+                            <v-card title="GC" color="#3e6d06" :height="mobile ? '580' : '270'" class="w-100 mx-3"
                                 style="position: relative;">
                                 <div class="h-100 w-100 " style="position: absolute; top: 0;">
                                     <Celula :dados="dados" />
@@ -169,10 +169,17 @@
                                                 Batizado
                                             </th>
                                             <th class="text-center">
-                                                Celula
+                                                GC
                                             </th>
-                                            <th class="text-center">
-                                                Interesse
+                                            <th class="text-center d-flex align-center justify-center">
+                                                Departamento <v-tooltip location="top" text="Descrição se o usuário participa ou tem insteresse de participar de algum departamento">
+                                                        <template v-slot:activator="{ props }">
+                                                            <v-icon v-bind="props" color="green" class="mx-2"
+                                                                icon="mdi-information-variant-circle-outline">
+
+                                                            </v-icon>
+                                                        </template>
+                                                    </v-tooltip>
                                             </th>
                                             <th class="text-center">
                                                 Ações
@@ -268,7 +275,7 @@
                                                                 <v-col cols="12" class="py-0">
                                                                     <v-select
                                                                         :items="['Tenda do encontro', 'Célula FJO - Joiane', 'Star com Deus - Marco zero', 'Emanuel', 'Aliança com Deus - Tia Graça']"
-                                                                        v-model="celula" label="Celula"
+                                                                        v-model="celula" label="GC"
                                                                         variant="solo-filled" />
                                                                 </v-col>
                                                             </v-row>

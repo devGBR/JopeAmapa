@@ -90,7 +90,7 @@
                                         variant="solo-filled"></v-select>
                                 </v-col>
                                 <v-col cols="12">
-                                    <label for="" class="text-white text-h6">Você frequenta alguma célula da Luz para os
+                                    <label for="" class="text-white text-h6">Você frequenta algum GC da Luz para os
                                         povos?</label>
                                     <div class="d-flex"><v-checkbox v-model="Fcelula" color="white" value="Sim"
                                             label="Sim"></v-checkbox> <v-checkbox v-model="Fcelula" color="white"
@@ -98,7 +98,7 @@
                                             color="white" value="As vezes" label="Às vezes"></v-checkbox></div>
                                 </v-col>
                                 <v-col v-if="Fcelula != 'Não'" cols="12">
-                                    <label for="" class="text-white text-h6">Qual célula?</label>
+                                    <label for="" class="text-white text-h6">Qual GC?</label>
                                     <v-select label=""
                                         :items="['Tenda do encontro', 'Célula FJO - Joiane', 'Star com Deus - Marco zero', 'Emanuel', 'Aliança com Deus - Tia Graça']"
                                         v-model="celula" variant="solo-filled"></v-select>
@@ -109,13 +109,12 @@
                                     <div class="d-flex"> <v-checkbox v-model="Vministerio" color="white" theme="dark"
                                             class="text-white" value="Sim" label="Sim"></v-checkbox> <v-checkbox
                                             v-model="Vministerio" color="white" theme="dark" class="text-white" value="Não"
-                                            label="Não"></v-checkbox> <v-checkbox v-model="Vministerio" color="white"
-                                            theme="dark" class="text-white" value="As vezes" label="Às vezes"></v-checkbox>
+                                            label="Não"></v-checkbox>
                                     </div>
                                 </v-col>
                                 <v-col v-if="Vministerio != 'Não'" cols="12">
                                     <label for="" class="text-white text-h6">Qual ministerio?</label>
-                                    <v-select label=""
+                                    <v-select label="" multiple
                                         :items="['Instrumental', 'Dança', 'Louvor', 'Teatro', 'Dinamica', 'Midia - Audiovisual', 'Servo']"
                                         v-model="ministerio" variant="solo-filled"></v-select>
                                 </v-col>
@@ -223,12 +222,12 @@ export default {
         confirm_senha: null,
         pessoais: false,
         convertido: null,
-        ministerio: 'Nenhum',
+        ministerio: null,
         batizado: null,
         celula: 'Nenhuma',
         Fcelula: null,
         Vministerio: null,
-        Tconvertido: "Não convertido",
+        Tconvertido: null,
         incompleted: 'notIncompleted',
     }),
     watch: {
@@ -306,8 +305,8 @@ export default {
                 numero: this.numero,
                 bairro: this.bairro,
                 password: this.senha,
-                convertido: this.Tconvertido,
-                ministerio: this.ministerio,
+                convertido: this.Tconvertido ?? "Não convertido",
+                ministerio: this.ministerio ?? "Nenhum",
                 batizado: this.batizado === 'Sim' ? true : false,
                 celula: this.celula,
             }

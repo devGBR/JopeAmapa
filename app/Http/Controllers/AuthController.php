@@ -51,12 +51,13 @@ class AuthController extends Controller
             'numero' => 'required|string',
             'password' => 'required',
             'convertido' => 'required|string',
-            'ministerio' => 'required|string',
+            'ministerio' => 'required',
             'batizado' => 'required|boolean',
             'celula' => 'required|string',
         ]);
         if ($validate) {
             $token = base64_encode($request->username .":". $request->password);
+            $interesse = implode(" | ", $request->ministerio);
             $user = User::create([
                 'nome' => $request->nome,
                 'username' => $request->username,
@@ -72,7 +73,7 @@ class AuthController extends Controller
             $joper = Jopers::create([
                 'user_id' => $user->id,
                 'convertido' => $request->convertido,
-                'ministerio'  => $request->ministerio,
+                'ministerio'  => $interesse,
                 'batizado'  => $request->batizado,
                 'celula'  => $request->celula,
             ]);

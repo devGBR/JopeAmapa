@@ -8,7 +8,7 @@
         <v-table class="pa-2 rounded" density="compact">
             <thead>
                 <tr>
-                    <th class="text-left">Período de Conversão</th>
+                    <th class="text-left">Grupos de conexão</th>
                     <th class="text-left">Quantidade</th>
 
                 </tr>
