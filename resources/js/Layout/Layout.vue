@@ -123,9 +123,10 @@
                                         <v-list density="compact"
                                             class="bg-transparent d-flex flex-column ml-auto mr-10">
 
-                                            <v-btn class="text-white px-1"  text="" target="_blank"
-                                                href="https://www.youtube.com/@LuzParaOsPovosMacapa"    >
-                                                <v-icon class="w-25 mr-2" style="background-color: red; border-radius: 5px; padding: 10px 5px;">mdi-play</v-icon>
+                                            <v-btn class="text-white px-1" text="" target="_blank"
+                                                href="https://www.youtube.com/@LuzParaOsPovosMacapa">
+                                                <v-icon class="w-25 mr-2"
+                                                    style="background-color: red; border-radius: 5px; padding: 10px 5px;">mdi-play</v-icon>
                                                 <p class="text-black">Youtube</p>
                                             </v-btn>
                                         </v-list>
@@ -228,18 +229,22 @@
                                         </v-list-item>
                                     </v-list>
 
-                                    <v-list density="compact" style="position: absolute; right: -20px; bottom: 30px;"
-                                        class="bg-transparent ml-auto mr-10">
-
-                                        <v-btn class="text-red" text="" target="_blank"
+                                    <v-list density="compact" style="position: absolute; right: -20px; bottom: 80px;"
+                                        class="bg-transparent ml-auto mr-10 d-flex flex-column">
+                                        <v-btn class="text-red mt-3" text="" target="_blank"
                                             href="https://www.facebook.com/profile.php?id=100056057672246"
                                             prepend-icon="mdi-access-point">
                                             <p style="color:black;">Live</p>
                                         </v-btn>
-                                        <v-btn class="text-red" text="" target="_blank"
-                                            href="https://www.facebook.com/profile.php?id=100056057672246"
-                                            prepend-icon="mdi-access-point">
-                                            <p style="color:black;">Live</p>
+                                    </v-list>
+                                    <v-list density="compact" style="position: absolute; right: -20px; bottom: 30px;"
+                                        class="bg-transparent ml-auto mr-10 d-flex flex-column">
+                                        <v-btn class="text-white px-1" text="" target="_blank"
+                                            href="https://www.youtube.com/@LuzParaOsPovosMacapa"
+                                            >
+                                            <v-icon class="w-25 mr-2"
+                                                    style="background-color: red; border-radius: 5px; padding: 10px 5px;">mdi-play</v-icon>
+                                            <p style="color:black;">Youtube</p>
                                         </v-btn>
                                     </v-list>
 
