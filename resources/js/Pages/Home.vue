@@ -81,7 +81,7 @@
                         <template v-slot:default="{ items }">
                             <v-container class="pa-2" fluid>
                                 <v-row dense>
-                                    <v-col v-for="item in items" :key="item.id" cols="auto" md="4">
+                                    <v-col v-for="item in items" :key="item.id" cols="12" md="4">
                                         <v-card class="pb-3" height="370" color="#3e6d0687" border flat>
                                             <v-img cover aspect-ratio="4/3" max-height="250"
                                                 :src="item.raw.banner"></v-img>
