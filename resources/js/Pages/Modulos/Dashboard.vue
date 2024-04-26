@@ -28,7 +28,7 @@
                                         style="font-weight: 600; position: absolute; bottom: 20px; left: 5%; font-size: 1.5rem;">
                                         TOTAL</p> <span
                                         style="font-size: 7.5rem; font-weight: 400; text-shadow: 0 0 0.2em #000; position: absolute; bottom: -15px; right: 35px;">{{
-        qtdJovens }}</span>
+                                        qtdJovens }}</span>
                                 </div>
 
 
@@ -66,7 +66,7 @@
                                         style="font-weight: 600; position: absolute; bottom: 20px; left: 5%; font-size: 1.5rem;">
                                         TOTAL</p> <span
                                         style="font-size: 7.5rem; font-weight: 400; text-shadow: 0 0 0.2em #000; position: absolute; bottom: -15px; right: 35px;">{{
-        batizados }}</span>
+                                        batizados }}</span>
                                 </div>
 
 
@@ -129,7 +129,7 @@
                                         style="font-weight: 600; position: absolute; bottom: 20px; left: 5%; font-size: 1.5rem;">
                                         TOTAL</p> <span
                                         style="font-size: 7.5rem; font-weight: 400; text-shadow: 0 0 0.2em #000; position: absolute; bottom: -15px; right: 35px;">{{
-        Nbatizado }}</span>
+                                        Nbatizado }}</span>
                                 </div>
 
 
@@ -172,14 +172,15 @@
                                                 GC
                                             </th>
                                             <th class="text-center d-flex align-center justify-center">
-                                                Departamento <v-tooltip location="top" text="Descrição se o usuário participa ou tem insteresse de participar de algum departamento">
-                                                        <template v-slot:activator="{ props }">
-                                                            <v-icon v-bind="props" color="green" class="mx-2"
-                                                                icon="mdi-information-variant-circle-outline">
+                                                Departamento <v-tooltip location="top"
+                                                    text="Descrição se o usuário participa ou tem insteresse de participar de algum departamento">
+                                                    <template v-slot:activator="{ props }">
+                                                        <v-icon v-bind="props" color="green" class="mx-2"
+                                                            icon="mdi-information-variant-circle-outline">
 
-                                                            </v-icon>
-                                                        </template>
-                                                    </v-tooltip>
+                                                        </v-icon>
+                                                    </template>
+                                                </v-tooltip>
                                             </th>
                                             <th class="text-center">
                                                 Ações
@@ -192,7 +193,7 @@
                                             <td class="text-center">{{ item.nome }}</td>
                                             <td class="text-center">{{ item.username }}</td>
                                             <td class="text-center">{{ item.data_nascimento ?
-        calcDate(item.data_nascimento) : "Idade não informada!" }}</td>
+                                                calcDate(item.data_nascimento) : "Idade não informada!" }}</td>
                                             <td class="text-center">{{ item.cargo.split("|").join(' | ') }}</td>
                                             <td class="text-center">{{ item.endereco + ', ' + item.numero }}</td>
                                             <td class="text-center">{{ item.bairro }}</td>
@@ -365,6 +366,10 @@ export default {
             logo: '/img/IconBranca.png',
             mobile: false,
             deparments: [
+                {
+                    name: 'Servo',
+                    value: 'servo'
+                },
                 {
                     name: 'Instrumental',
                     value: 'instrumental'

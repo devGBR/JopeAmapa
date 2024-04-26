@@ -123,7 +123,7 @@
                                             <v-col cols="12" md="6">
                                                 <v-card-title>
                                                     Insígnias
-                                                    <p class="text-white text-center"
+                                                    <p class="text-white text-center d-flex flex-wrap justify-center"
                                                         style="font-weight: 800 !important;">
                                                         <v-chip v-for="cargo in $page.props.cargos"  :color="cargo === 'joper' ? 'green' : 
                                                                             cargo === 'mídia' ? 'blue': 
@@ -132,7 +132,8 @@
                                                                             cargo === 'dança' ? 'orange' :
                                                                             cargo === 'teatro' ? 'yellow' :
                                                                             cargo === 'dinamica' ? 'grey' :
-                                                                            cargo === 'lider' ? 'black' :
+                                                                            cargo === 'lider' ? 'black' : 
+                                                                            cargo === 'servo' ? '#ed143d' : 
                                                                             null">
                                                             <v-icon :icon="cargo === 'joper' ? 'mdi-alien' : 
                                                                             cargo === 'mídia' ? 'mdi-camera-iris': 
@@ -142,6 +143,7 @@
                                                                             cargo === 'teatro' ? 'mdi-drama-masks' :
                                                                             cargo === 'dinamica' ? 'mdi-puzzle' : 
                                                                             cargo === 'lider' ? 'mdi-brain' :
+                                                                            cargo === 'servo' ? 'mdi-arm-flex' : 
                                                                             null"></v-icon>
                                                             <v-tooltip
                                                                 activator="parent"

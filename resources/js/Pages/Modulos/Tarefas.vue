@@ -442,7 +442,7 @@ export default {
             this.users = this.$page.props.users.data??null
         }
        
-        this.departamentos = this.$page.props.cargos.includes('lider') ? ['instrumental', 'dança', 'louvor', 'teatro', 'dinamica', 'mídia'] : this.$page.props.lideranca
+        this.departamentos = this.$page.props.cargos.includes('lider') ? ['instrumental', 'dança', 'louvor', 'teatro', 'dinamica', 'mídia', 'servo'] : this.$page.props.lideranca
         this.larguraHome = window.innerWidth;
         if (this.larguraHome < 501) {
             this.Bar = '#284703';
